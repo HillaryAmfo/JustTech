@@ -1,0 +1,39 @@
+<footer class="bg-dark-bg border-t border-gray-800 py-12">
+    <div class="container mx-auto px-4 space-y-10">
+        <div class="flex flex-col gap-8 md:flex-row md:items-start md:justify-between">
+            <div>
+                <a href="{% url 'home' %}" class="logo text-3xl mb-4 inline-block">
+                    <span>Just</span> Tech
+                </a>
+                <p class="text-gray-400 max-w-md">{{ site_settings.tagline|default:'Professional Audio & Visual Services' }}</p>
+            </div>
+
+            <div class="flex flex-wrap gap-4">
+                <a href="{{ site_settings.facebook_url|default:'#' }}" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-red-500 transition" aria-label="Facebook">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+                <a href="{{ site_settings.twitter_url|default:'#' }}" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-red-500 transition" aria-label="Twitter">
+                    <i class="fab fa-twitter"></i>
+                </a>
+                <a href="{{ site_settings.instagram_url|default:'#' }}" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-red-500 transition" aria-label="Instagram">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="{{ site_settings.youtube_url|default:'#' }}" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-red-500 transition" aria-label="YouTube">
+                    <i class="fab fa-youtube"></i>
+                </a>
+            </div>
+        </div>
+
+        <div class="border-t border-gray-800 pt-8 text-center text-gray-400 space-y-2">
+            <p>
+                &copy; <span id="currentYear"></span> {{ site_settings.company_name|default:'Just Tech' }}. All rights reserved.
+            </p>
+            <p class="text-sm">
+                <a href="{{ site_settings.privacy_policy_url|default:'#' }}" class="text-red-500 hover:underline">Privacy Policy</a>
+                <span class="mx-2">|</span>
+                <a href="{{ site_settings.terms_url|default:'#' }}" class="text-red-500 hover:underline">Terms of Service</a>
+            </p>
+            <p class="text-sm">Custom-built PCs, Audio Setups, Stream Setups, Event Services & Learning</p>
+        </div>
+    </div>
+</footer>

@@ -1,0 +1,120 @@
+{% extends 'main_app/base.html' %}
+
+{% block title %}About | {{ site_settings.company_name|default:'Just Tech' }}{% endblock %}
+
+{% block content %}
+<section class="relative py-20 bg-dark-bg min-h-[40vh] flex items-center">
+    <div class="absolute inset-0 z-0">
+        <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" alt="About Hero" class="w-full h-full object-cover opacity-30">
+        <div class="absolute inset-0 bg-gradient-to-r from-dark-bg to-transparent"></div>
+    </div>
+    <div class="container mx-auto px-4 relative z-10">
+        <h1 class="text-5xl md:text-6xl font-bold mb-6">About {{ site_settings.company_name|default:'Just Tech' }}</h1>
+        <p class="text-xl text-gray-300 max-w-3xl">Passionate audio engineers, visual artists, and tech enthusiasts dedicated to exceptional A/V solutions.</p>
+    </div>
+</section>
+
+<section id="about" class="py-20 bg-dark-bg">
+    <div class="container mx-auto px-4">
+        <h2 class="text-4xl font-bold mb-2 section-title">About {{ site_settings.company_name|default:'Just Tech' }}</h2>
+        <p class="text-gray-400 mb-12 max-w-3xl">We're a team dedicated to providing exceptional A/V solutions and education.</p>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
+            <div>
+                <h3 class="text-2xl font-bold mb-6">Our Story</h3>
+                <p class="text-gray-400 mb-6">Founded in {{ site_settings.founded_year|default:'2018' }}, we started as a small studio and expanded to comprehensive audio and visual services.</p>
+                <p class="text-gray-400 mb-6">Our mission is to make professional-grade technology accessible to everyone.</p>
+                <p class="text-gray-400">We believe in technology that transforms creative expression and communication.</p>
+            </div>
+
+            <div>
+                <h3 class="text-2xl font-bold mb-6">Meet Our Team</h3>
+                <div class="space-y-6">
+                    {% for member in team_members %}
+                    <div class="flex items-center">
+                        <div class="w-20 h-20 rounded-full bg-gray-700 mr-6 overflow-hidden">
+                            {% if member.image_url %}
+                            <img src="{{ member.image_url }}" alt="{{ member.name }}" class="w-full h-full object-cover">
+                            {% endif %}
+                        </div>
+                        <div>
+                            <h4 class="text-xl font-bold">{{ member.name }}</h4>
+                            <p class="text-red-500 mb-2">{{ member.role }}</p>
+                            <p class="text-gray-400 text-sm">{{ member.bio }}</p>
+                        </div>
+                    </div>
+                    {% empty %}
+                    <p class="text-gray-400">Add team members in admin to populate this section.</p>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <h3 class="text-2xl font-bold mb-8">Client Testimonials</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {% for testimonial in about_testimonials %}
+            <div class="testimonial-card">
+                <p class="text-gray-300 mb-6">"{{ testimonial.quote }}"</p>
+                <div class="flex items-center">
+                    <div class="w-12 h-12 rounded-full bg-gray-700 mr-4"></div>
+                    <div>
+                        <h4 class="font-bold">{{ testimonial.author_name }}</h4>
+                        <p class="text-gray-400 text-sm">{{ testimonial.author_title }}</p>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="testimonial-card">
+                <p class="text-gray-300 mb-6">"Great service and professionalism throughout the project."</p>
+                <div class="flex items-center">
+                    <div class="w-12 h-12 rounded-full bg-gray-700 mr-4"></div>
+                    <div>
+                        <h4 class="font-bold">Happy Client</h4>
+                        <p class="text-gray-400 text-sm">Client</p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section class="py-20 bg-gray-900">
+    <div class="container mx-auto px-4">
+        <h2 class="text-3xl font-bold mb-12 text-center">By the Numbers</h2>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+            <div class="text-center">
+                <div class="text-4xl md:text-5xl font-bold text-red-500 mb-2">{{ site_settings.projects_completed_text|default:'500+' }}</div>
+                <p class="text-gray-400">Projects Completed</p>
+            </div>
+            <div class="text-center">
+                <div class="text-4xl md:text-5xl font-bold text-red-500 mb-2">{{ site_settings.client_satisfaction_text|default:'98%' }}</div>
+                <p class="text-gray-400">Client Satisfaction</p>
+            </div>
+            <div class="text-center">
+                <div class="text-4xl md:text-5xl font-bold text-red-500 mb-2">{{ site_settings.students_trained_text|default:'250+' }}</div>
+                <p class="text-gray-400">Students Trained</p>
+            </div>
+            <div class="text-center">
+                <div class="text-4xl md:text-5xl font-bold text-red-500 mb-2">{{ site_settings.support_availability_text|default:'24/7' }}</div>
+                <p class="text-gray-400">Support Available</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="py-20 bg-dark-bg">
+    <div class="container mx-auto px-4 text-center">
+        <h2 class="text-3xl font-bold mb-6">Work With Us</h2>
+        <p class="text-gray-400 mb-10 max-w-2xl mx-auto">Ready to bring your audio and visual projects to life with our expert team?</p>
+        <div class="flex flex-wrap justify-center gap-4">
+            <a href="{% url 'booking' %}" class="btn-primary">
+                <i class="fas fa-calendar-alt mr-2"></i> Schedule Consultation
+            </a>
+            <a href="{% url 'contact' %}" class="btn-secondary">
+                <i class="fas fa-envelope mr-2"></i> Contact Our Team
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,87 @@
+{% extends 'main_app/base.html' %}
+
+{% block title %}{{ site_settings.company_name|default:'Just Tech' }} | {{ site_settings.tagline|default:'Professional Audio & Visual Services' }}{% endblock %}
+
+{% block content %}
+<section id="home" class="relative min-h-screen flex items-center overflow-hidden">
+    <div class="absolute inset-0 z-0">
+        <img src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" alt="Studio Setup" class="w-full h-full object-cover opacity-40">
+        <div class="absolute inset-0 gradient-overlay"></div>
+    </div>
+
+    <div class="container mx-auto px-4 py-20 relative z-10">
+        <div class="max-w-3xl">
+            <h1 class="text-5xl md:text-7xl font-bold mb-6">Professional <span class="text-red-500">Audio & Visual</span> Services</h1>
+            <p class="text-xl mb-10 text-gray-300">From custom-built PCs to complete streaming setups, event audio solutions, and professional training.</p>
+            <div class="flex flex-wrap gap-4">
+                <a href="{% url 'booking' %}" class="btn-primary"><i class="fas fa-calendar-alt mr-2"></i> Book Now</a>
+                <a href="{% url 'services' %}" class="btn-secondary"><i class="fas fa-info-circle mr-2"></i> Our Services</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="services-preview" class="py-20 bg-gray-900">
+    <div class="container mx-auto px-4">
+        <h2 class="text-4xl font-bold mb-2 section-title">Our Services</h2>
+        <p class="text-gray-400 mb-12 max-w-3xl">We provide comprehensive audio and visual solutions for events, studios, streaming, and more.</p>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {% for service in featured_services %}
+            <div class="service-card">
+                <div class="p-6">
+                    <div class="w-16 h-16 bg-red-500 bg-opacity-20 rounded-full flex items-center justify-center mb-6">
+                        <i class="{{ service.icon_class }} text-red-500 text-2xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">{{ service.name }}</h3>
+                    <p class="text-gray-400 mb-6">{{ service.short_description }}</p>
+                    <a href="{% url 'services' %}" class="text-red-500 hover:underline">Learn more →</a>
+                </div>
+            </div>
+            {% empty %}
+            <div class="service-card"><div class="p-6"><h3 class="text-2xl font-bold mb-4">Add featured services in admin</h3></div></div>
+            {% endfor %}
+        </div>
+
+        <div class="text-center mt-12">
+            <a href="{% url 'services' %}" class="btn-primary">View All Services</a>
+        </div>
+    </div>
+</section>
+
+<section id="featured-portfolio" class="py-20 bg-dark-bg">
+    <div class="container mx-auto px-4">
+        <h2 class="text-4xl font-bold mb-2 section-title">Featured Work</h2>
+        <p class="text-gray-400 mb-12 max-w-3xl">Check out some of our recent projects and installations.</p>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+            {% for item in featured_portfolio %}
+            <div class="gallery-item">
+                <img src="{{ item.image_url }}" alt="{{ item.title }}" class="w-full h-64 object-cover">
+                <div class="gallery-overlay">
+                    <div class="text-center">
+                        <i class="fas fa-search-plus text-3xl mb-2"></i>
+                        <p>{{ item.title }}</p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="text-center">
+            <a href="{% url 'portfolio' %}" class="btn-secondary">View Full Portfolio</a>
+        </div>
+    </div>
+</section>
+
+<section class="py-20 bg-gray-900">
+    <div class="container mx-auto px-4 text-center">
+        <h2 class="text-4xl font-bold mb-6">Ready to Elevate Your Audio & Visual Experience?</h2>
+        <p class="text-gray-400 mb-10 max-w-2xl mx-auto">Whether you need equipment for an event, a custom streaming setup, or professional training, we're here to help.</p>
+        <div class="flex flex-wrap justify-center gap-4">
+            <a href="{% url 'booking' %}" class="btn-primary"><i class="fas fa-calendar-alt mr-2"></i> Book a Consultation</a>
+            <a href="{% url 'contact' %}" class="btn-secondary"><i class="fas fa-envelope mr-2"></i> Contact Us</a>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,54 @@
+{% extends 'main_app/base.html' %}
+
+{% block title %}Portfolio | {{ site_settings.company_name|default:'Just Tech' }}{% endblock %}
+
+{% block content %}
+<section class="relative py-20 bg-dark-bg min-h-[40vh] flex items-center">
+    <div class="absolute inset-0 z-0">
+        <img src="https://images.unsplash.com/photo-1540039155733-5bb30b53aa14?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" alt="Portfolio Hero" class="w-full h-full object-cover opacity-30">
+        <div class="absolute inset-0 bg-gradient-to-r from-dark-bg to-transparent"></div>
+    </div>
+    <div class="container mx-auto px-4 relative z-10">
+        <h1 class="text-5xl md:text-6xl font-bold mb-6">Our Portfolio</h1>
+        <p class="text-xl text-gray-300 max-w-3xl">Showcasing our best work in audio setups, visual installations, and streaming configurations.</p>
+    </div>
+</section>
+
+<section class="py-20 bg-dark-bg">
+    <div class="container mx-auto px-4">
+        <h2 class="text-4xl font-bold mb-2 section-title">Portfolio & Showcase</h2>
+        <p class="text-gray-400 mb-12 max-w-3xl">Explore our past projects and see the quality of our work.</p>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
+            {% for item in portfolio_items %}
+            <div class="gallery-item">
+                <img src="{{ item.image_url }}" alt="{{ item.title }}" class="w-full h-64 object-cover">
+                <div class="gallery-overlay">
+                    <div class="text-center">
+                        <i class="fas fa-search-plus text-3xl mb-2"></i>
+                        <p>{{ item.title }}</p>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="gallery-item">
+                <div class="w-full h-64 bg-gray-800 flex items-center justify-center">
+                    <p class="text-gray-400">Add portfolio items in admin.</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section class="py-20 bg-gray-900">
+    <div class="container mx-auto px-4 text-center">
+        <h2 class="text-3xl font-bold mb-6">Want Something Similar for Your Project?</h2>
+        <p class="text-gray-400 mb-10 max-w-2xl mx-auto">Contact us to discuss how we can bring your audio and visual vision to life.</p>
+        <div class="flex flex-wrap justify-center gap-4">
+            <a href="{% url 'contact' %}" class="btn-primary"><i class="fas fa-envelope mr-2"></i> Get a Quote</a>
+            <a href="{% url 'booking' %}" class="btn-secondary"><i class="fas fa-calendar-alt mr-2"></i> Schedule Consultation</a>
+        </div>
+    </div>
+</section>
+{% endblock %}

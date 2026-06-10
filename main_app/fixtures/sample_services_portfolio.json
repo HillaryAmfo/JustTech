@@ -1,0 +1,170 @@
+[
+  {
+    "model": "main_app.service",
+    "pk": 1,
+    "fields": {
+      "name": "Custom-Built PCs",
+      "slug": "custom-built-pcs",
+      "icon_class": "fas fa-desktop",
+      "short_description": "High-performance computers tailored for streaming, gaming, audio production, and video editing.",
+      "feature_1": "Gaming & Streaming Rigs",
+      "feature_2": "Audio Production Workstations",
+      "feature_3": "Video Editing Powerhouses",
+      "starting_price": "Starting at $999",
+      "is_featured": true,
+      "is_popular": true,
+      "display_order": 1
+    }
+  },
+  {
+    "model": "main_app.service",
+    "pk": 2,
+    "fields": {
+      "name": "Audio Setups",
+      "slug": "audio-setups",
+      "icon_class": "fas fa-volume-up",
+      "short_description": "Professional audio solutions for events, studios, podcasts, and live performances.",
+      "feature_1": "Event Sound Systems",
+      "feature_2": "Studio Recording Setups",
+      "feature_3": "Podcast Production Kits",
+      "starting_price": "Starting at $299",
+      "is_featured": true,
+      "is_popular": true,
+      "display_order": 2
+    }
+  },
+  {
+    "model": "main_app.service",
+    "pk": 3,
+    "fields": {
+      "name": "Streaming Setups",
+      "slug": "streaming-setups",
+      "icon_class": "fas fa-video",
+      "short_description": "Complete live streaming solutions for gamers, content creators, and businesses.",
+      "feature_1": "Multi-Platform Streaming",
+      "feature_2": "Professional Lighting",
+      "feature_3": "Green Screen & Overlays",
+      "starting_price": "Starting at $149",
+      "is_featured": true,
+      "is_popular": true,
+      "display_order": 3
+    }
+  },
+  {
+    "model": "main_app.service",
+    "pk": 4,
+    "fields": {
+      "name": "Event Services",
+      "slug": "event-services",
+      "icon_class": "fas fa-calendar-alt",
+      "short_description": "Complete A/V solutions for concerts, conferences, weddings, and corporate events.",
+      "feature_1": "Sound & Lighting Rental",
+      "feature_2": "On-Site Technical Support",
+      "feature_3": "Event Planning Consultation",
+      "starting_price": "Starting at $499",
+      "is_featured": false,
+      "is_popular": false,
+      "display_order": 4
+    }
+  },
+  {
+    "model": "main_app.service",
+    "pk": 5,
+    "fields": {
+      "name": "Equipment Rental",
+      "slug": "equipment-rental",
+      "icon_class": "fas fa-tools",
+      "short_description": "High-quality audio and visual equipment available for short-term or long-term rental.",
+      "feature_1": "Microphones & Mixers",
+      "feature_2": "Cameras & Lighting",
+      "feature_3": "Streaming Encoders",
+      "starting_price": "Starting at $25/day",
+      "is_featured": false,
+      "is_popular": false,
+      "display_order": 5
+    }
+  },
+  {
+    "model": "main_app.service",
+    "pk": 6,
+    "fields": {
+      "name": "Consultation",
+      "slug": "consultation",
+      "icon_class": "fas fa-headset",
+      "short_description": "Expert advice on setting up your ideal audio, visual, or streaming environment.",
+      "feature_1": "Studio Design",
+      "feature_2": "Equipment Selection",
+      "feature_3": "Workflow Optimization",
+      "starting_price": "Starting at $99",
+      "is_featured": false,
+      "is_popular": false,
+      "display_order": 6
+    }
+  },
+  {
+    "model": "main_app.portfolioitem",
+    "pk": 1,
+    "fields": {
+      "title": "Event Audio Setup",
+      "image_url": "https://images.unsplash.com/photo-1571330735066-03aaa9429d89?auto=format&fit=crop&w=2070&q=80",
+      "category": "Audio",
+      "display_order": 1,
+      "is_featured": true
+    }
+  },
+  {
+    "model": "main_app.portfolioitem",
+    "pk": 2,
+    "fields": {
+      "title": "Professional Streaming Studio",
+      "image_url": "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?auto=format&fit=crop&w=2070&q=80",
+      "category": "Streaming",
+      "display_order": 2,
+      "is_featured": true
+    }
+  },
+  {
+    "model": "main_app.portfolioitem",
+    "pk": 3,
+    "fields": {
+      "title": "Custom Gaming PC Build",
+      "image_url": "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=2053&q=80",
+      "category": "PC Build",
+      "display_order": 3,
+      "is_featured": true
+    }
+  },
+  {
+    "model": "main_app.portfolioitem",
+    "pk": 4,
+    "fields": {
+      "title": "Live Concert Setup",
+      "image_url": "https://images.unsplash.com/photo-1540039155733-5bb30b53aa14?auto=format&fit=crop&w=2070&q=80",
+      "category": "Live Event",
+      "display_order": 4,
+      "is_featured": true
+    }
+  },
+  {
+    "model": "main_app.portfolioitem",
+    "pk": 5,
+    "fields": {
+      "title": "Podcast Recording Studio",
+      "image_url": "https://images.unsplash.com/photo-1551818255-e6e1095bc5c7?auto=format&fit=crop&w=2053&q=80",
+      "category": "Podcast",
+      "display_order": 5,
+      "is_featured": true
+    }
+  },
+  {
+    "model": "main_app.portfolioitem",
+    "pk": 6,
+    "fields": {
+      "title": "Visual Production Setup",
+      "image_url": "https://images.unsplash.com/photo-1563297007-0686b7003af7?auto=format&fit=crop&w=2053&q=80",
+      "category": "Visual",
+      "display_order": 6,
+      "is_featured": true
+    }
+  }
+]

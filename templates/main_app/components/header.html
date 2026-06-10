@@ -1,0 +1,49 @@
+<header>
+    <!-- Navigation -->
+    <nav id="navbar" class="z-50 transition-nav nav-floating nav-visible py-3">
+        <div class="container mx-auto px-4 flex justify-between items-center">
+            <a href="{% url 'home' %}" class="logo">
+                <span>Just</span> Tech
+            </a>
+            
+            <!-- Desktop Navigation -->
+            <div class="hidden md:flex space-x-8">
+                <a href="{% url 'home' %}" class="nav-item text-dirty-white transition" data-page="home">Home</a>
+                <a href="{% url 'services' %}" class="nav-item text-dirty-white transition" data-page="services">Services</a>
+                <a href="{% url 'portfolio' %}" class="nav-item text-dirty-white transition" data-page="portfolio">Portfolio</a>
+                <a href="{% url 'booking' %}" class="nav-item text-dirty-white transition" data-page="booking">Booking</a>
+                <a href="{% url 'pricing' %}" class="nav-item text-dirty-white transition" data-page="pricing">Pricing</a>
+                <a href="{% url 'learning' %}" class="nav-item text-dirty-white transition" data-page="learning">Learning</a>
+                <a href="{% url 'about' %}" class="nav-item text-dirty-white transition" data-page="about">About</a>
+                <a href="{% url 'contact' %}" class="nav-item text-dirty-white transition" data-page="contact">Contact</a>
+            </div>
+            
+            <!-- Mobile menu button -->
+            <button id="mobileMenuButton" class="md:hidden text-white">
+                <i class="fas fa-bars text-2xl"></i>
+            </button>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div id="mobileMenu" class="mobile-menu fixed top-0 right-0 h-full w-64 bg-gray-900 p-6 md:hidden">
+            <div class="flex justify-between items-center mb-8">
+                <a href="{% url 'home' %}" class="logo text-xl">
+                    <span>Just</span> Tech
+                </a>
+                <button id="closeMobileMenu" class="text-white">
+                    <i class="fas fa-times text-2xl"></i>
+                </button>
+            </div>
+            <div class="flex flex-col space-y-6">
+                <a href="{% url 'home' %}" class="nav-item text-dirty-white transition">Home</a>
+                <a href="{% url 'services' %}" class="nav-item text-dirty-white transition">Services</a>
+                <a href="{% url 'portfolio' %}" class="nav-item text-dirty-white transition">Portfolio</a>
+                <a href="{% url 'booking' %}" class="nav-item text-dirty-white transition">Booking</a>
+                <a href="{% url 'pricing' %}" class="nav-item text-dirty-white transition">Pricing</a>
+                <a href="{% url 'learning' %}" class="nav-item text-dirty-white transition">Learning</a>
+                <a href="{% url 'about' %}" class="nav-item text-dirty-white transition">About</a>
+                <a href="{% url 'contact' %}" class="nav-item text-dirty-white transition">Contact</a>
+            </div>
+        </div>
+    </nav>
+</header>

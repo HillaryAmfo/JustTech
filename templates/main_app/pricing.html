@@ -1,0 +1,111 @@
+{% extends 'main_app/base.html' %}
+
+{% block title %}Pricing | {{ site_settings.company_name|default:'Just Tech' }}{% endblock %}
+
+{% block content %}
+<section class="relative py-20 bg-dark-bg min-h-[40vh] flex items-center">
+    <div class="absolute inset-0 z-0">
+        <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" alt="Pricing Hero" class="w-full h-full object-cover opacity-30">
+        <div class="absolute inset-0 bg-gradient-to-r from-dark-bg to-transparent"></div>
+    </div>
+    <div class="container mx-auto px-4 relative z-10">
+        <h1 class="text-5xl md:text-6xl font-bold mb-6">Pricing & Packages</h1>
+        <p class="text-xl text-gray-300 max-w-3xl">Transparent pricing for all our services. Choose from standard packages or request a custom quote.</p>
+    </div>
+</section>
+
+<section class="py-20 bg-dark-bg">
+    <div class="container mx-auto px-4">
+        <h2 class="text-4xl font-bold mb-2 section-title">Pricing & Packages</h2>
+        <p class="text-gray-400 mb-12 max-w-3xl">We offer transparent pricing for all our services. Choose from our standard packages or request a custom quote for your specific needs.</p>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+            {% for package in packages %}
+            <div class="pricing-card{% if package.is_popular %} popular{% endif %}">
+                {% if package.is_popular %}<div class="popular-badge">MOST POPULAR</div>{% endif %}
+                <h3 class="text-2xl font-bold mb-4">{{ package.name }}</h3>
+                <div class="text-4xl font-bold mb-6">{{ package.price }}</div>
+                <p class="text-gray-400 mb-6">{{ package.description }}</p>
+                <ul class="space-y-3 mb-8">
+                    {% if package.feature_1 %}<li><i class="fas fa-check text-red-500 mr-2"></i> {{ package.feature_1 }}</li>{% endif %}
+                    {% if package.feature_2 %}<li><i class="fas fa-check text-red-500 mr-2"></i> {{ package.feature_2 }}</li>{% endif %}
+                    {% if package.feature_3 %}<li><i class="fas fa-check text-red-500 mr-2"></i> {{ package.feature_3 }}</li>{% endif %}
+                    {% if package.feature_4 %}<li><i class="fas fa-check text-red-500 mr-2"></i> {{ package.feature_4 }}</li>{% endif %}
+                    {% if package.feature_5 %}<li><i class="fas fa-check text-red-500 mr-2"></i> {{ package.feature_5 }}</li>{% endif %}
+                    {% if package.feature_6 %}<li><i class="fas fa-check text-red-500 mr-2"></i> {{ package.feature_6 }}</li>{% endif %}
+                </ul>
+                <a href="{% url 'booking' %}" class="{% if package.is_popular %}btn-primary{% else %}btn-secondary{% endif %} w-full block text-center">Select Plan</a>
+            </div>
+            {% empty %}
+            <div class="pricing-card">
+                <h3 class="text-2xl font-bold mb-4">Basic Setup</h3>
+                <div class="text-4xl font-bold mb-6">$199/event</div>
+                <p class="text-gray-400 mb-6">Perfect for small events or basic streaming setups.</p>
+                <a href="{% url 'booking' %}" class="btn-secondary w-full block text-center">Select Plan</a>
+            </div>
+            {% endfor %}
+        </div>
+
+        <h3 class="text-2xl font-bold mb-8">Equipment Rental Rates</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+            {% for item in equipment_items %}
+            <div class="equipment-item">
+                <div class="w-12 h-12 bg-red-500 bg-opacity-20 rounded-full flex items-center justify-center mr-4">
+                    <i class="{{ item.icon_class }} text-red-500"></i>
+                </div>
+                <div>
+                    <h4 class="font-bold">{{ item.name }}</h4>
+                    <p class="text-gray-400 text-sm">{{ item.price }}</p>
+                </div>
+            </div>
+            {% empty %}
+            <div class="equipment-item">
+                <div class="w-12 h-12 bg-red-500 bg-opacity-20 rounded-full flex items-center justify-center mr-4">
+                    <i class="fas fa-microphone text-red-500"></i>
+                </div>
+                <div>
+                    <h4 class="font-bold">Shure SM7B</h4>
+                    <p class="text-gray-400 text-sm">$25/day</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section class="py-20 bg-gray-900">
+    <div class="container mx-auto px-4">
+        <h2 class="text-3xl font-bold mb-10 text-center">Frequently Asked Questions</h2>
+        <div class="max-w-3xl mx-auto">
+            <div class="space-y-6">
+                {% for faq in pricing_faqs %}
+                <div class="border-b border-gray-700 pb-6">
+                    <h3 class="text-xl font-bold mb-3">{{ faq.question }}</h3>
+                    <p class="text-gray-400">{{ faq.answer }}</p>
+                </div>
+                {% empty %}
+                <div class="border-b border-gray-700 pb-6">
+                    <h3 class="text-xl font-bold mb-3">Is there a minimum rental period?</h3>
+                    <p class="text-gray-400">Yes, most equipment has a 24-hour minimum rental period.</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="py-20 bg-dark-bg">
+    <div class="container mx-auto px-4 text-center">
+        <h2 class="text-3xl font-bold mb-6">Need a Custom Quote?</h2>
+        <p class="text-gray-400 mb-10 max-w-2xl mx-auto">Contact us for personalized pricing based on your specific requirements.</p>
+        <div class="flex flex-wrap justify-center gap-4">
+            <a href="{% url 'contact' %}" class="btn-primary">
+                <i class="fas fa-envelope mr-2"></i> Request Custom Quote
+            </a>
+            <a href="{% url 'booking' %}" class="btn-secondary">
+                <i class="fas fa-calendar-alt mr-2"></i> Book Consultation
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{{ site_settings.company_name|default:'Just Tech' }} | {{ site_settings.tagline|default:'Professional Audio & Visual Services' }}{% endblock %}</title>
+    
+    <!-- Method 1: Direct CDN (Fallback) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- Method 2: Django Static Files (Primary) -->
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    
+
+</head>
+<body hx-boost="true" hx-target="#content-area" hx-push-url="true">
+    <!-- Loading indicator -->
+    <div id="htmx-loading" class="fixed top-0 left-0 w-full h-[3px] z-[100] pointer-events-none" aria-hidden="true">
+        <div id="htmx-loading-bar" class="h-full bg-red-500" style="width:0%"></div>
+    </div>
+
+    {% include 'main_app/components/header.html' %}
+
+    <div id="content-area">
+        <main>
+            {% block content %}{% endblock %}
+        </main>
+    </div>
+    
+    {% include 'main_app/components/footer.html' %}
+    
+    <!-- JavaScript -->
+    <script src="https://unpkg.com/htmx.org@2.0.4"></script>
+    <script src="{% static 'js/main.js' %}"></script>
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

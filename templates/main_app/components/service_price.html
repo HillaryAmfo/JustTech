@@ -1,0 +1,8 @@
+{% if service %}
+<div id="service-price-display" class="mt-4 p-4 bg-gray-800 rounded-lg border border-red-500 border-opacity-30">
+    <p class="text-sm text-gray-400">{{ service.name }}</p>
+    <p class="text-2xl font-bold text-red-500">{{ service.starting_price|default:'Contact us for pricing' }}</p>
+</div>
+{% else %}
+<div id="service-price-display"></div>
+{% endif %}

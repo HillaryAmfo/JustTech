@@ -1,0 +1,45 @@
+{% for offering in learning_offerings %}
+<div class="learning-card">
+    <div class="flex items-start justify-between mb-4">
+        <div class="w-14 h-14 bg-red-500 bg-opacity-20 rounded-full flex items-center justify-center flex-shrink-0">
+            <i class="{{ offering.icon_class }} text-red-500 text-xl"></i>
+        </div>
+        {% if offering.skill_level %}
+        <span class="text-xs px-3 py-1 rounded-full border
+            {% if offering.skill_level == 'beginner' %}border-green-500 text-green-400
+            {% elif offering.skill_level == 'intermediate' %}border-yellow-500 text-yellow-400
+            {% elif offering.skill_level == 'advanced' %}border-red-500 text-red-400
+            {% else %}border-gray-500 text-gray-400{% endif %}">
+            {{ offering.get_skill_level_display }}
+        </span>
+        {% endif %}
+    </div>
+    <h3 class="text-xl font-bold mb-2">{{ offering.title }}</h3>
+    {% if offering.duration %}
+    <p class="text-sm text-gray-500 mb-3"><i class="far fa-clock mr-1"></i> {{ offering.duration }}</p>
+    {% endif %}
+    <p class="text-gray-400 mb-4 text-sm">{{ offering.description }}</p>
+    {% if offering.curriculum %}
+    <div class="mb-4">
+        <p class="text-xs text-gray-500 uppercase tracking-wider mb-2">What you'll learn</p>
+        <ul class="space-y-1">
+            {% for topic in offering.curriculum.splitlines %}
+            {% if topic.strip %}
+            <li class="text-sm text-gray-300"><i class="fas fa-check text-red-500 mr-2 text-xs"></i> {{ topic.strip }}</li>
+            {% endif %}
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+    <div class="flex items-center justify-between mt-auto pt-4 border-t border-gray-700">
+        {% if offering.starting_price %}
+        <span class="text-lg font-bold text-red-500">{{ offering.starting_price }}</span>
+        {% endif %}
+        <a href="{% url 'booking' %}" class="btn-primary text-sm py-2 px-4">{{ offering.cta_label }}</a>
+    </div>
+</div>
+{% empty %}
+<div class="col-span-full text-center py-12">
+    <p class="text-gray-400 text-lg">No offerings found in this category.</p>
+</div>
+{% endfor %}

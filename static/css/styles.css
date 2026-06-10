@@ -1,0 +1,530 @@
+:root {
+    --primary-red: #ff003c;
+    --dirty-white: #f5f5f5;
+    --dark-bg: #0a0a0a;
+    --gray-bg: #1a1a1a;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: var(--dark-bg);
+    color: var(--dirty-white);
+    overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, .logo {
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 700;
+}
+
+.logo {
+    color: var(--dirty-white);
+    font-size: 2rem;
+}
+
+.logo span {
+    color: var(--primary-red);
+}
+
+.section-title {
+    position: relative;
+    padding-bottom: 1rem;
+    margin-bottom: 3rem;
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100px;
+    height: 4px;
+    background-color: var(--primary-red);
+}
+
+.btn-primary {
+    background-color: var(--primary-red);
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 4px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.btn-primary:hover {
+    background-color: #cc002f;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 0, 60, 0.3);
+}
+
+.btn-secondary {
+    background-color: transparent;
+    color: var(--dirty-white);
+    padding: 0.75rem 1.5rem;
+    border-radius: 4px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    border: 2px solid var(--primary-red);
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.btn-secondary:hover {
+    background-color: rgba(255, 0, 60, 0.1);
+}
+
+.service-card {
+    background-color: var(--gray-bg);
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+    border: 1px solid #333;
+}
+
+.service-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 20px rgba(255, 0, 60, 0.2);
+}
+
+.testimonial-card {
+    background-color: var(--gray-bg);
+    border-radius: 8px;
+    padding: 2rem;
+    border-left: 4px solid var(--primary-red);
+}
+
+.nav-item {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    letter-spacing: 0.04em;
+    transition: color 0.25s ease, transform 0.25s ease, opacity 0.25s ease;
+}
+
+.nav-item::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -6px;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent 0%, var(--primary-red) 50%, transparent 100%);
+    transform: scaleX(0);
+    transform-origin: center;
+    transition: transform 0.3s ease;
+}
+
+.nav-item:hover,
+.nav-item:focus-visible,
+.nav-item.active {
+    color: var(--primary-red);
+    transform: translateY(-1px);
+}
+
+.nav-item:hover::after,
+.nav-item:focus-visible::after,
+.nav-item.active::after {
+    transform: scaleX(1);
+}
+
+.gradient-overlay {
+    background: linear-gradient(to right, rgba(10, 10, 10, 0.9), rgba(10, 10, 10, 0.7));
+}
+
+.pricing-card {
+    background-color: var(--gray-bg);
+    border-radius: 8px;
+    padding: 2rem;
+    transition: all 0.3s ease;
+    border: 1px solid #333;
+}
+
+.pricing-card:hover {
+    border-color: var(--primary-red);
+    transform: translateY(-5px);
+}
+
+.pricing-card.popular {
+    border: 2px solid var(--primary-red);
+    position: relative;
+    overflow: hidden;
+}
+
+.popular-badge {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: var(--primary-red);
+    color: white;
+    padding: 0.5rem 1.5rem;
+    font-size: 0.8rem;
+    font-weight: 700;
+    transform: rotate(45deg) translate(30%, -50%);
+    transform-origin: top right;
+    width: 150px;
+    text-align: center;
+}
+
+.gallery-item {
+    overflow: hidden;
+    border-radius: 8px;
+    position: relative;
+    cursor: pointer;
+}
+
+.gallery-item img {
+    transition: transform 0.5s ease;
+}
+
+.gallery-item:hover img {
+    transform: scale(1.1);
+}
+
+.gallery-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 0, 60, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.gallery-item:hover .gallery-overlay {
+    opacity: 1;
+}
+
+.audio-player {
+    background-color: var(--gray-bg);
+    border-radius: 8px;
+    padding: 1.5rem;
+    border: 1px solid #333;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 6px;
+    background-color: #333;
+    border-radius: 3px;
+    margin-top: 1rem;
+    overflow: hidden;
+}
+
+.progress {
+    height: 100%;
+    background-color: var(--primary-red);
+    width: 0%;
+}
+
+.booking-form {
+    background-color: var(--gray-bg);
+    border-radius: 8px;
+    padding: 2rem;
+}
+
+.form-input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    background-color: #2a2a2a;
+    border: 1px solid #444;
+    border-radius: 4px;
+    color: var(--dirty-white);
+    margin-bottom: 1rem;
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: var(--primary-red);
+}
+
+.calendar-day {
+    width: 14.28%;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #333;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.calendar-day:hover:not(.disabled):not(.selected) {
+    background-color: rgba(255, 0, 60, 0.1);
+}
+
+.calendar-day.selected {
+    background-color: var(--primary-red);
+    color: white;
+}
+
+.calendar-day.disabled {
+    background-color: #222;
+    color: #666;
+    cursor: not-allowed;
+}
+
+.calendar-day.today {
+    border: 2px solid var(--primary-red);
+}
+
+.learning-card {
+    background-color: var(--gray-bg);
+    border-radius: 8px;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+    border: 1px solid #333;
+    height: 100%;
+}
+
+.learning-card:hover {
+    border-color: var(--primary-red);
+    transform: translateY(-5px);
+}
+
+.equipment-item {
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    background-color: var(--gray-bg);
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    border: 1px solid #333;
+}
+
+.equipment-item:hover {
+    border-color: var(--primary-red);
+}
+
+.mobile-menu {
+    transform: translateX(100%);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    will-change: transform, opacity;
+    transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.2s ease, visibility 0.2s ease;
+}
+
+.mobile-menu.active {
+    transform: translateX(0);
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
+
+.floating-icon {
+    position: absolute;
+    color: rgba(255, 0, 60, 0.1);
+    font-size: 3rem;
+    z-index: 0;
+}
+
+@media (max-width: 768px) {
+    .logo {
+        font-size: 1.5rem;
+    }
+    
+    .section-title {
+        font-size: 1.8rem;
+    }
+}
+
+/* Active page styles */
+.nav-item.active {
+    color: var(--primary-red);
+}
+
+.nav-item.active::after {
+    width: 100%;
+}
+
+#mobileMenu .nav-item.active {
+    color: var(--primary-red);
+}
+
+/* For mobile menu active state */
+#mobileMenu .nav-item.active::before {
+    content: '▶';
+    margin-right: 8px;
+    font-size: 0.8rem;
+    color: var(--primary-red);
+}
+
+/* Floating navbar styles */
+.transition-nav {
+    will-change: transform, opacity;
+    transition: opacity 0.5s ease, visibility 0.5s ease, transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Base floating pill (higher specificity via #navbar to avoid !important) */
+#navbar.nav-floating {
+    position: fixed;
+    top: 0.75rem;
+    left: 50%;
+    transform: translate3d(-50%, 0, 0) scale(0.995);
+    width: min(92%, 1200px);
+    border-radius: 16px;
+    background-color: rgba(26, 26, 26, 0.96);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 0, 60, 0.2);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.5);
+    z-index: 50;
+}
+
+/* Hidden state — slide up + fade */
+#navbar.nav-hidden {
+    opacity: 0;
+    pointer-events: none;
+    visibility: hidden;
+    transform: translate3d(-50%, -20px, 0) scale(0.99);
+}
+
+/* Visible state */
+#navbar.nav-visible {
+    opacity: 1;
+    pointer-events: auto;
+    visibility: visible;
+    transform: translate3d(-50%, 0, 0) scale(0.995);
+}
+
+/* Hover reveal — force visible when hovering */
+#navbar:hover {
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    visibility: visible !important;
+    transform: translate3d(-50%, 0, 0) scale(0.995) !important;
+}
+
+/* When floating, adjust logo size */
+.nav-floating .logo {
+    font-size: 1.5rem;
+    transition: font-size 0.25s ease;
+}
+
+/* When floating, adjust nav items spacing */
+.nav-floating .hidden.md\\:flex.space-x-8 {
+    gap: 1.25rem;
+}
+
+/* Mobile menu adjustments for floating state */
+.nav-floating #mobileMenuButton {
+    font-size: 1.25rem;
+}
+
+/* Add glow effect to floating nav */
+.nav-floating::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 12px;
+    background: linear-gradient(135deg, rgba(255, 0, 60, 0.1), rgba(255, 0, 60, 0.05));
+    z-index: -1;
+}
+
+/* Active page indicator enhancement for floating state */
+.nav-floating .nav-item.active {
+    color: var(--primary-red);
+    font-weight: 700;
+}
+
+.nav-floating .nav-item.active::after {
+    width: 100%;
+    height: 3px;
+    background-color: var(--primary-red);
+}
+
+/* Floating nav hover effects */
+.nav-floating .nav-item:hover {
+    transform: translateY(-1px);
+}
+
+/* Adjust container padding when floating */
+.nav-floating .container {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+}
+
+/* HTMX loading indicator */
+#htmx-loading {
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+#content-area {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.35s ease, transform 0.35s ease;
+    will-change: opacity, transform;
+}
+
+#content-area.page-transition-out {
+    opacity: 0;
+    transform: translateY(12px);
+}
+
+#content-area.page-transition-in {
+    animation: content-fade-in 0.35s ease both;
+}
+
+@keyframes content-fade-in {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.htmx-request #htmx-loading {
+    opacity: 1;
+}
+
+.htmx-request #htmx-loading-bar {
+    animation: htmx-loading-anim 1.5s ease-in-out infinite;
+}
+
+@keyframes htmx-loading-anim {
+    0% { width: 0%; margin-left: 0; }
+    50% { width: 70%; margin-left: 15%; }
+    100% { width: 0%; margin-left: 100%; }
+}
+
+/* Mobile responsive adjustments */
+@media (max-width: 768px) {
+    .nav-floating {
+        width: min(95%, 700px) !important;
+        padding: 0.75rem 0 !important;
+        top: 0.5rem !important;
+        border-radius: 14px !important;
+    }
+    
+    .nav-floating .logo {
+        font-size: 1.25rem;
+    }
+    
+    .nav-floating .container {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+}

@@ -1,0 +1,135 @@
+{% extends 'main_app/base.html' %}
+
+{% block title %}Learning | {{ site_settings.company_name|default:'Just Tech' }}{% endblock %}
+
+{% block content %}
+<section class="relative py-20 bg-dark-bg min-h-[40vh] flex items-center">
+    <div class="absolute inset-0 z-0">
+        <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" alt="Learning Hero" class="w-full h-full object-cover opacity-30">
+        <div class="absolute inset-0 bg-gradient-to-r from-dark-bg to-transparent"></div>
+    </div>
+    <div class="container mx-auto px-4 relative z-10">
+        <h1 class="text-5xl md:text-6xl font-bold mb-6">Learn with {{ site_settings.company_name|default:'Just Tech' }}</h1>
+        <p class="text-xl text-gray-300 max-w-3xl">Master audio production, visual setups, or learn an instrument with our expert instructors.</p>
+    </div>
+</section>
+
+<section class="py-20 bg-gray-900">
+    <div class="container mx-auto px-4">
+        <h2 class="text-4xl font-bold mb-2 section-title">Our Courses</h2>
+        <p class="text-gray-400 mb-8 max-w-3xl">Master the art of audio production, visual setups, or learn an instrument with our expert instructors.</p>
+
+        <!-- Category Filters -->
+        <div class="flex flex-wrap gap-3 mb-10" id="filter-bar">
+            <button class="px-5 py-2 rounded-full border border-red-500 text-red-500 font-medium text-sm transition hover:bg-red-500 hover:text-white active-filter"
+                    hx-get="{% url 'filter_offerings' 'all' %}"
+                    hx-target="#offerings-grid"
+                    hx-swap="innerHTML"
+                    hx-trigger="click"
+                    hx-indicator="#filter-loading"
+                    data-category="all">All</button>
+            {% for value, label in categories %}
+            <button class="px-5 py-2 rounded-full border border-gray-600 text-gray-400 font-medium text-sm transition hover:border-red-500 hover:text-red-500"
+                    hx-get="{% url 'filter_offerings' value %}"
+                    hx-target="#offerings-grid"
+                    hx-swap="innerHTML"
+                    hx-trigger="click"
+                    hx-indicator="#filter-loading"
+                    data-category="{{ value }}">{{ label }}</button>
+            {% endfor %}
+            <span id="filter-loading" class="htmx-indicator text-red-500 self-center"><i class="fas fa-spinner fa-spin"></i></span>
+        </div>
+
+        <!-- Offerings Grid -->
+        <div id="offerings-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+            {% include 'main_app/components/offering_cards.html' %}
+        </div>
+
+        <!-- Workshops -->
+        <div class="bg-gray-800 rounded-lg p-8 mb-16" id="workshops-section">
+            <h3 class="text-2xl font-bold mb-6">Upcoming Workshops</h3>
+            {% if workshops %}
+            <div class="space-y-4">
+                {% for workshop in workshops %}
+                <div class="border border-gray-700 rounded-lg p-5">
+                    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                        <div class="flex-1">
+                            <h4 class="text-lg font-bold">{{ workshop.title }}</h4>
+                            <div class="flex flex-wrap gap-x-6 gap-y-1 mt-2 text-sm text-gray-400">
+                                <span><i class="far fa-calendar-alt mr-1"></i> {{ workshop.date_label }}</span>
+                                <span><i class="far fa-clock mr-1"></i> {{ workshop.duration_label }}</span>
+                                <span><i class="fas fa-tag mr-1"></i> {{ workshop.price_label }}</span>
+                                <span class="{{ workshop.availability_class }}"><i class="fas fa-circle text-xs mr-1"></i> {{ workshop.availability_label }}</span>
+                            </div>
+                        </div>
+                        <button class="btn-primary text-sm py-2 px-5 whitespace-nowrap"
+                                hx-get="{% url 'register_workshop' workshop.id %}"
+                                hx-target="#workshop-form-slot-{{ workshop.id }}"
+                                hx-swap="innerHTML">
+                            <i class="fas fa-pen mr-1"></i> Register
+                        </button>
+                    </div>
+                    <div id="workshop-form-slot-{{ workshop.id }}"></div>
+                </div>
+                {% endfor %}
+            </div>
+            {% else %}
+            <p class="text-gray-400">No workshops scheduled yet. Check back soon!</p>
+            {% endif %}
+        </div>
+
+        <!-- Instructors -->
+        <h3 class="text-2xl font-bold mb-8">Meet Your Instructors</h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+            {% for instructor in instructors %}
+            <div class="text-center">
+                <div class="w-40 h-40 rounded-full bg-gray-700 mx-auto mb-6 overflow-hidden">
+                    {% if instructor.image_url %}
+                    <img src="{{ instructor.image_url }}" alt="{{ instructor.name }}" class="w-full h-full object-cover">
+                    {% endif %}
+                </div>
+                <h4 class="text-xl font-bold mb-2">{{ instructor.name }}</h4>
+                <p class="text-red-500 mb-2">{{ instructor.role }}</p>
+                <p class="text-gray-400 text-sm">{{ instructor.bio }}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section class="py-20 bg-dark-bg">
+    <div class="container mx-auto px-4">
+        <h2 class="text-3xl font-bold mb-10 text-center">What Our Students Say</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {% for testimonial in learning_testimonials %}
+            <div class="testimonial-card">
+                <p class="text-gray-300 mb-6">"{{ testimonial.quote }}"</p>
+                <div class="flex items-center">
+                    <div class="w-12 h-12 rounded-full bg-gray-700 mr-4"></div>
+                    <div>
+                        <h4 class="font-bold">{{ testimonial.author_name }}</h4>
+                        <p class="text-gray-400 text-sm">{{ testimonial.author_title }}</p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.getElementById('filter-bar')?.addEventListener('click', function(e) {
+        if (e.target.matches('button[data-category]')) {
+            this.querySelectorAll('button').forEach(b => {
+                b.className = b.className.replace(/active-filter/g, '').trim();
+                b.classList.remove('bg-red-500', 'text-white');
+                b.classList.add('border-gray-600', 'text-gray-400');
+            });
+            e.target.classList.remove('border-gray-600', 'text-gray-400');
+            e.target.classList.add('active-filter', 'bg-red-500', 'text-white', 'border-red-500');
+        }
+    });
+</script>
+{% endblock %}
