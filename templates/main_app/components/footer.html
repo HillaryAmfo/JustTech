@@ -94,12 +94,9 @@
                     &copy; <span id="currentYear"></span> {{ site_settings.company_name|default:'Just Tech' }}. {{ 'All rights reserved.'|tr }}
                 </p>
                 <div class="flex items-center gap-6 text-xs text-neutral-500">
-                    {% if site_settings.privacy_policy_url %}
-                    <a href="{{ site_settings.privacy_policy_url }}" class="footer-link" target="_blank" rel="noopener noreferrer">{{ 'Privacy Policy'|tr }}</a>
-                    {% endif %}
-                    {% if site_settings.terms_url %}
-                    <a href="{{ site_settings.terms_url }}" class="footer-link" target="_blank" rel="noopener noreferrer">{{ 'Terms of Service'|tr }}</a>
-                    {% endif %}
+                    <a href="{% url 'privacy_policy' %}" class="footer-link">{{ 'Privacy Policy'|tr }}</a>
+                    <a href="{% url 'terms' %}" class="footer-link">{{ 'Terms & Conditions'|tr }}</a>
+                    <button type="button" data-open-cookie-preferences class="footer-link">{{ 'Cookie preferences'|tr }}</button>
                 </div>
             </div>
         </div>

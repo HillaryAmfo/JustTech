@@ -1132,5 +1132,56 @@
 
     initProviderButtons();
     document.addEventListener('htmx:afterSwap', initProviderButtons);
+
+    /* --------------------------------------------------------
+       COOKIE CONSENT
+       Stores only the visitor's consent choice. No analytics or
+       advertising scripts are enabled by this site.
+       -------------------------------------------------------- */
+    function initCookieConsent() {
+        var banner = document.getElementById('cookieConsent');
+        if (!banner) return;
+
+        var accept = document.getElementById('cookieConsentAccept');
+        var decline = document.getElementById('cookieConsentDecline');
+
+        function readChoice() {
+            var match = document.cookie.match(/(?:^|;\s*)cookie_consent=([^;]*)/);
+            return match ? decodeURIComponent(match[1]) : '';
+        }
+
+        function saveChoice(choice) {
+            document.cookie = 'cookie_consent=' + encodeURIComponent(choice) +
+                '; path=/; max-age=31536000; SameSite=Lax';
+            try {
+                localStorage.setItem('cookie_consent', choice);
+            } catch (e) { /* storage unavailable */ }
+            banner.hidden = true;
+        }
+
+        if (!readChoice()) {
+            banner.hidden = false;
+        }
+
+        if (accept) {
+            accept.addEventListener('click', function () {
+                saveChoice('essential');
+            });
+        }
+        if (decline) {
+            decline.addEventListener('click', function () {
+                saveChoice('declined');
+            });
+        }
+
+        document.querySelectorAll('[data-open-cookie-preferences]').forEach(function (button) {
+            button.addEventListener('click', function () {
+                banner.hidden = false;
+                if (accept) accept.focus();
+            });
+        });
+    }
+
+    initCookieConsent();
 })();
 

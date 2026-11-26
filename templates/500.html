@@ -1,59 +1,35 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Something went wrong | Just Tech</title>
-    <meta name="robots" content="noindex, nofollow">
-    <meta name="description" content="Something went wrong on our end. Please try again.">
+{% extends 'error_base.html' %}
+{% load i18n_tags %}
 
-    <link rel="icon" type="image/svg+xml" href="{% static 'images/favicon.svg' %}" onerror="this.style.display='none'">
+{% block title %}{{ 'Something went wrong'|tr }} | Just Tech{% endblock %}
+{% block meta_description %}{{ 'This one is on us. The page could not be served right now — no action needed from you.'|tr }}{% endblock %}
 
-    <script>
-        (function() {
-            var theme = null;
-            try { theme = localStorage.getItem('theme'); } catch (e) {}
-            if (theme !== 'light') {
-                document.documentElement.classList.add('dark');
-            }
-        })();
-    </script>
+{% block content %}
+<section class="err-wrap" aria-labelledby="error-heading">
+    <div class="err-copy">
+        <p class="err-kicker"><span class="err-kicker-dot"></span>{{ 'Error 500'|tr }} · {{ 'Connection interrupted'|tr }}</p>
+        <h1 id="error-heading" class="err-title">{{ 'We dropped the'|tr }} <em>{{ 'signal.'|tr }}</em></h1>
+        <p class="err-lead">{{ 'This one is on us. The page could not be served right now — no action needed from you.'|tr }} {{ 'Reload the page or give it a moment, then come back.'|tr }}</p>
 
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        primary: '#ff003c',
-                    }
-                }
-            }
-        };
-    </script>
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <style>
-        body { font-family: 'Inter', system-ui, sans-serif; }
-    </style>
-</head>
-<body class="bg-neutral-50 text-neutral-900 dark:bg-[#0a0a0a] dark:text-white">
-    <main class="min-h-screen flex items-center justify-center px-6" aria-label="Server error">
-        <div class="text-center max-w-md">
-            <p class="text-primary font-semibold tracking-widest uppercase text-sm mb-4">Error 500</p>
-            <h1 class="text-5xl font-extrabold leading-tight mb-6">Technical difficulty</h1>
-            <p class="text-neutral-500 dark:text-neutral-400 mb-10">
-                Something went wrong on our end and we&rsquo;re looking into it. Please try again shortly.
-            </p>
-            <a href="/" class="inline-flex items-center gap-2 rounded-full bg-primary px-8 py-3 text-sm font-semibold text-white hover:opacity-90 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 transition">
-                <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>
-                Back to home
-            </a>
+        <div class="err-actions">
+            <button type="button" class="err-btn err-btn--primary" onclick="location.reload()">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 11a8 8 0 1 0-2.3 5.6"></path><path d="M20 5v6h-6"></path></svg>
+                {{ 'Try again'|tr }}
+            </button>
+            <noscript>
+                <a href="{% url 'home' %}" class="err-btn err-btn--primary">{{ 'Back to home'|tr }}</a>
+            </noscript>
+            <a href="{% url 'contact' %}" class="err-btn err-btn--ghost">{{ 'Contact us'|tr }}</a>
         </div>
-    </main>
-</body>
-</html>
+
+        <div class="err-suggest">
+            <span class="err-suggest-label">{{ 'Need a hand?'|tr }}</span>
+            <a href="{% url 'contact' %}">{{ 'Speak to the studio'|tr }} →</a>
+        </div>
+    </div>
+
+    {% with scope_label='Signal status'|tr scope_status='Recovering'|tr %}
+        {% include 'error_scope.html' with code='500' variant='flat' %}
+    {% endwith %}
+</section>
+{% endblock %}

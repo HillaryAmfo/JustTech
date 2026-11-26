@@ -39,15 +39,20 @@ _load_env_file(BASE_DIR / '.env')
 # SECURITY WARNING: keep the secret key used in production secret!
 # Provide DJANGO_SECRET_KEY in production. The fallback below exists only so a
 # fresh checkout can run the dev server out of the box — never use it online.
-SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-dev-key-change-me')
+# `manage.py check --deploy` fails when these defaults reach production.
+DEV_SECRET_KEY = 'django-insecure-dev-key-change-me'
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', DEV_SECRET_KEY)
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG=True locally, DEBUG=False in production (e.g. DJANGO_DEBUG=false).
 DEBUG = os.environ.get('DJANGO_DEBUG', 'true').lower() == 'true'
 
+DEFAULT_ALLOWED_HOSTS = ('localhost', '127.0.0.1')
 ALLOWED_HOSTS = [
     host.strip()
-    for host in os.environ.get('DJANGO_ALLOWED_HOSTS', 'localhost,127.0.0.1').split(',')
+    for host in os.environ.get(
+        'DJANGO_ALLOWED_HOSTS', ','.join(DEFAULT_ALLOWED_HOSTS),
+    ).split(',')
     if host.strip()
 ]
 # Add the real production domain to DJANGO_ALLOWED_HOSTS at deploy time,
@@ -232,6 +237,7 @@ SECURE_REFERRER_POLICY = 'strict-origin-when-cross-origin'
 HTTPS_ENABLED = os.environ.get('DJANGO_HTTPS', 'false').lower() == 'true'
 if HTTPS_ENABLED:
     SECURE_SSL_REDIRECT = True
+    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True
     SESSION_COOKIE_HTTPONLY = True

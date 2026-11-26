@@ -1,7 +1,14 @@
+from unittest.mock import patch
+
+from django.conf import settings
 from django.contrib.auth.models import User
-from django.test import TestCase, override_settings
+from django.core.checks import run_checks
+from django.db import DatabaseError
+from django.template.loader import render_to_string
+from django.test import RequestFactory, TestCase, override_settings
 from django.urls import reverse
 
+from .context_processors import site_settings
 from .forms import BookingForm, ContactForm
 from .models import (
     Booking,
@@ -10,6 +17,7 @@ from .models import (
     LearningOffering,
     PortfolioItem,
     Service,
+    SiteSettings,
     TeamMember,
     Testimonial,
     Workshop,
@@ -30,6 +38,8 @@ class PageRenderTests(TestCase):
         ('about', 'main_app/about.html'),
         ('contact', 'main_app/contact.html'),
         ('login', 'main_app/login.html'),
+        ('privacy_policy', 'main_app/privacy_policy.html'),
+        ('terms', 'main_app/terms.html'),
     ]
 
     def test_all_public_pages_render(self):
@@ -60,6 +70,29 @@ class SeoMetaTests(TestCase):
     def test_login_is_noindex(self):
         response = self.client.get(reverse('login'))
         self.assertIn('name="robots" content="noindex, nofollow"', response.content.decode())
+
+
+class PrivacyAndTermsTests(TestCase):
+    def test_privacy_policy_renders_and_is_indexable(self):
+        response = self.client.get(reverse('privacy_policy'))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'main_app/privacy_policy.html')
+        self.assertContains(response, 'Privacy Policy')
+        self.assertContains(response, 'cookieConsent')
+
+    def test_terms_renders_and_is_indexable(self):
+        response = self.client.get(reverse('terms'))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'main_app/terms.html')
+        self.assertContains(response, 'Terms')
+        self.assertContains(response, 'Conditions')
+
+    def test_public_pages_do_not_render_secret_key(self):
+        for url_name in ('privacy_policy', 'terms', 'home'):
+            with self.subTest(url_name=url_name):
+                response = self.client.get(reverse(url_name))
+                content = response.content.decode()
+                self.assertNotIn(settings.SECRET_KEY, content)
 
 
 class RobotsAndSitemapTests(TestCase):
@@ -199,6 +232,35 @@ class NotFoundTests(TestCase):
         self.assertTemplateUsed(response, '404.html')
 
 
+class ErrorPageTests(TestCase):
+    ERROR_TEMPLATES = ('400.html', '403.html', '404.html', '500.html')
+
+    def test_custom_404_page_content(self):
+        response = self.client.get('/services/this-page-is-missing/')
+        self.assertEqual(response.status_code, 404)
+        self.assertTemplateUsed(response, '404.html')
+        self.assertContains(response, 'err-wrap', status_code=404)
+        self.assertContains(response, 'noindex, nofollow', status_code=404)
+        self.assertContains(response, '/services/this-page-is-missing/', status_code=404)
+        self.assertContains(response, 'See all services', status_code=404)
+
+    def test_all_error_templates_render(self):
+        for template_name in self.ERROR_TEMPLATES:
+            with self.subTest(template=template_name):
+                html = render_to_string(template_name, {'request_path': '/services/missing/'})
+                self.assertIn('err-wrap', html)
+                self.assertIn('noindex, nofollow', html)
+                self.assertIn('css/error.css', html)
+                self.assertIn('err-scope', html)
+
+    def test_site_settings_context_survives_database_error(self):
+        request = RequestFactory().get('/')
+        with patch.object(type(SiteSettings.objects), 'first', side_effect=DatabaseError('db down')):
+            context = site_settings(request)
+        self.assertIsNone(context['site_settings'])
+        self.assertIn('SITE_URL', context)
+
+
 class LoginLogoutTests(TestCase):
     def setUp(self):
         self.user = User.objects.create_user(username='admin', password='secret-pass')
@@ -221,6 +283,102 @@ class LoginLogoutTests(TestCase):
         self.client.force_login(self.user)
         response = self.client.get(reverse('logout'))
         self.assertRedirects(response, reverse('home'))
+
+    def test_post_login_redirect_accepts_local_next(self):
+        response = self.client.post(reverse('login'), {
+            'username': 'admin',
+            'password': 'secret-pass',
+            'next': reverse('services'),
+        })
+        self.assertRedirects(response, reverse('services'))
+
+    def test_post_login_redirect_rejects_external_next(self):
+        for next_url in ('https://evil.example/', '//evil.example/'):
+            with self.subTest(next_url=next_url):
+                self.client.logout()
+                response = self.client.post(reverse('login'), {
+                    'username': 'admin',
+                    'password': 'secret-pass',
+                    'next': next_url,
+                })
+                self.assertRedirects(response, reverse('home'))
+
+
+class RegisterFlowTests(TestCase):
+    REGISTRATION_DATA = {
+        'intent': 'learning',
+        'intent_detail': 'Piano',
+        'full_name': 'Jane Doe',
+        'email': 'jane@example.com',
+        'password': 'C0mplex!Passw0rd42',
+        'confirm_password': 'C0mplex!Passw0rd42',
+        'agree_terms': 'on',
+    }
+
+    def test_registration_creates_user_and_profile(self):
+        response = self.client.post(reverse('register'), self.REGISTRATION_DATA)
+        self.assertRedirects(response, reverse('learning'))
+        self.assertTrue(User.objects.filter(username='jane@example.com').exists())
+
+    def test_post_register_redirect_accepts_local_next(self):
+        response = self.client.post(reverse('register'), {
+            **self.REGISTRATION_DATA,
+            'next': reverse('services'),
+        })
+        self.assertRedirects(response, reverse('services'))
+
+    def test_post_register_redirect_rejects_external_next(self):
+        for next_url in ('https://evil.example/', '//evil.example/'):
+            with self.subTest(next_url=next_url):
+                self.client.logout()
+                User.objects.filter(username='jane@example.com').delete()
+                response = self.client.post(reverse('register'), {
+                    **self.REGISTRATION_DATA,
+                    'next': next_url,
+                })
+                self.assertRedirects(response, reverse('learning'))
+
+
+class DeployConfigCheckTests(TestCase):
+    @override_settings(
+        HTTPS_ENABLED=True,
+        SECURE_SSL_REDIRECT=True,
+        SECURE_PROXY_SSL_HEADER=('HTTP_X_FORWARDED_PROTO', 'https'),
+        SESSION_COOKIE_SECURE=True,
+        CSRF_COOKIE_SECURE=True,
+    )
+    def test_https_hardening_settings_are_enabled(self):
+        self.assertTrue(settings.SECURE_SSL_REDIRECT)
+        self.assertEqual(
+            settings.SECURE_PROXY_SSL_HEADER,
+            ('HTTP_X_FORWARDED_PROTO', 'https'),
+        )
+        self.assertTrue(settings.SESSION_COOKIE_SECURE)
+        self.assertTrue(settings.CSRF_COOKIE_SECURE)
+
+    def test_deploy_check_flags_insecure_defaults(self):
+        with override_settings(
+            DEBUG=False,
+            SECRET_KEY='django-insecure-dev-key-change-me',
+            ALLOWED_HOSTS=['localhost', '127.0.0.1'],
+        ):
+            ids = [issue.id for issue in run_checks(
+                tags=['security'], include_deployment_checks=True,
+            )]
+        self.assertIn('main_app.E001', ids)
+        self.assertIn('main_app.E002', ids)
+
+    def test_deploy_check_passes_with_production_config(self):
+        with override_settings(
+            DEBUG=False,
+            SECRET_KEY='a-long-random-production-secret',
+            ALLOWED_HOSTS=['justtech.example'],
+        ):
+            ids = [issue.id for issue in run_checks(
+                tags=['security'], include_deployment_checks=True,
+            )]
+        self.assertNotIn('main_app.E001', ids)
+        self.assertNotIn('main_app.E002', ids)
 
 
 class DebugStaticTests(TestCase):
@@ -248,6 +406,13 @@ class DebugStaticTests(TestCase):
         self.reload_urlconf()
         response = self.client.get(reverse('debug_static'))
         self.assertEqual(response.status_code, 200)
+
+    @override_settings(DEBUG=True)
+    def test_error_stylesheet_is_served_in_debug(self):
+        self.reload_urlconf()
+        response = self.client.get('/static/css/error.css')
+        self.assertEqual(response.status_code, 200)
+        self.assertIn('text/css', response['Content-Type'])
 
     @override_settings(DEBUG=False, ALLOWED_HOSTS=['testserver'])
     def test_debug_static_unavailable_outside_debug(self):

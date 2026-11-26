@@ -8,12 +8,15 @@ from main_app.i18n import FR
 
 roots = [pathlib.Path("templates"), pathlib.Path("main_app/tests.py")]
 pat = re.compile(r"\{\{\s*'((?:[^'\\]|\\.)*)'\s*\|tr\b")
+pat_with = re.compile(r"\{%\s*with\b[^%]*?'((?:[^'\\]|\\.)*)'\s*\|tr\b")
 keys = set()
 for root in roots:
     for p in root.rglob("*"):
         if p.suffix in (".html", ".py"):
-            for m in pat.finditer(p.read_text(encoding="utf-8")):
-                keys.add(m.group(1).replace("\\'", "'"))
+            text = p.read_text(encoding="utf-8")
+            for pattern in (pat, pat_with):
+                for m in pattern.finditer(text):
+                    keys.add(m.group(1).replace("\\'", "'"))
 missing = sorted(k for k in keys if k not in FR)
 print("tr keys found:", len(keys))
 print("missing from FR dict:", len(missing))

@@ -1,4 +1,5 @@
 from django.conf import settings
+from django.db import DatabaseError
 from django.utils import translation
 
 from .i18n import SUPPORTED_LANGS
@@ -14,7 +15,12 @@ def language(request):
 
 
 def site_settings(request):
-    settings_obj = SiteSettings.objects.first()
+    # Error pages must still render when the database is the reason for the
+    # failure. A missing/unavailable SiteSettings row is never fatal.
+    try:
+        settings_obj = SiteSettings.objects.first()
+    except DatabaseError:
+        settings_obj = None
 
     site_url = getattr(settings, 'SITE_URL', '').rstrip('/')
     if not site_url:

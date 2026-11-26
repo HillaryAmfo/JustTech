@@ -7,7 +7,11 @@ from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.utils.encoding import force_bytes, force_str
-from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
+from django.utils.http import (
+    url_has_allowed_host_and_scheme,
+    urlsafe_base64_decode,
+    urlsafe_base64_encode,
+)
 
 from .forms import (
     BookingForm,
@@ -29,6 +33,18 @@ from .models import (
     Workshop,
     WorkshopRegistration,
 )
+
+
+def _safe_next_url(request):
+    """Return a local `next` redirect target, or None if absent or unsafe."""
+    next_url = request.POST.get('next') or request.GET.get('next')
+    if next_url and url_has_allowed_host_and_scheme(
+        next_url,
+        allowed_hosts={request.get_host()},
+        require_https=request.is_secure(),
+    ):
+        return next_url
+    return None
 
 
 def home(request):
@@ -253,6 +269,14 @@ def contact(request):
     return render(request, 'main_app/contact.html', context)
 
 
+def privacy_policy(request):
+    return render(request, 'main_app/privacy_policy.html')
+
+
+def terms(request):
+    return render(request, 'main_app/terms.html')
+
+
 def register_view(request):
     if request.user.is_authenticated:
         return redirect('home')
@@ -269,10 +293,7 @@ def register_view(request):
             )
             UserProfile.objects.create(user=user, intent=data['intent'], intent_detail=data.get('intent_detail', '') or '')
             login(request, user)
-            next_url = request.POST.get('next') or request.GET.get('next')
-            if next_url:
-                return redirect(next_url)
-            return redirect(intent_landing(data['intent']))
+            return redirect(_safe_next_url(request) or intent_landing(data['intent']))
     else:
         form = RegisterForm()
 
@@ -299,8 +320,7 @@ def login_view(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            next_url = request.POST.get('next') or request.GET.get('next')
-            return redirect(next_url or 'home')
+            return redirect(_safe_next_url(request) or 'home')
         error = 'Invalid username or password.'
 
     return render(request, 'main_app/login.html', {'error': error})

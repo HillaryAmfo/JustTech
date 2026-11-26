@@ -1,0 +1,47 @@
+{% extends 'main_app/base.html' %}
+{% load i18n_tags %}
+
+{% block title %}{{ 'Terms & Conditions'|tr }} | {{ site_settings.company_name|default:'Just Tech' }}{% endblock %}
+{% block meta_description %}Review the terms governing use of JustTech services and website content.{% endblock %}
+{% block robots %}index, follow{% endblock %}
+
+{% block content %}
+<article class="py-28 md:py-36">
+    <div class="container mx-auto px-6 lg:px-8 max-w-4xl">
+        <p class="eyebrow mb-5">{{ 'Legal'|tr }}</p>
+        <h1 class="text-4xl sm:text-5xl font-semibold text-neutral-900 dark:text-white mb-6">{{ 'Terms & Conditions'|tr }}</h1>
+        <p class="text-sm text-neutral-500 mb-12">{{ 'Last updated: November 26, 2026'|tr }}</p>
+
+        <div class="text-neutral-700 dark:text-neutral-300 space-y-8">
+            <section>
+                <h2 class="text-2xl font-semibold text-neutral-900 dark:text-white mb-3">{{ 'Use of this website'|tr }}</h2>
+                <p>{{ 'By using this website, you agree to use it lawfully and not to interfere with its operation, security, accounts, or availability.'|tr }}</p>
+            </section>
+            <section>
+                <h2 class="text-2xl font-semibold text-neutral-900 dark:text-white mb-3">{{ 'Services and quotations'|tr }}</h2>
+                <p>{{ 'Website descriptions are general information. Project scope, pricing, dates, and deliverables are confirmed separately in writing before work begins.'|tr }}</p>
+            </section>
+            <section>
+                <h2 class="text-2xl font-semibold text-neutral-900 dark:text-white mb-3">{{ 'Bookings and cancellations'|tr }}</h2>
+                <p>{{ 'A booking is subject to confirmation. Cancellation, rescheduling, deposit, refund, and late-change terms will be provided for the specific service or event.'|tr }}</p>
+            </section>
+            <section>
+                <h2 class="text-2xl font-semibold text-neutral-900 dark:text-white mb-3">{{ 'Accounts'|tr }}</h2>
+                <p>{{ 'You are responsible for keeping account credentials confidential and for activity performed through your account. Notify us promptly of suspected unauthorised use.'|tr }}</p>
+            </section>
+            <section>
+                <h2 class="text-2xl font-semibold text-neutral-900 dark:text-white mb-3">{{ 'Intellectual property'|tr }}</h2>
+                <p>{{ 'Website content, branding, text, graphics, and media are owned or licensed by JustTech. You may not reuse them for commercial purposes without permission.'|tr }}</p>
+            </section>
+            <section>
+                <h2 class="text-2xl font-semibold text-neutral-900 dark:text-white mb-3">{{ 'Limitation of liability'|tr }}</h2>
+                <p>{{ 'To the maximum extent permitted by law, JustTech is not liable for indirect or consequential losses arising from use of this website or services.'|tr }}</p>
+            </section>
+            <section>
+                <h2 class="text-2xl font-semibold text-neutral-900 dark:text-white mb-3">{{ 'Changes and contact'|tr }}</h2>
+                <p>{{ 'We may update these terms as the website or services change. Questions may be sent to'|tr }} <a class="text-primary hover:underline" href="mailto:{{ site_settings.primary_email|default:'info@justtech.com' }}">{{ site_settings.primary_email|default:'info@justtech.com' }}</a>.</p>
+            </section>
+        </div>
+    </div>
+</article>
+{% endblock %}

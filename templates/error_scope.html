@@ -1,0 +1,20 @@
+<aside class="err-visual" aria-hidden="true">
+    <div class="err-code">{{ code }}</div>
+    <div class="err-scope">
+        <div class="err-scope-top">
+            <span><span class="err-led"></span>{{ scope_label }}</span>
+            <span class="err-scope-value">{{ code }}</span>
+        </div>
+
+        <svg class="err-wave err-wave--{{ variant|default:'signal' }}" viewBox="0 0 400 190" preserveAspectRatio="none" focusable="false">
+            <path class="err-wave-grid" d="M0 38H400M0 95H400M0 152H400M80 0V190M200 0V190M320 0V190"></path>
+            <path class="err-wave-line err-wave-line--ghost" d="M0 95H42L56 62L70 128L88 95H132L148 46L164 144L182 95H236L252 72L268 118L286 95H338L352 58L366 132L382 95H400"></path>
+            <path class="err-wave-line" d="M0 95H42L56 62L70 128L88 95H132L148 46L164 144L182 95H236L252 72L268 118L286 95H338L352 58L366 132L382 95H400"></path>
+        </svg>
+
+        <div class="err-scope-foot">
+            <span>{{ scope_status }}</span>
+            <span>JT / SIGNAL</span>
+        </div>
+    </div>
+</aside>

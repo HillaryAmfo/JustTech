@@ -1050,4 +1050,107 @@ FR = {
         'Nos ingénieurs font tourner le spectacle pour que votre équipe puisse l’accueillir.',
     'Fast fixes on site — and standby when you need it.':
         'Dépannage rapide sur place — et disponibilité quand vous en avez besoin.',
+
+    # Error pages
+    'Access denied': 'Accès refusé',
+    'Back to home': 'Retour à l’accueil',
+    'Bad request': 'Requête invalide',
+    'Check the address, or start from one of the links below.':
+        'Vérifiez l’adresse ou utilisez l’un des liens ci-dessous.',
+    'Check the link': 'Vérifiez le lien',
+    'Connection interrupted': 'Connexion interrompue',
+    'Error 400': 'Erreur 400',
+    'Error 403': 'Erreur 403',
+    'Error 404': 'Erreur 404',
+    'Error 500': 'Erreur 500',
+    'Helpful links': 'Liens utiles',
+    'Lost in the': 'Perdu dans le',
+    'Malformed request': 'Requête mal formée',
+    'Need a hand?': 'Besoin d’un coup de main ?',
+    'Page not found': 'Page introuvable',
+    'Reload the page or give it a moment, then come back.':
+        'Rechargez la page ou attendez un instant, puis revenez.',
+    'Requested path': 'Adresse demandée',
+    'Restricted room': 'Accès restreint',
+    'Route unavailable': 'Itinéraire indisponible',
+    'Something went wrong': 'Une erreur est survenue',
+    'Speak to the studio': 'Parler au studio',
+    'Signal status': 'État du signal',
+    'No signal': 'Aucun signal',
+    'Recovering': 'Rétablissement',
+    'Low signal': 'Signal faible',
+    'Locked': 'Verrouillé',
+    'Switch to dark mode': 'Passer en mode sombre',
+    'Switch to light mode': 'Passer en mode clair',
+    'That request did not': 'Cette requête n’a pas pu',
+    'The link or form data could not be understood. Check it and try again.':
+        'Le lien ou les données du formulaire n’ont pas pu être compris. Vérifiez et réessayez.',
+    'The page you were looking for has moved, been renamed, or never existed.':
+        'La page que vous cherchiez a été déplacée, renommée ou n’a jamais existé.',
+    'This one is on us. The page could not be served right now — no action needed from you.':
+        'Cette erreur vient de nous. La page n’a pas pu être servie pour le moment — aucune action n’est requise de votre part.',
+    'This room is': 'Cette salle est',
+    'Toggle dark mode': 'Basculer le mode sombre',
+    'Try again': 'Réessayer',
+    'Try this instead': 'Essayez plutôt',
+    'We dropped the': 'Nous avons perdu le',
+    'You do not have access to this page. If you expected to, get in touch and we will help.':
+        'Vous n’avez pas accès à cette page. Si vous pensiez y avoir accès, contactez-nous et nous vous aiderons.',
+    'decode.': 'décodée.',
+    'off limits.': 'interdite d’accès.',
+    'signal.': 'signal.',
+
+    # Privacy, terms, and consent
+    'Privacy': 'Confidentialité',
+    'Privacy Policy': 'Politique de confidentialité',
+    'Terms & Conditions': 'Conditions générales',
+    'Terms': 'Conditions',
+    'Conditions': 'Conditions',
+    'Legal': 'Mentions légales',
+    'Last updated: November 26, 2026': 'Dernière mise à jour : 26 novembre 2026',
+    'Information we collect': 'Informations que nous recueillons',
+    'We collect information you submit through contact, booking, registration, workshop, and password-reset forms, including your name, email address, phone number, and project details.':
+        'Nous recueillons les informations que vous transmettez via les formulaires de contact, de réservation, d’inscription, d’atelier et de réinitialisation du mot de passe, notamment votre nom, adresse e-mail, numéro de téléphone et détails du projet.',
+    'How we use information': 'Comment nous utilisons les informations',
+    'We use submitted information to respond to enquiries, provide services, manage registrations and accounts, send requested communications, and maintain website security.':
+        'Nous utilisons les informations transmises pour répondre aux demandes, fournir nos services, gérer les inscriptions et comptes, envoyer les communications demandées et assurer la sécurité du site.',
+    'Cookies and local storage': 'Cookies et stockage local',
+    'Essential cookies are used for security, language selection, and account sessions. Optional analytics or advertising storage is not enabled unless consent is provided and such a service is explicitly added.':
+        'Les cookies essentiels sont utilisés pour la sécurité, la sélection de la langue et les sessions de compte. Aucun stockage analytique ou publicitaire facultatif n’est activé sans consentement ni ajout explicite d’un tel service.',
+    'Data sharing': 'Partage des données',
+    'We do not sell personal information. Information may be processed by hosting, email, and database providers only as needed to operate JustTech services.':
+        'Nous ne vendons pas les informations personnelles. Elles peuvent être traitées par les fournisseurs d’hébergement, d’e-mail et de bases de données uniquement pour exploiter les services JustTech.',
+    'Retention and security': 'Conservation et sécurité',
+    'We retain information only as needed for the purposes described above and use reasonable administrative, technical, and physical safeguards.':
+        'Nous conservons les informations uniquement aussi longtemps que nécessaire pour les finalités décrites ci-dessus et appliquons des mesures raisonnables de protection administrative, technique et physique.',
+    'Your choices': 'Vos choix',
+    'You may request access, correction, or deletion of your personal information, subject to legal and security requirements.':
+        'Vous pouvez demander l’accès, la correction ou la suppression de vos informations personnelles, sous réserve des exigences légales et de sécurité.',
+    'For privacy questions, contact us at': 'Pour toute question relative à la confidentialité, contactez-nous à',
+    'Use of this website': 'Utilisation du site',
+    'By using this website, you agree to use it lawfully and not to interfere with its operation, security, accounts, or availability.':
+        'En utilisant ce site, vous acceptez de l’employer légalement et de ne pas compromettre son fonctionnement, sa sécurité, ses comptes ou sa disponibilité.',
+    'Services and quotations': 'Services et devis',
+    'Website descriptions are general information. Project scope, pricing, dates, and deliverables are confirmed separately in writing before work begins.':
+        'Les descriptions du site sont générales. La portée, les tarifs, les dates et les livrables du projet sont confirmés séparément par écrit avant le début des travaux.',
+    'Bookings and cancellations': 'Réservations et annulations',
+    'A booking is subject to confirmation. Cancellation, rescheduling, deposit, refund, and late-change terms will be provided for the specific service or event.':
+        'Toute réservation est soumise à confirmation. Les conditions d’annulation, de report, d’acompte, de remboursement et de modification tardive sont fournies pour le service ou l’événement concerné.',
+    'Accounts': 'Comptes',
+    'You are responsible for keeping account credentials confidential and for activity performed through your account. Notify us promptly of suspected unauthorised use.':
+        'Vous êtes responsable de la confidentialité de vos identifiants et de toute activité effectuée via votre compte. Signalez-nous rapidement toute utilisation non autorisée suspectée.',
+    'Intellectual property': 'Propriété intellectuelle',
+    'Website content, branding, text, graphics, and media are owned or licensed by JustTech. You may not reuse them for commercial purposes without permission.':
+        'Le contenu, la marque, les textes, graphiques et médias du site appartiennent à JustTech ou sont utilisés sous licence. Toute réutilisation commerciale nécessite une autorisation.',
+    'Limitation of liability': 'Limitation de responsabilité',
+    'To the maximum extent permitted by law, JustTech is not liable for indirect or consequential losses arising from use of this website or services.':
+        'Dans toute la mesure permise par la loi, JustTech n’est pas responsable des pertes indirectes ou consécutives découlant de l’utilisation du site ou des services.',
+    'Changes and contact': 'Modifications et contact',
+    'We may update these terms as the website or services change. Questions may be sent to':
+        'Nous pouvons mettre ces conditions à jour lorsque le site ou les services évoluent. Toute question peut être envoyée à',
+    'Cookie preferences': 'Préférences de cookies',
+    'We use essential cookies for security, sessions, and language preferences. Optional tracking is not used.':
+        'Nous utilisons des cookies essentiels pour la sécurité, les sessions et les préférences de langue. Aucun suivi facultatif n’est utilisé.',
+    'Decline': 'Refuser',
+    'Accept essential only': 'Accepter les essentiels',
 }
