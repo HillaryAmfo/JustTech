@@ -1,5 +1,6 @@
-<div id="workshop-form-{{ workshop.id }}" class="mt-4 p-4 bg-gray-800 rounded-lg border border-green-500 border-opacity-30 text-center">
+{% load i18n_tags %}
+<div id="workshop-form-{{ workshop.id }}" class="mt-4 p-5 rounded-2xl border border-green-500/40 bg-green-500/5 text-center">
     <i class="fas fa-check-circle text-green-500 text-3xl mb-2"></i>
-    <h4 class="font-bold text-green-400 mb-1">Registered!</h4>
-    <p class="text-sm text-gray-400">You're signed up for <strong>{{ workshop.title }}</strong>. We'll send confirmation to your email.</p>
+    <h4 class="font-semibold text-green-600 dark:text-green-400 mb-1">{{ 'Registered!'|tr }}</h4>
+    <p class="text-sm text-neutral-600 dark:text-gray-400">{{ "You're signed up for"|tr }} <strong>{{ workshop.title }}</strong>. {{ "We'll send confirmation to your email."|tr }}</p>
 </div>

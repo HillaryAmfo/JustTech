@@ -1,0 +1,92 @@
+{% load i18n_tags %}
+<article class="fl-card fl-card--wide">
+                <a class="fl-card-open" href="{% url 'booking' %}?service={{ service.slug }}" aria-label="{{ 'Concerts'|tr|default:'Concerts' }}">
+                    <span class="fl-card-media">
+                        <img src="https://images.unsplash.com/photo-1540039155733-5bb30b53aa14?auto=format&fit=crop&w=1200&q=80" alt="{{ 'Concert crowd under stage lights'|tr }}" loading="lazy">
+                        <span class="fl-card-shade" aria-hidden="true"></span>
+                        <span class="fl-card-tag">JUSTTECH / SOUND</span>
+                        <span class="fl-card-coords" aria-hidden="true">44.3894&deg; N &middot; 79.6903&deg; W</span>
+                    </span>
+                    <span class="fl-card-copy">
+                        <span class="fl-card-organisation">{{ 'Events'|tr }}</span>
+                        <span class="fl-card-name">{{ 'Concerts'|tr }}</span>
+                        <span class="fl-card-role">{{ 'Full shows — FOH mixing, monitoring and support until the encore.'|tr }}</span>
+                        <span class="fl-card-facts">{{ 'Live stage · FOH · Monitors'|tr }}</span>
+                        <span class="fl-card-more">{{ 'Book this'|tr }} <span class="fl-card-arrow" aria-hidden="true">&rarr;</span></span>
+                    </span>
+                </a>
+                <div class="fl-card-note" aria-hidden="true">001 / EVENT AUDIO &middot; LANE A</div>
+            </article>
+            <article class="fl-card fl-card--hex">
+                <a class="fl-card-open" href="{% url 'booking' %}?service={{ service.slug }}" aria-label="{{ 'Church services'|tr|default:'Church services' }}">
+                    <span class="fl-card-media">
+                        <img src="https://images.unsplash.com/photo-1438032005730-c779502df39b?auto=format&fit=crop&w=1200&q=80" alt="{{ 'Sunlit church interior'|tr }}" loading="lazy">
+                        <span class="fl-card-shade" aria-hidden="true"></span>
+                        <span class="fl-card-tag">JUSTTECH / SOUND</span>
+                        <span class="fl-card-coords" aria-hidden="true">44.3894&deg; N &middot; 79.6903&deg; W</span>
+                    </span>
+                    <span class="fl-card-copy">
+                        <span class="fl-card-organisation">{{ 'Events'|tr }}</span>
+                        <span class="fl-card-name">{{ 'Church services'|tr }}</span>
+                        <span class="fl-card-role">{{ 'Dependable, clear sound for worship — week after week.'|tr }}</span>
+                        <span class="fl-card-facts">{{ 'Clear speech · Hymns · Weekly'|tr }}</span>
+                        <span class="fl-card-more">{{ 'Book this'|tr }} <span class="fl-card-arrow" aria-hidden="true">&rarr;</span></span>
+                    </span>
+                </a>
+                <div class="fl-card-note" aria-hidden="true">002 / EVENT AUDIO &middot; LANE A</div>
+            </article>
+            <article class="fl-card">
+                <a class="fl-card-open" href="{% url 'booking' %}?service={{ service.slug }}" aria-label="{{ 'Conferences'|tr|default:'Conferences' }}">
+                    <span class="fl-card-media">
+                        <img src="https://images.unsplash.com/photo-1505373877841-8d25f7d46678?auto=format&fit=crop&w=1200&q=80" alt="{{ 'Conference speaker on stage'|tr }}" loading="lazy">
+                        <span class="fl-card-shade" aria-hidden="true"></span>
+                        <span class="fl-card-tag">JUSTTECH / SOUND</span>
+                        <span class="fl-card-coords" aria-hidden="true">44.3894&deg; N &middot; 79.6903&deg; W</span>
+                    </span>
+                    <span class="fl-card-copy">
+                        <span class="fl-card-organisation">{{ 'Events'|tr }}</span>
+                        <span class="fl-card-name">{{ 'Conferences'|tr }}</span>
+                        <span class="fl-card-role">{{ 'Speech-first sound for agendas, keynotes and Q&A.'|tr }}</span>
+                        <span class="fl-card-facts">{{ 'Keynotes · Panels · Q&A'|tr }}</span>
+                        <span class="fl-card-more">{{ 'Book this'|tr }} <span class="fl-card-arrow" aria-hidden="true">&rarr;</span></span>
+                    </span>
+                </a>
+                <div class="fl-card-note" aria-hidden="true">003 / EVENT AUDIO &middot; LANE A</div>
+            </article>
+{% load i18n_tags %}
+<article class="fl-card fl-card--wide">
+                <a class="fl-card-open" href="{% url 'booking' %}?service={{ service.slug }}" aria-label="{{ 'Corporate events'|tr|default:'Corporate events' }}">
+                    <span class="fl-card-media">
+                        <img src="https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=1200&q=80" alt="{{ 'Corporate event gathering'|tr }}" loading="lazy">
+                        <span class="fl-card-shade" aria-hidden="true"></span>
+                        <span class="fl-card-tag">JUSTTECH / SOUND</span>
+                        <span class="fl-card-coords" aria-hidden="true">44.3894&deg; N &middot; 79.6903&deg; W</span>
+                    </span>
+                    <span class="fl-card-copy">
+                        <span class="fl-card-organisation">{{ 'Events'|tr }}</span>
+                        <span class="fl-card-name">{{ 'Corporate events'|tr }}</span>
+                        <span class="fl-card-role">{{ 'Launch events, dinners and announcements — handled seamlessly.'|tr }}</span>
+                        <span class="fl-card-facts">{{ 'Launches · Dinners · Gala'|tr }}</span>
+                        <span class="fl-card-more">{{ 'Book this'|tr }} <span class="fl-card-arrow" aria-hidden="true">&rarr;</span></span>
+                    </span>
+                </a>
+                <div class="fl-card-note" aria-hidden="true">004 / EVENT AUDIO &middot; LANE A</div>
+            </article>
+            <article class="fl-card fl-card--hex">
+                <a class="fl-card-open" href="{% url 'booking' %}?service={{ service.slug }}" aria-label="{{ 'Private events & live performances'|tr|default:'Private events & live performances' }}">
+                    <span class="fl-card-media">
+                        <img src="https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?auto=format&fit=crop&w=1200&q=80" alt="{{ 'Live performance confetti crowd'|tr }}" loading="lazy">
+                        <span class="fl-card-shade" aria-hidden="true"></span>
+                        <span class="fl-card-tag">JUSTTECH / SOUND</span>
+                        <span class="fl-card-coords" aria-hidden="true">44.3894&deg; N &middot; 79.6903&deg; W</span>
+                    </span>
+                    <span class="fl-card-copy">
+                        <span class="fl-card-organisation">{{ 'Events'|tr }}</span>
+                        <span class="fl-card-name">{{ 'Private events & live performances'|tr }}</span>
+                        <span class="fl-card-role">{{ 'Weddings and showcases — sound that fits the moment.'|tr }}</span>
+                        <span class="fl-card-facts">{{ 'Weddings · Showcases · Private'|tr }}</span>
+                        <span class="fl-card-more">{{ 'Book this'|tr }} <span class="fl-card-arrow" aria-hidden="true">&rarr;</span></span>
+                    </span>
+                </a>
+                <div class="fl-card-note" aria-hidden="true">005 / EVENT AUDIO &middot; LANE A</div>
+            </article>

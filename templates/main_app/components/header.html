@@ -1,48 +1,101 @@
+{% load i18n_tags %}
 <header>
-    <!-- Navigation -->
-    <nav id="navbar" class="z-50 transition-nav nav-floating nav-visible py-3">
-        <div class="container mx-auto px-4 flex justify-between items-center">
-            <a href="{% url 'home' %}" class="logo">
-                <span>Just</span> Tech
+    <nav id="navbar" class="z-50 nav-floating py-3" role="navigation" aria-label="Main navigation">
+        <div class="container mx-auto px-4 flex justify-between items-center gap-4">
+<!-- Logo — always visible -->
+            <a href="{% url 'home' %}" class="logo" aria-label="JustTech home">
+                {% include 'main_app/components/logo_mark.html' %}
+                <span>ust</span> Tech
             </a>
-            
-            <!-- Desktop Navigation -->
-            <div class="hidden md:flex space-x-8">
-                <a href="{% url 'home' %}" class="nav-item text-dirty-white transition" data-page="home">Home</a>
-                <a href="{% url 'services' %}" class="nav-item text-dirty-white transition" data-page="services">Services</a>
-                <a href="{% url 'portfolio' %}" class="nav-item text-dirty-white transition" data-page="portfolio">Portfolio</a>
-                <a href="{% url 'booking' %}" class="nav-item text-dirty-white transition" data-page="booking">Booking</a>
-                <a href="{% url 'pricing' %}" class="nav-item text-dirty-white transition" data-page="pricing">Pricing</a>
-                <a href="{% url 'learning' %}" class="nav-item text-dirty-white transition" data-page="learning">Learning</a>
-                <a href="{% url 'about' %}" class="nav-item text-dirty-white transition" data-page="about">About</a>
-                <a href="{% url 'contact' %}" class="nav-item text-dirty-white transition" data-page="contact">Contact</a>
+
+            <!-- Desktop nav + actions — animated as a unit -->
+            <div class="nav-items-wrapper">
+                <!-- Desktop Navigation -->
+                <div class="hidden lg:flex items-center gap-1">
+                    <a href="{% url 'about' %}" class="nav-item" data-page="about">{{ 'About'|tr }}</a>
+<a href="{% url 'services' %}" class="nav-item" data-page="services">{{ 'Services'|tr }}</a>
+                    <a href="{% url 'portfolio' %}" class="nav-item" data-page="portfolio">{{ 'Portfolio'|tr }}</a>
+                    <a href="{% url 'learning' %}" class="nav-item" data-page="learning">{{ 'Learning'|tr }}</a>
+                    <a href="{% url 'contact' %}" class="nav-item" data-page="contact">{{ 'Contact'|tr }}</a>
+                </div>
+
+                <!-- Desktop Actions -->
+                <div class="hidden lg:flex items-center gap-2">
+                    <!-- Language switch (EN/FR) — added on top of the existing navbar -->
+                    <div class="lang-switch hidden lg:flex" data-lang-switch="desktop" aria-label="{{ 'Language'|tr }}">
+                        <button type="button" class="lang-option {% if LANG == 'fr' %}is-active{% endif %}" data-lang="fr" aria-pressed="{% if LANG == 'fr' %}true{% else %}false{% endif %}">FR</button>
+                        <button type="button" class="lang-option {% if LANG == 'en' %}is-active{% endif %}" data-lang="en" aria-pressed="{% if LANG == 'en' %}true{% else %}false{% endif %}">EN</button>
+                    </div>
+
+                    <button id="themeToggle" class="w-9 h-9 inline-flex items-center justify-center rounded-full text-neutral-500 hover:text-neutral-900 hover:bg-neutral-100 transition dark:text-white/60 dark:hover:text-white dark:hover:bg-white/10" aria-label="Toggle dark mode">
+                        <i class="fa-solid fa-moon text-sm" id="themeToggleIcon"></i>
+                    </button>
+
+                    {% if request.user.is_authenticated %}
+                    <span class="text-sm font-medium text-neutral-500 dark:text-white/60 px-2">{{ request.user.username }}</span>
+                    <a href="{% url 'logout' %}" class="nav-item text-sm" aria-label="{{ 'Log out'|tr }}">{{ 'Log out'|tr }}</a>
+                    {% else %}
+                    <a href="{% url 'login' %}" class="nav-item text-sm" aria-label="{{ 'Log in'|tr }}">{{ 'Log in'|tr }}</a>
+                    {% endif %}
+
+                    <a href="{% url 'booking' %}" class="btn-primary ml-1 text-sm py-2 px-5">
+                        {{ 'Book now'|tr }}
+                    </a>
+                </div>
             </div>
-            
-            <!-- Mobile menu button -->
-            <button id="mobileMenuButton" class="md:hidden text-white">
-                <i class="fas fa-bars text-2xl"></i>
-            </button>
-        </div>
-        
-        <!-- Mobile Menu -->
-        <div id="mobileMenu" class="mobile-menu fixed top-0 right-0 h-full w-64 bg-gray-900 p-6 md:hidden">
-            <div class="flex justify-between items-center mb-8">
-                <a href="{% url 'home' %}" class="logo text-xl">
-                    <span>Just</span> Tech
-                </a>
-                <button id="closeMobileMenu" class="text-white">
-                    <i class="fas fa-times text-2xl"></i>
+
+            <!-- Mobile Actions -->
+            <div class="lg:hidden flex items-center gap-1.5">
+                <!-- Compact language switch for mobile -->
+                <div class="lang-switch" data-lang-switch="mobile" aria-label="{{ 'Language'|tr }}">
+                    <button type="button" class="lang-option {% if LANG == 'fr' %}is-active{% endif %}" data-lang="fr" aria-pressed="{% if LANG == 'fr' %}true{% else %}false{% endif %}">FR</button>
+                    <button type="button" class="lang-option {% if LANG == 'en' %}is-active{% endif %}" data-lang="en" aria-pressed="{% if LANG == 'en' %}true{% else %}false{% endif %}">EN</button>
+                </div>
+                <button id="themeToggleMobile" class="w-9 h-9 inline-flex items-center justify-center rounded-full text-neutral-500 hover:text-neutral-900 hover:bg-neutral-100 transition dark:text-white/60 dark:hover:text-white dark:hover:bg-white/10" aria-label="Toggle dark mode">
+                    <i class="fa-solid fa-moon text-sm" id="themeToggleIconMobile"></i>
+                </button>
+                <button id="mobileMenuButton" class="w-10 h-10 inline-flex items-center justify-center rounded-full text-neutral-700 hover:bg-neutral-100 transition dark:text-white/80 dark:hover:bg-white/10" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
+                    <i class="fa-solid fa-bars text-lg"></i>
                 </button>
             </div>
-            <div class="flex flex-col space-y-6">
-                <a href="{% url 'home' %}" class="nav-item text-dirty-white transition">Home</a>
-                <a href="{% url 'services' %}" class="nav-item text-dirty-white transition">Services</a>
-                <a href="{% url 'portfolio' %}" class="nav-item text-dirty-white transition">Portfolio</a>
-                <a href="{% url 'booking' %}" class="nav-item text-dirty-white transition">Booking</a>
-                <a href="{% url 'pricing' %}" class="nav-item text-dirty-white transition">Pricing</a>
-                <a href="{% url 'learning' %}" class="nav-item text-dirty-white transition">Learning</a>
-                <a href="{% url 'about' %}" class="nav-item text-dirty-white transition">About</a>
-                <a href="{% url 'contact' %}" class="nav-item text-dirty-white transition">Contact</a>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobileMenu" class="mobile-menu fixed top-0 right-0 h-full w-80 max-w-[85vw] bg-neutral-950 p-6 lg:hidden flex flex-col" role="dialog" aria-modal="true" aria-label="Mobile menu">
+            <!-- Mobile menu header -->
+            <div class="flex justify-between items-center mb-8">
+<a href="{% url 'home' %}" class="logo text-xl text-white" aria-label="JustTech home">
+                    {% include 'main_app/components/logo_mark.html' %}
+                    <span>ust</span> Tech
+                </a>
+                <button id="closeMobileMenu" class="w-10 h-10 inline-flex items-center justify-center rounded-full text-white/60 hover:text-white hover:bg-white/10 transition" aria-label="Close menu">
+                    <i class="fa-solid fa-xmark text-xl"></i>
+                </button>
+            </div>
+
+            <!-- Mobile nav links -->
+            <nav class="flex flex-col gap-1 flex-1" aria-label="Mobile navigation">
+                <a href="{% url 'about' %}" class="nav-item text-base py-3 px-3 rounded-xl min-h-[48px]" data-page="about">{{ 'About'|tr }}</a>
+<a href="{% url 'services' %}" class="nav-item text-base py-3 px-3 rounded-xl min-h-[48px]" data-page="services">{{ 'Services'|tr }}</a>
+                <a href="{% url 'portfolio' %}" class="nav-item text-base py-3 px-3 rounded-xl min-h-[48px]" data-page="portfolio">{{ 'Portfolio'|tr }}</a>
+                <a href="{% url 'learning' %}" class="nav-item text-base py-3 px-3 rounded-xl min-h-[48px]" data-page="learning">{{ 'Learning'|tr }}</a>
+                <a href="{% url 'contact' %}" class="nav-item text-base py-3 px-3 rounded-xl min-h-[48px]" data-page="contact">{{ 'Contact'|tr }}</a>
+            </nav>
+
+            <!-- Mobile menu actions -->
+            <div class="mt-auto pt-6 flex flex-col gap-3 border-t border-white/10">
+                <a href="{% url 'booking' %}" class="inline-flex items-center justify-center bg-white text-neutral-900 font-semibold text-sm rounded-full px-5 py-3.5 min-h-[48px] transition hover:bg-white/90">
+                    {{ 'Book now'|tr }}
+                </a>
+                {% if request.user.is_authenticated %}
+                <a href="{% url 'logout' %}" class="inline-flex items-center justify-center border border-white/10 text-white/70 font-medium text-sm rounded-full px-5 py-3.5 min-h-[48px] transition hover:text-white hover:border-white/25">
+                    {{ 'Log out'|tr }}
+                </a>
+                {% else %}
+                <a href="{% url 'login' %}" class="inline-flex items-center justify-center border border-white/10 text-white/70 font-medium text-sm rounded-full px-5 py-3.5 min-h-[48px] transition hover:text-white hover:border-white/25">
+                    {{ 'Log in'|tr }}
+                </a>
+                {% endif %}
             </div>
         </div>
     </nav>

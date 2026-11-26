@@ -1,135 +1,220 @@
 {% extends 'main_app/base.html' %}
+{% load i18n_tags %}
 
-{% block title %}Booking | {{ site_settings.company_name|default:'Just Tech' }}{% endblock %}
+{% block title %}{{ 'Booking'|tr }} | {{ site_settings.company_name|default:'Just Tech' }}{% endblock %}
+
+{% block meta_description %}{{ 'Book a consultation or service with JustTech. Choose a service, pick a date, and we will handle the rest.'|tr }}{% endblock %}
+
+{% block og_title %}{{ 'Booking'|tr }} | {{ site_settings.company_name|default:'Just Tech' }}{% endblock %}
+
+{% block og_description %}{{ 'Schedule your JustTech consultation or service. Select a service and a date that works for you.'|tr }}{% endblock %}
 
 {% block content %}
-<section class="relative py-20 bg-dark-bg min-h-[40vh] flex items-center">
-    <div class="absolute inset-0 z-0">
-        <img src="https://images.unsplash.com/photo-1545235617-9465d2a55698?ixlib=rb-4.0.3&auto=format&fit=crop&w=2080&q=80" alt="Booking Hero" class="w-full h-full object-cover opacity-30">
-        <div class="absolute inset-0 bg-gradient-to-r from-dark-bg to-transparent"></div>
-    </div>
-    <div class="container mx-auto px-4 relative z-10">
-        <h1 class="text-5xl md:text-6xl font-bold mb-6">Book Our Services</h1>
-        <p class="text-xl text-gray-300 max-w-3xl">Schedule a consultation, book equipment, or reserve our services for your next event.</p>
-    </div>
-</section>
+<div id="booking-page">
 
-<section class="py-20 bg-gray-900">
-    <div class="container mx-auto px-4">
-        <h2 class="text-4xl font-bold mb-2 section-title">Book a Service</h2>
-        <p class="text-gray-400 mb-12 max-w-3xl">Schedule a consultation, book equipment, or reserve our services for your next event.</p>
+    <!-- ============================================================
+         HERO
+         ============================================================ -->
+    <section class="relative overflow-hidden pt-28 md:pt-36 pb-16 md:pb-20" aria-label="{{ 'Booking introduction'|tr }}">
+        <div class="absolute inset-0 pointer-events-none" aria-hidden="true">
+            <div class="absolute inset-0 bg-[radial-gradient(ellipse_90%_60%_at_50%_-20%,rgba(255,0,60,0.06),transparent)]"></div>
+        </div>
 
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
-            <div id="booking-form-container" class="booking-form">
-                <h3 class="text-2xl font-bold mb-6">Book Now</h3>
+        <div class="container mx-auto px-6 lg:px-8">
+            <div class="max-w-3xl">
+                <p class="eyebrow mb-8">{{ 'Book JustTech'|tr }}</p>
+                <h1 class="text-4xl sm:text-5xl xl:text-6xl font-semibold text-neutral-900 dark:text-white leading-[1.08] mb-8">
+                    {{ 'Tell us'|tr }} <span class="text-primary">{{ 'what you need.'|tr }}</span>
+                </h1>
+                <p class="text-lg text-neutral-600 dark:text-neutral-400 leading-relaxed mb-12 max-w-2xl">
+                    {{ 'Share the details of your event, setup or project — and we will have the information needed to understand the request.'|tr }}
+                </p>
+            </div>
+        </div>
+    </section>
 
-                <form hx-post="{% url 'booking' %}" hx-target="#booking-form-container" hx-swap="outerHTML" method="POST" action="{% url 'booking' %}">
-                    {% csrf_token %}
+    <!-- ============================================================
+         FORM + CONTEXT
+         ============================================================ -->
+    <section class="py-16 md:py-24 border-t border-neutral-200 dark:border-white/5" aria-label="{{ 'Booking form'|tr }}">
+        <div class="container mx-auto px-6 lg:px-8">
+            <div class="grid lg:grid-cols-5 gap-12 lg:gap-16 items-start">
 
-                    <div class="mb-6">
-                        <label class="block text-gray-300 mb-2">Select Service Type</label>
-                        {{ form.service }}
-                        <div id="service-price-container">
-                            {% include 'main_app/components/service_price.html' with service=None %}
+                <!-- Form -->
+                <div id="booking-form-container" class="lg:col-span-3">
+                    <div class="rounded-3xl border border-neutral-200 bg-white p-8 md:p-12 dark:border-white/10 dark:bg-white/[0.02]">
+                        <div class="mb-8">
+                            <p class="eyebrow mb-4">{{ 'Book now'|tr }}</p>
+                            <h2 class="text-2xl md:text-3xl font-semibold text-neutral-900 dark:text-white">{{ 'Reserve your slot'|tr }}</h2>
                         </div>
-                    </div>
 
-                    <div class="mb-6">
-                        <label class="block text-gray-300 mb-2">Your Information</label>
-                        {{ form.name }}
-                        {{ form.email }}
-                        {{ form.phone }}
-                        {{ form.company }}
-                    </div>
-
-                    <div class="mb-6">
-                        <label class="block text-gray-300 mb-2">Preferred Date & Time</label>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            {{ form.preferred_date }}
-                            {{ form.preferred_time }}
+                        {% if submitted %}
+                        <div class="mb-8 p-4 rounded-xl border border-green-500/40 bg-green-500/5" role="status">
+                            <p class="text-green-600 dark:text-green-400 text-sm">{{ 'Your booking request has been received.'|tr }}</p>
                         </div>
-                    </div>
+                        {% endif %}
 
-                    <div class="mb-6">
-                        <label class="block text-gray-300 mb-2">Additional Notes</label>
-                        {{ form.notes }}
-                    </div>
-
-                    {% if form.errors %}
-                    <div class="mb-6 p-4 bg-red-500 bg-opacity-20 border border-red-500 rounded-lg">
-                        {% for field, errors in form.errors.items %}
-                            {% for error in errors %}
-                                <p class="text-red-400 text-sm">{{ error }}</p>
+                        {% if form.non_field_errors %}
+                        <div class="mb-8 p-4 rounded-xl border border-[#ff003c]/40 bg-[#ff003c]/5" role="alert">
+                            {% for error in form.non_field_errors %}
+                            <p class="text-[#ff003c] text-sm">{{ error }}</p>
                             {% endfor %}
-                        {% endfor %}
-                    </div>
-                    {% endif %}
+                        </div>
+                        {% endif %}
 
-                    <button type="submit" class="btn-primary w-full">
-                        <i class="fas fa-calendar-check mr-2"></i> Confirm Booking
-                    </button>
-                </form>
-            </div>
+                        <form hx-post="{% url 'booking' %}" hx-target="#booking-form-container" hx-swap="outerHTML" method="POST" action="{% url 'booking' %}">
+                            {% csrf_token %}
 
-            <div>
-                <h3 class="text-2xl font-bold mb-6">Booking Information</h3>
-                <div class="mt-10 p-6 bg-gray-800 rounded-lg">
-                    <h4 class="text-xl font-bold mb-4">Need Help Booking?</h4>
-                    <p class="text-gray-400 mb-4">If you have any questions or need assistance with the booking process, contact us directly:</p>
-                    <div class="flex items-center text-red-500">
-                        <i class="fas fa-phone-alt mr-3"></i>
-                        <span class="text-lg">{{ site_settings.phone|default:'+1 (555) 123-4567' }}</span>
-                    </div>
-                    <div class="flex items-center text-red-500 mt-2">
-                        <i class="fas fa-envelope mr-3"></i>
-                        <span class="text-lg">{{ site_settings.booking_email|default:'bookings@justtech.com' }}</span>
+                            <div class="mb-6 {% if form.service.errors %}has-error{% endif %}">
+                                <label for="{{ form.service.id_for_label }}" class="form-label {% if form.service.field.required %}form-required{% endif %}">
+                                    {{ 'Which service do you need?'|tr }}{% if form.service.field.required %}<span class="sr-only"> ({{ 'required'|tr }})</span>{% endif %}
+                                </label>
+                                {{ form.service }}
+                                <div id="service-price-container" class="mt-2">
+                                    {% if form.service.initial %}
+                                        {% for svc in service_options %}
+                                            {% if svc.pk == form.service.initial %}
+                                                {% include 'main_app/components/service_price.html' with service=svc %}
+                                            {% endif %}
+                                        {% endfor %}
+                                    {% endif %}
+                                </div>
+                                {% if form.service.errors %}<p class="form-error" id="{{ form.service.id_for_label }}-error">{{ form.service.errors.0 }}</p>{% endif %}
+                            </div>
+
+                            <div class="grid md:grid-cols-2 gap-x-4">
+                                <div class="mb-6 {% if form.name.errors %}has-error{% endif %}">
+                                    <label for="{{ form.name.id_for_label }}" class="form-label {% if form.name.field.required %}form-required{% endif %}">
+                                        {{ 'Full name'|tr }}{% if form.name.field.required %}<span class="sr-only"> ({{ 'required'|tr }})</span>{% endif %}
+                                    </label>
+                                    {{ form.name }}
+                                    {% if form.name.errors %}<p class="form-error" id="{{ form.name.id_for_label }}-error">{{ form.name.errors.0 }}</p>{% endif %}
+                                </div>
+                                <div class="mb-6 {% if form.email.errors %}has-error{% endif %}">
+                                    <label for="{{ form.email.id_for_label }}" class="form-label {% if form.email.field.required %}form-required{% endif %}">
+                                        {{ 'Email address'|tr }}{% if form.email.field.required %}<span class="sr-only"> ({{ 'required'|tr }})</span>{% endif %}
+                                    </label>
+                                    {{ form.email }}
+                                    {% if form.email.errors %}<p class="form-error" id="{{ form.email.id_for_label }}-error">{{ form.email.errors.0 }}</p>{% endif %}
+                                </div>
+                            </div>
+
+                            <div class="grid md:grid-cols-2 gap-x-4">
+                                <div class="mb-6 {% if form.phone.errors %}has-error{% endif %}">
+                                    <label for="{{ form.phone.id_for_label }}" class="form-label {% if form.phone.field.required %}form-required{% endif %}">
+                                        {{ 'Phone number'|tr }}{% if form.phone.field.required %}<span class="sr-only"> ({{ 'required'|tr }})</span>{% endif %}
+                                    </label>
+                                    {{ form.phone }}
+                                    {% if form.phone.errors %}<p class="form-error" id="{{ form.phone.id_for_label }}-error">{{ form.phone.errors.0 }}</p>{% endif %}
+                                </div>
+                                <div class="mb-6 {% if form.company.errors %}has-error{% endif %}">
+                                    <label for="{{ form.company.id_for_label }}" class="form-label {% if form.company.field.required %}form-required{% endif %}">
+                                        {{ 'Company (optional)'|tr }}
+                                    </label>
+                                    {{ form.company }}
+                                    {% if form.company.errors %}<p class="form-error" id="{{ form.company.id_for_label }}-error">{{ form.company.errors.0 }}</p>{% endif %}
+                                </div>
+                            </div>
+
+                            <div class="grid md:grid-cols-2 gap-x-4">
+                                <div class="mb-6 {% if form.preferred_date.errors %}has-error{% endif %}">
+                                    <label for="{{ form.preferred_date.id_for_label }}" class="form-label {% if form.preferred_date.field.required %}form-required{% endif %}">
+                                        {{ 'Preferred date'|tr }}{% if form.preferred_date.field.required %}<span class="sr-only"> ({{ 'required'|tr }})</span>{% endif %}
+                                    </label>
+                                    {{ form.preferred_date }}
+                                    {% if form.preferred_date.errors %}<p class="form-error" id="{{ form.preferred_date.id_for_label }}-error">{{ form.preferred_date.errors.0 }}</p>{% endif %}
+                                </div>
+                                <div class="mb-6 {% if form.preferred_time.errors %}has-error{% endif %}">
+                                    <label for="{{ form.preferred_time.id_for_label }}" class="form-label {% if form.preferred_time.field.required %}form-required{% endif %}">
+                                        {{ 'Preferred time'|tr }}{% if form.preferred_time.field.required %}<span class="sr-only"> ({{ 'required'|tr }})</span>{% endif %}
+                                    </label>
+                                    {{ form.preferred_time }}
+                                    {% if form.preferred_time.errors %}<p class="form-error" id="{{ form.preferred_time.id_for_label }}-error">{{ form.preferred_time.errors.0 }}</p>{% endif %}
+                                </div>
+                            </div>
+
+                            <div class="mb-8 {% if form.notes.errors %}has-error{% endif %}">
+                                <label for="{{ form.notes.id_for_label }}" class="form-label {% if form.notes.field.required %}form-required{% endif %}">
+                                    {{ 'Additional notes'|tr }}{% if form.notes.field.required %}<span class="sr-only"> ({{ 'required'|tr }})</span>{% endif %}
+                                </label>
+                                {{ form.notes }}
+                                <p id="{{ form.notes.id_for_label }}-help" class="mt-1 text-xs text-neutral-500 dark:text-neutral-500">{{ 'Tell us about your event, setup or project.'|tr }}</p>
+                                {% if form.notes.errors %}<p class="form-error" id="{{ form.notes.id_for_label }}-error">{{ form.notes.errors.0 }}</p>{% endif %}
+                            </div>
+
+                            <button type="submit" class="btn-primary w-full text-sm px-8 py-3.5">
+                                <i class="fas fa-calendar-check" aria-hidden="true"></i>
+                                {{ 'Submit request'|tr }}
+                            </button>
+                        </form>
                     </div>
                 </div>
 
-                <div class="mt-8 p-6 bg-gray-800 rounded-lg">
-                    <h4 class="text-xl font-bold mb-4">Booking Policies</h4>
-                    <ul class="space-y-2 text-gray-400">
-                        <li><i class="fas fa-clock text-red-500 mr-2"></i> 48-hour cancellation policy</li>
-                        <li><i class="fas fa-dollar-sign text-red-500 mr-2"></i> 25% deposit required for confirmation</li>
-                        <li><i class="fas fa-calendar-times text-red-500 mr-2"></i> Free rescheduling up to 24 hours before</li>
-                        <li><i class="fas fa-truck text-red-500 mr-2"></i> Delivery fees may apply for events</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+                <!-- Context -->
+                <div class="lg:col-span-2">
+                    <div class="lg:sticky lg:top-28">
+                        <p class="eyebrow mb-6">{{ 'What happens next'|tr }}</p>
+                        <ol class="space-y-0">
+                            <li class="flex items-baseline gap-5 py-5 border-b border-neutral-200 dark:border-white/5">
+                                <span class="text-sm font-semibold text-primary w-8 shrink-0" aria-hidden="true">01</span>
+                                <div>
+                                    <h3 class="font-semibold text-neutral-900 dark:text-white">{{ 'Send your request'|tr }}</h3>
+                                    <p class="text-sm text-neutral-600 dark:text-neutral-400 mt-1">{{ 'Fill in the form and submit it.'|tr }}</p>
+                                </div>
+                            </li>
+                            <li class="flex items-baseline gap-5 py-5 border-b border-neutral-200 dark:border-white/5">
+                                <span class="text-sm font-semibold text-primary w-8 shrink-0" aria-hidden="true">02</span>
+                                <div>
+                                    <h3 class="font-semibold text-neutral-900 dark:text-white">{{ 'JustTech reviews the details'|tr }}</h3>
+                                    <p class="text-sm text-neutral-600 dark:text-neutral-400 mt-1">{{ 'Your request is reviewed.'|tr }}</p>
+                                </div>
+                            </li>
+                            <li class="flex items-baseline gap-5 py-5">
+                                <span class="text-sm font-semibold text-primary w-8 shrink-0" aria-hidden="true">03</span>
+                                <div>
+                                    <h3 class="font-semibold text-neutral-900 dark:text-white">{{ 'The next step is discussed with you'|tr }}</h3>
+                                    <p class="text-sm text-neutral-600 dark:text-neutral-400 mt-1">{{ "We'll be in touch to take it forward."|tr }}</p>
+                                </div>
+                            </li>
+                        </ol>
 
-<section class="py-20 bg-dark-bg">
-    <div class="container mx-auto px-4">
-        <h2 class="text-3xl font-bold mb-10 text-center">Most Popular Services</h2>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {% for service in popular_services %}
-            <div class="bg-gray-800 p-6 rounded-lg">
-                <h3 class="text-xl font-bold mb-4">{{ service.name }}</h3>
-                <p class="text-gray-400 mb-4">{{ service.short_description }}</p>
-                {% if service.starting_price %}
-                <div class="text-red-500 font-bold mb-4">{{ service.starting_price }}</div>
-                {% endif %}
-                <a href="{% url 'booking' %}" class="text-red-500 hover:underline">Book Now →</a>
+                        {% if site_settings.booking_email or site_settings.phone %}
+                        <div class="mt-10 pt-10 border-t border-neutral-200 dark:border-white/5">
+                            <p class="eyebrow mb-6">{{ 'Prefer to talk?'|tr }}</p>
+                            <div class="space-y-4">
+                                {% if site_settings.phone %}
+                                <a href="tel:{{ site_settings.phone }}" class="flex items-center gap-3 text-neutral-600 dark:text-neutral-400 hover:text-primary dark:hover:text-white transition">
+                                    <i class="fas fa-phone-alt text-primary w-5" aria-hidden="true"></i>
+                                    <span class="text-sm">{{ site_settings.phone }}</span>
+                                </a>
+                                {% endif %}
+                                {% if site_settings.booking_email %}
+                                <a href="mailto:{{ site_settings.booking_email }}" class="flex items-center gap-3 text-neutral-600 dark:text-neutral-400 hover:text-primary dark:hover:text-white transition">
+                                    <i class="fas fa-envelope text-primary w-5" aria-hidden="true"></i>
+                                    <span class="text-sm">{{ site_settings.booking_email }}</span>
+                                </a>
+                                {% endif %}
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+
             </div>
-            {% empty %}
-            <div class="bg-gray-800 p-6 rounded-lg">
-                <h3 class="text-xl font-bold mb-4">Event Audio Setup</h3>
-                <p class="text-gray-400 mb-4">Perfect for weddings, conferences, and parties.</p>
-                <div class="text-red-500 font-bold mb-4">Starting at $299</div>
-                <a href="{% url 'booking' %}" class="text-red-500 hover:underline">Book Now →</a>
-            </div>
-            {% endfor %}
         </div>
-    </div>
-</section>
+    </section>
+
+</div>
 {% endblock %}
 
 {% block extra_js %}
 <script>
+    const serviceSlugs = {
+        {% for svc in service_options %}'{{ svc.pk }}': '{{ svc.slug }}'{% if not forloop.last %},{% endif %}{% endfor %}
+    };
     document.getElementById('id_service')?.addEventListener('change', function() {
-        const slug = this.value;
+        const pk = this.value;
+        const slug = serviceSlugs[pk];
         const container = document.getElementById('service-price-container');
         if (slug) {
             htmx.ajax('GET', '/booking/service-price/' + slug + '/', {target: '#service-price-container', swap: 'innerHTML'});

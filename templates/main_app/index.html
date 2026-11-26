@@ -1,87 +1,1230 @@
 {% extends 'main_app/base.html' %}
+{% load i18n_tags %}
 
 {% block title %}{{ site_settings.company_name|default:'Just Tech' }} | {{ site_settings.tagline|default:'Professional Audio & Visual Services' }}{% endblock %}
 
 {% block content %}
-<section id="home" class="relative min-h-screen flex items-center overflow-hidden">
-    <div class="absolute inset-0 z-0">
-        <img src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" alt="Studio Setup" class="w-full h-full object-cover opacity-40">
-        <div class="absolute inset-0 gradient-overlay"></div>
-    </div>
+<div id="index-page">
 
-    <div class="container mx-auto px-4 py-20 relative z-10">
-        <div class="max-w-3xl">
-            <h1 class="text-5xl md:text-7xl font-bold mb-6">Professional <span class="text-red-500">Audio & Visual</span> Services</h1>
-            <p class="text-xl mb-10 text-gray-300">From custom-built PCs to complete streaming setups, event audio solutions, and professional training.</p>
-            <div class="flex flex-wrap gap-4">
-                <a href="{% url 'booking' %}" class="btn-primary"><i class="fas fa-calendar-alt mr-2"></i> Book Now</a>
-                <a href="{% url 'services' %}" class="btn-secondary"><i class="fas fa-info-circle mr-2"></i> Our Services</a>
-            </div>
+    <!-- ============================================================
+         HERO
+         ============================================================ -->
+    <section class="relative min-h-screen flex items-center overflow-hidden" aria-label="Introduction">
+        <div class="absolute inset-0 pointer-events-none" aria-hidden="true">
+            <div class="absolute inset-0 bg-[radial-gradient(ellipse_90%_60%_at_50%_-20%,rgba(255,0,60,0.06),transparent)]"></div>
         </div>
-    </div>
-</section>
 
-<section id="services-preview" class="py-20 bg-gray-900">
-    <div class="container mx-auto px-4">
-        <h2 class="text-4xl font-bold mb-2 section-title">Our Services</h2>
-        <p class="text-gray-400 mb-12 max-w-3xl">We provide comprehensive audio and visual solutions for events, studios, streaming, and more.</p>
+        <div class="container mx-auto px-6 lg:px-8">
+            <div class="lg:grid lg:grid-cols-2 lg:gap-16 items-center">
+                <div class="max-w-2xl pt-28 lg:pt-0 pb-16 lg:pb-0">
+                    <!-- Eyebrow — toggles with the headline set -->
+                    <p id="heroEyebrow" class="eyebrow hero-eyebrow mb-10">
+                        <span class="hero-eyebrow-phrases">
+                            <span class="hero-eyebrow-phrase is-active" data-index="0">{{ 'Audio • Technology • Training'|tr }}</span>
+                            <span class="hero-eyebrow-phrase" data-index="1">{{ 'Professional Audio & Visual Services'|tr }}</span>
+                            <span class="hero-eyebrow-phrase" data-index="2">{{ 'Training & Learning'|tr }}</span>
+                        </span>
+                    </p>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {% for service in featured_services %}
-            <div class="service-card">
-                <div class="p-6">
-                    <div class="w-16 h-16 bg-red-500 bg-opacity-20 rounded-full flex items-center justify-center mb-6">
-                        <i class="{{ service.icon_class }} text-red-500 text-2xl"></i>
+                    <h1 id="heroRotator" class="hero-headline text-5xl sm:text-6xl xl:text-7xl font-bold text-neutral-900 dark:text-white leading-[1.08] mb-12">
+                        <span class="hero-headline-phrases">
+                            {% if LANG == 'fr' %}
+                            <span class="hero-headline-phrase is-active" data-index="0">
+                                <span class="text-primary">Son,</span> <span class="text-neutral-900 dark:text-white">systèmes</span> <span class="text-primary">et compétences</span> <span class="text-neutral-500 dark:text-neutral-400">&mdash; réalisés comme il faut.</span>
+                            </span>
+                            <span class="hero-headline-phrase" data-index="1" aria-hidden="true">
+                                <span class="text-primary">Son,</span> <span class="text-neutral-900 dark:text-white">systèmes</span> <span class="text-primary">et compétences</span> <span class="text-neutral-500 dark:text-neutral-400">&mdash; conçus pour durer.</span>
+                            </span>
+                            <span class="hero-headline-phrase" data-index="2" aria-hidden="true">
+                                <span class="text-primary">Son,</span> <span class="text-neutral-900 dark:text-white">systèmes</span> <span class="text-primary">et compétences</span> <span class="text-neutral-500 dark:text-neutral-400">&mdash; pensés pour l&rsquo;impact.</span>
+                            </span>
+                            <span class="hero-headline-phrase" data-index="3" aria-hidden="true">
+                                <span class="text-primary">Service professionnel</span> <span class="text-neutral-900 dark:text-white">audio</span> <span class="text-primary">&amp; visuel</span> <span class="text-amber-600 dark:text-amber-400">accordé à la perfection.</span>
+                            </span>
+                            <span class="hero-headline-phrase" data-index="4" aria-hidden="true">
+                                <span class="text-primary">Service professionnel</span> <span class="text-neutral-900 dark:text-white">audio</span> <span class="text-primary">&amp; visuel</span> <span class="text-amber-600 dark:text-amber-400">réglé pour l&rsquo;impact.</span>
+                            </span>
+                            <span class="hero-headline-phrase" data-index="5" aria-hidden="true">
+                                <span class="text-primary">Service professionnel</span> <span class="text-neutral-900 dark:text-white">audio</span> <span class="text-primary">&amp; visuel</span> <span class="text-amber-600 dark:text-amber-400">sans le bruit.</span>
+                            </span>
+                            <span class="hero-headline-phrase" data-index="6" aria-hidden="true">
+                                <span class="text-primary">Formation</span> <span class="text-neutral-900 dark:text-white">&amp; apprentissage</span> <span class="text-neutral-500 dark:text-neutral-400">&mdash; pratique, concrète et réelle.</span>
+                            </span>
+                            <span class="hero-headline-phrase" data-index="7" aria-hidden="true">
+                                <span class="text-primary">Formation</span> <span class="text-neutral-900 dark:text-white">&amp; apprentissage</span> <span class="text-neutral-500 dark:text-neutral-400">&mdash; guidée par des pros du terrain.</span>
+                            </span>
+                            <span class="hero-headline-phrase" data-index="8" aria-hidden="true">
+                                <span class="text-primary">Formation</span> <span class="text-neutral-900 dark:text-white">&amp; apprentissage</span> <span class="text-neutral-500 dark:text-neutral-400">&mdash; à votre rythme, sur du vrai matériel.</span>
+                            </span>
+                            {% else %}
+                            <span class="hero-headline-phrase is-active" data-index="0">
+                                <span class="text-primary">Sound,</span> <span class="text-neutral-900 dark:text-white">systems</span> <span class="text-primary">and skills</span> <span class="text-neutral-500 dark:text-neutral-400">&mdash; built properly.</span>
+                            </span>
+                            <span class="hero-headline-phrase" data-index="1" aria-hidden="true">
+                                <span class="text-primary">Sound,</span> <span class="text-neutral-900 dark:text-white">systems</span> <span class="text-primary">and skills</span> <span class="text-neutral-500 dark:text-neutral-400">&mdash; made to last.</span>
+                            </span>
+                            <span class="hero-headline-phrase" data-index="2" aria-hidden="true">
+                                <span class="text-primary">Sound,</span> <span class="text-neutral-900 dark:text-white">systems</span> <span class="text-primary">and skills</span> <span class="text-neutral-500 dark:text-neutral-400">&mdash; made for impact.</span>
+                            </span>
+                            <span class="hero-headline-phrase" data-index="3" aria-hidden="true">
+                                <span class="text-primary">Professional</span> <span class="text-neutral-900 dark:text-white">audio</span> <span class="text-primary">&amp; visual work</span> <span class="text-amber-600 dark:text-amber-400">tuned to perfection.</span>
+                            </span>
+                            <span class="hero-headline-phrase" data-index="4" aria-hidden="true">
+                                <span class="text-primary">Professional</span> <span class="text-neutral-900 dark:text-white">audio</span> <span class="text-primary">&amp; visual work</span> <span class="text-amber-600 dark:text-amber-400">engineered for impact.</span>
+                            </span>
+                            <span class="hero-headline-phrase" data-index="5" aria-hidden="true">
+                                <span class="text-primary">Professional</span> <span class="text-neutral-900 dark:text-white">audio</span> <span class="text-primary">&amp; visual work</span> <span class="text-amber-600 dark:text-amber-400">without the noise.</span>
+                            </span>
+                            <span class="hero-headline-phrase" data-index="6" aria-hidden="true">
+                                <span class="text-primary">Training</span> <span class="text-neutral-900 dark:text-white">&amp; learning</span> <span class="text-neutral-500 dark:text-neutral-400">&mdash; practical, hands-on and real.</span>
+                            </span>
+                            <span class="hero-headline-phrase" data-index="7" aria-hidden="true">
+                                <span class="text-primary">Training</span> <span class="text-neutral-900 dark:text-white">&amp; learning</span> <span class="text-neutral-500 dark:text-neutral-400">&mdash; mentored by pros who do it daily.</span>
+                            </span>
+                            <span class="hero-headline-phrase" data-index="8" aria-hidden="true">
+                                <span class="text-primary">Training</span> <span class="text-neutral-900 dark:text-white">&amp; learning</span> <span class="text-neutral-500 dark:text-neutral-400">&mdash; at your pace, on real gear.</span>
+                            </span>
+                            {% endif %}
+                        </span>
+                    </h1>
+
+                    <p class="text-lg text-neutral-600 dark:text-neutral-400 leading-relaxed mb-16 max-w-xl">
+                        {{ 'Event sound, sound engineering, streaming systems, custom PCs and hands-on training — designed, built and tuned by people who care about the details.'|tr }}
+                    </p>
+
+                    <div class="flex flex-wrap items-center gap-4 pt-2">
+                        <a href="{% url 'booking' %}" class="btn-primary text-sm px-7 py-3">
+                            {{ 'Book Now'|tr }}
+                        </a>
+                        <a href="{% url 'services' %}" class="btn-secondary text-sm px-7 py-3">
+                            {{ 'Explore Services'|tr }}
+                        </a>
+                        <a href="{% url 'learning' %}" class="text-sm font-medium text-neutral-500 py-3 transition hover:text-primary dark:text-neutral-400 dark:hover:text-white">
+                            {{ 'Explore Learning'|tr }}
+                        </a>
                     </div>
-                    <h3 class="text-2xl font-bold mb-4">{{ service.name }}</h3>
-                    <p class="text-gray-400 mb-6">{{ service.short_description }}</p>
-                    <a href="{% url 'services' %}" class="text-red-500 hover:underline">Learn more →</a>
+                </div>
+
+                <!-- Hero visual: sound wave with orbiting icons + floating live badges -->
+                <div class="hidden lg:flex items-center justify-center" aria-hidden="true">
+                    <div class="eq-stage">
+                        <div class="eq-ring eq-ring-1"></div>
+                        <div class="eq-ring eq-ring-2"></div>
+                        <div class="eq-ring eq-ring-3"></div>
+
+                        <div class="eq-orbit eq-orbit-note"><i class="fa-solid fa-music eq-orbit-icon"></i></div>
+                        <div class="eq-orbit eq-orbit-drum"><i class="fa-solid fa-drum eq-orbit-icon"></i></div>
+                        <div class="eq-orbit eq-orbit-speaker"><i class="fa-solid fa-volume-high eq-orbit-icon"></i></div>
+
+                        <div class="eq-core">
+                            <div class="equalizer">
+                                <span></span><span></span><span></span><span></span><span></span>
+                                <span></span><span></span><span></span><span></span><span></span>
+                            </div>
+                        </div>
+
+                        <!-- Live Sound badge — bobs up/down while the red dot blinks red & white -->
+                        <div class="eq-badge eq-badge-live">
+                            <span class="eq-badge-dot" aria-hidden="true"></span>
+                            Live Sound
+                        </div>
+
+                        <!-- Now Playing badge — headphones -->
+                        <div class="eq-badge eq-badge-now">
+                            <i class="fa-solid fa-headphones eq-badge-icon" aria-hidden="true"></i>
+                            Now Playing
+                        </div>
+
+                        <!-- Studio Grade badge — heartbeat pulse line -->
+                        <div class="eq-badge eq-badge-grade">
+                            <svg class="eq-ecg" viewBox="0 0 24 24" aria-hidden="true">
+                                <path class="eq-ecg-path" d="M1 12h4l3-6 4 11 3-7 2 2h6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <span>4dHz</span>
+                            <span class="eq-badge-sep" aria-hidden="true"></span>
+                            <span>Studio Grade</span>
+                        </div>
+
+                        <!-- 4K Visual badge — video icon, right side, bobs up/down -->
+                        <div class="eq-badge eq-badge-visual">
+                            <i class="fa-solid fa-video eq-badge-icon" aria-hidden="true"></i>
+                            4K Visual
+                        </div>
+                    </div>
                 </div>
             </div>
-            {% empty %}
-            <div class="service-card"><div class="p-6"><h3 class="text-2xl font-bold mb-4">Add featured services in admin</h3></div></div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+         CAPABILITY MARQUEE
+         ============================================================ -->
+    <div class="jt-marquee border-y border-neutral-200 dark:border-white/5 py-5 overflow-hidden select-none" aria-hidden="true">
+        <div class="jt-marquee__track">
+            {% for _ in "12" %}
+            <span class="jt-marquee__item jt-marquee__item--1"><span class="small-caps">{{ 'Sound'|tr }}</span><i class="fa-solid fa-circle jt-marquee__dot"></i></span>
+            <span class="jt-marquee__item jt-marquee__item--2"><span class="small-caps">{{ 'Streaming'|tr }}</span><i class="fa-solid fa-circle jt-marquee__dot"></i></span>
+            <span class="jt-marquee__item jt-marquee__item--3"><span class="small-caps">{{ 'Video'|tr }}</span><i class="fa-solid fa-circle jt-marquee__dot"></i></span>
+            <span class="jt-marquee__item jt-marquee__item--4"><span class="small-caps">{{ 'Training'|tr }}</span><i class="fa-solid fa-circle jt-marquee__dot"></i></span>
+            <span class="jt-marquee__item jt-marquee__item--5"><span class="small-caps">{{ 'Custom PCs'|tr }}</span><i class="fa-solid fa-circle jt-marquee__dot"></i></span>
+            <span class="jt-marquee__item jt-marquee__item--6"><span class="small-caps">{{ 'Live Events'|tr }}</span><i class="fa-solid fa-circle jt-marquee__dot"></i></span>
+            <span class="jt-marquee__item jt-marquee__item--7"><span class="small-caps">{{ 'Studio Builds'|tr }}</span><i class="fa-solid fa-circle jt-marquee__dot"></i></span>
             {% endfor %}
         </div>
-
-        <div class="text-center mt-12">
-            <a href="{% url 'services' %}" class="btn-primary">View All Services</a>
-        </div>
     </div>
-</section>
 
-<section id="featured-portfolio" class="py-20 bg-dark-bg">
-    <div class="container mx-auto px-4">
-        <h2 class="text-4xl font-bold mb-2 section-title">Featured Work</h2>
-        <p class="text-gray-400 mb-12 max-w-3xl">Check out some of our recent projects and installations.</p>
+    <!-- ============================================================
+         BY THE NUMBERS
+         ============================================================ -->
+    <section class="py-16 md:py-24" aria-label="{{ 'By the numbers'|tr }}">
+        <div class="container mx-auto px-6 lg:px-8">
+            <div id="statsPanel" class="stats-panel relative overflow-hidden rounded-3xl bg-neutral-950 px-8 py-14 md:px-14 md:py-20 dark:bg-neutral-900">
+                <div class="stats-panel-grid absolute inset-0 pointer-events-none" aria-hidden="true"></div>
+                <div class="absolute -top-32 -right-24 h-96 w-96 rounded-full bg-primary/20 blur-3xl pointer-events-none" aria-hidden="true"></div>
+                <div class="absolute -bottom-40 -left-24 h-80 w-80 rounded-full bg-primary/10 blur-3xl pointer-events-none" aria-hidden="true"></div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-            {% for item in featured_portfolio %}
-            <div class="gallery-item">
-                <img src="{{ item.image_url }}" alt="{{ item.title }}" class="w-full h-64 object-cover">
-                <div class="gallery-overlay">
-                    <div class="text-center">
-                        <i class="fas fa-search-plus text-3xl mb-2"></i>
-                        <p>{{ item.title }}</p>
+                <div class="relative grid lg:grid-cols-2 lg:gap-16 items-center">
+                    <div class="stats-copy mb-12 lg:mb-0">
+                        <p class="stats-eyebrow mb-6">{{ 'By the numbers'|tr }}</p>
+                        <h2 class="text-3xl md:text-4xl font-semibold text-white mb-6">{{ 'The numbers behind the sound.'|tr }}</h2>
+                        <p class="text-neutral-400 leading-relaxed mb-8 max-w-md">
+                            {{ 'Every number is a room we’ve shaped, a mix we’ve run or a skill we’ve handed over — real work, no filler.'|tr }}
+                        </p>
+                        <a href="{% url 'portfolio' %}" class="group inline-flex items-center gap-2 text-sm font-semibold text-white transition hover:text-white">
+                            {{ 'See the work behind the numbers'|tr }}
+                            <span aria-hidden="true" class="text-primary transition-transform group-hover:translate-x-1">&rarr;</span>
+                        </a>
+                    </div>
+
+                    <div class="grid sm:grid-cols-2 gap-8 sm:gap-10">
+                        <div class="stats-item">
+                            <div class="flex items-center gap-3 mb-5">
+                                <span class="stats-icon" aria-hidden="true"><i class="fa-solid fa-diagram-project"></i></span>
+                                <h3 class="stats-label">{{ 'Projects Completed'|tr }}</h3>
+                            </div>
+                            <p class="stats-value mb-2">
+                                <span class="stat-num" data-count="{{ site_settings.projects_completed_text|cut:'+'|default:'500' }}">0</span>
+                                <span class="stats-suffix">+</span>
+                            </p>
+                            <p class="stats-note">{{ 'Events, studios, installs & streaming setups'|tr }}</p>
+                        </div>
+
+                        <div class="stats-item">
+                            <div class="flex items-center gap-3 mb-5">
+                                <span class="stats-icon" aria-hidden="true"><i class="fa-solid fa-user-graduate"></i></span>
+                                <h3 class="stats-label">{{ 'Students Trained'|tr }}</h3>
+                            </div>
+                            <p class="stats-value mb-2">
+                                <span class="stat-num" data-count="{{ site_settings.students_trained_text|cut:'+'|default:'250' }}">0</span>
+                                <span class="stats-suffix">+</span>
+                            </p>
+                            <p class="stats-note">{{ 'Engineers, artists & curious beginners'|tr }}</p>
+                        </div>
+
+                        <div class="stats-item">
+                            <div class="flex items-center gap-3 mb-5">
+                                <span class="stats-icon" aria-hidden="true"><i class="fa-solid fa-face-smile"></i></span>
+                                <h3 class="stats-label">{{ 'Client Satisfaction'|tr }}</h3>
+                            </div>
+                            <p class="stats-value mb-2">
+                                <span class="stat-num" data-count="{{ site_settings.client_satisfaction_text|cut:'%'|default:'98' }}">0</span>
+                                <span class="stats-suffix">%</span>
+                            </p>
+                            <p class="stats-note">{{ 'Repeat events, referrals & long-term clients'|tr }}</p>
+                        </div>
+
+                        <div class="stats-item">
+                            <div class="flex items-center gap-3 mb-5">
+                                <span class="stats-icon" aria-hidden="true"><i class="fa-solid fa-calendar-check"></i></span>
+                                <h3 class="stats-label">{{ 'Serving Since'|tr }}</h3>
+                            </div>
+                            <p class="stats-value mb-2">
+                                <span class="stat-num" data-count="{{ site_settings.founded_year|default:'2018' }}" data-animate="false">{{ site_settings.founded_year|default:'2018' }}</span>
+                            </p>
+                            <p class="stats-note">{{ 'Sound-first from day one — and still tuned'|tr }}</p>
+                        </div>
                     </div>
                 </div>
             </div>
-            {% endfor %}
         </div>
+    </section>
 
-        <div class="text-center">
-            <a href="{% url 'portfolio' %}" class="btn-secondary">View Full Portfolio</a>
-        </div>
-    </div>
-</section>
+    <!-- ============================================================
+         OUR CAPABILITIES — numbered, under one roof (Agbedus-style)
+         ============================================================ -->
+    <section class="py-16 md:py-24 border-t border-neutral-200 dark:border-white/5" aria-label="{{ 'Our Capabilities'|tr }}">
+        <div class="container mx-auto px-6 lg:px-8">
+            <div class="max-w-2xl mb-12 lg:mb-16">
+                <p class="eyebrow mb-6">{{ 'Our Capabilities'|tr }}</p>
+                <h2 class="text-3xl md:text-4xl font-semibold text-neutral-900 dark:text-white">
+                    {{ 'Sound, systems and skills — under one roof.'|tr }}
+                </h2>
+            </div>
 
-<section class="py-20 bg-gray-900">
-    <div class="container mx-auto px-4 text-center">
-        <h2 class="text-4xl font-bold mb-6">Ready to Elevate Your Audio & Visual Experience?</h2>
-        <p class="text-gray-400 mb-10 max-w-2xl mx-auto">Whether you need equipment for an event, a custom streaming setup, or professional training, we're here to help.</p>
-        <div class="flex flex-wrap justify-center gap-4">
-            <a href="{% url 'booking' %}" class="btn-primary"><i class="fas fa-calendar-alt mr-2"></i> Book a Consultation</a>
-            <a href="{% url 'contact' %}" class="btn-secondary"><i class="fas fa-envelope mr-2"></i> Contact Us</a>
+            <div class="jt-caps" data-reveal>
+                <a href="{% url 'services' %}" class="jt-caps__row">
+                    <span class="jt-caps__num">01</span>
+                    <div class="jt-caps__body">
+                        <h3 class="jt-caps__title">{{ 'Sound Systems'|tr }}</h3>
+                        <p class="jt-caps__desc">{{ 'Installations designed around the room — church, school, hospital or venue.'|tr }}</p>
+                    </div>
+                    <span class="jt-caps__go" aria-hidden="true">
+                        {{ 'See the work'|tr }} <i class="fa-solid fa-arrow-right-long"></i>
+                    </span>
+                </a>
+
+                <a href="{% url 'services' %}" class="jt-caps__row">
+                    <span class="jt-caps__num">02</span>
+                    <div class="jt-caps__body">
+                        <h3 class="jt-caps__title">{{ 'Live Sound & Events'|tr }}</h3>
+                        <p class="jt-caps__desc">{{ 'Engineers, gear and mixers for services, concerts and conferences.'|tr }}</p>
+                    </div>
+                    <span class="jt-caps__go" aria-hidden="true">
+                        {{ 'See the work'|tr }} <i class="fa-solid fa-arrow-right-long"></i>
+                    </span>
+                </a>
+
+                <a href="{% url 'services' %}" class="jt-caps__row">
+                    <span class="jt-caps__num">03</span>
+                    <div class="jt-caps__body">
+                        <h3 class="jt-caps__title">{{ 'Streaming & Broadcast'|tr }}</h3>
+                        <p class="jt-caps__desc">{{ 'Multi-camera live streams and broadcast setups that just work.'|tr }}</p>
+                    </div>
+                    <span class="jt-caps__go" aria-hidden="true">
+                        {{ 'See the work'|tr }} <i class="fa-solid fa-arrow-right-long"></i>
+                    </span>
+                </a>
+
+                <a href="{% url 'services' %}" class="jt-caps__row">
+                    <span class="jt-caps__num">04</span>
+                    <div class="jt-caps__body">
+                        <h3 class="jt-caps__title">{{ 'Video & Visuals'|tr }}</h3>
+                        <p class="jt-caps__desc">{{ 'Production, capture and display for content teams and campuses.'|tr }}</p>
+                    </div>
+                    <span class="jt-caps__go" aria-hidden="true">
+                        {{ 'See the work'|tr }} <i class="fa-solid fa-arrow-right-long"></i>
+                    </span>
+                </a>
+
+                <a href="{% url 'services' %}" class="jt-caps__row">
+                    <span class="jt-caps__num">05</span>
+                    <div class="jt-caps__body">
+                        <h3 class="jt-caps__title">{{ 'Custom PCs & Hardware'|tr }}</h3>
+                        <p class="jt-caps__desc">{{ 'Built-to-spec systems, upgrades and repairs that keep creators creating.'|tr }}</p>
+                    </div>
+                    <span class="jt-caps__go" aria-hidden="true">
+                        {{ 'See the work'|tr }} <i class="fa-solid fa-arrow-right-long"></i>
+                    </span>
+                </a>
+
+                <a href="{% url 'learning' %}" class="jt-caps__row">
+                    <span class="jt-caps__num">06</span>
+                    <div class="jt-caps__body">
+                        <h3 class="jt-caps__title">{{ 'Training & Mentoring'|tr }}</h3>
+                        <p class="jt-caps__desc">{{ 'Hands-on sound engineering, streaming and production courses.'|tr }}</p>
+                    </div>
+                    <span class="jt-caps__go" aria-hidden="true">
+                        {{ 'See the work'|tr }} <i class="fa-solid fa-arrow-right-long"></i>
+                    </span>
+                </a>
+            </div>
         </div>
-    </div>
-</section>
+    </section>
+
+    <!-- ============================================================
+         LOCATION (map of Canada with the Barrie callout)
+         ============================================================ -->
+    {% include 'main_app/components/locator.html' %}
+
+    <!-- ============================================================
+         TRUSTED BY INSTITUTIONS ACROSS CANADA
+         ============================================================ -->
+    <section class="py-16 md:py-20 border-t border-neutral-200 dark:border-white/5" aria-label="{{ 'Trusted by institutions across Canada'|tr }}">
+        <div class="container mx-auto px-6 lg:px-8">
+            <div class="max-w-xl mx-auto text-center mb-10 lg:mb-12">
+                <p class="eyebrow justify-center mb-5">{{ 'Trusted by'|tr }}</p>
+                <h2 class="text-2xl md:text-3xl font-semibold text-neutral-900 dark:text-white">
+                    {{ 'Trusted by institutions across Canada'|tr }}
+                </h2>
+                <p class="text-sm text-neutral-500 dark:text-neutral-400 leading-relaxed mt-4">
+                    {{ 'Venues, schools, hospitals and churches across Canada rely on JustTech for sound, systems and training.'|tr }}
+                </p>
+            </div>
+
+            <div class="jt-trust" aria-label="{{ 'Trusted by institutions across Canada'|tr }}">
+                <div class="jt-trust__track">
+                    <div class="jt-trust__set">
+                        <!-- Presbyterian -->
+                        <span class="jt-logo jt-logo--presbyterian" title="Presbyterian Church">
+                            <span class="jt-logo__icon"><i class="fa-solid fa-cross"></i></span>
+                            <span class="jt-logo__text">{{ 'Presbyterian Church'|tr }}</span>
+                        </span>
+                        <!-- Pentecost -->
+                        <span class="jt-logo jt-logo--pentecost" title="Pentecost Church">
+                            <span class="jt-logo__icon"><i class="fa-solid fa-fire-flame-simple"></i></span>
+                            <span class="jt-logo__text">{{ 'Pentecost Church'|tr }}</span>
+                        </span>
+                        <!-- Methodist -->
+                        <span class="jt-logo jt-logo--methodist" title="Methodist Church">
+                            <span class="jt-logo__icon"><i class="fa-solid fa-place-of-worship"></i></span>
+                            <span class="jt-logo__text">{{ 'Methodist Church'|tr }}</span>
+                        </span>
+                        <!-- Vanguard Hospital -->
+                        <span class="jt-logo jt-logo--vanguard" title="Vanguard Hospital">
+                            <span class="jt-logo__icon"><i class="fa-solid fa-heart-pulse"></i></span>
+                            <span class="jt-logo__text">{{ 'Vanguard Hospital'|tr }}</span>
+                        </span>
+                        <!-- Netflix -->
+                        <span class="jt-logo jt-logo--netflix" title="Netflix">
+                            <span class="jt-logo__icon jt-logo__nf" aria-hidden="true">N</span>
+                            <span class="jt-logo__text">Netflix</span>
+                        </span>
+                    </div>
+                    <div class="jt-trust__set" aria-hidden="true">
+                        <span class="jt-logo jt-logo--presbyterian" title="Presbyterian Church">
+                            <span class="jt-logo__icon"><i class="fa-solid fa-cross"></i></span>
+                            <span class="jt-logo__text">{{ 'Presbyterian Church'|tr }}</span>
+                        </span>
+                        <span class="jt-logo jt-logo--pentecost" title="Pentecost Church">
+                            <span class="jt-logo__icon"><i class="fa-solid fa-fire-flame-simple"></i></span>
+                            <span class="jt-logo__text">{{ 'Pentecost Church'|tr }}</span>
+                        </span>
+                        <span class="jt-logo jt-logo--methodist" title="Methodist Church">
+                            <span class="jt-logo__icon"><i class="fa-solid fa-place-of-worship"></i></span>
+                            <span class="jt-logo__text">{{ 'Methodist Church'|tr }}</span>
+                        </span>
+                        <span class="jt-logo jt-logo--vanguard" title="Vanguard Hospital">
+                            <span class="jt-logo__icon"><i class="fa-solid fa-heart-pulse"></i></span>
+                            <span class="jt-logo__text">{{ 'Vanguard Hospital'|tr }}</span>
+                        </span>
+                        <span class="jt-logo jt-logo--netflix" title="Netflix">
+                            <span class="jt-logo__icon jt-logo__nf" aria-hidden="true">N</span>
+                            <span class="jt-logo__text">Netflix</span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+         CORE SERVICES
+         ============================================================ -->
+    <section class="jt-services relative overflow-hidden py-16 md:py-24 border-t border-neutral-200 dark:border-white/5" aria-label="Services">
+        <div class="absolute inset-0 pointer-events-none" aria-hidden="true">
+            <div class="jt-srv-circles">
+                <span class="jt-srv-circle"></span>
+                <span class="jt-srv-circle jt-srv-circle--2"></span>
+                <span class="jt-srv-circle jt-srv-circle--3"></span>
+                <span class="jt-srv-circle jt-srv-circle--core"></span>
+            </div>
+        </div>
+        <div class="container mx-auto px-6 lg:px-8 relative">
+            <div class="grid lg:grid-cols-2 lg:gap-16 items-start">
+                <!-- Intro -->
+                <div class="mb-12 lg:mb-0 lg:sticky lg:top-32">
+                    <p class="eyebrow mb-6">{{ 'Services'|tr }}</p>
+                    <h2 class="text-3xl md:text-4xl font-semibold text-neutral-900 dark:text-white mb-6 max-w-md">
+                        {{ 'We design, build and support the systems behind great sound and video.'|tr }}
+                    </h2>
+                    <p class="text-neutral-600 dark:text-neutral-400 leading-relaxed mb-8 max-w-md">
+                        {{ 'From a single live event to a full studio or streaming setup, our work is practical, reliable and built around how you actually use it.'|tr }}
+                    </p>
+                    <a href="{% url 'booking' %}" class="btn-primary text-sm px-7 py-3 inline-flex items-center gap-2 mb-6">
+                        <i class="fas fa-calendar-alt" aria-hidden="true"></i> {{ 'Book Now'|tr }}
+                    </a>
+                    <a href="{% url 'services' %}" class="inline-flex items-center gap-2 text-sm font-medium text-primary transition group">
+                        {{ 'View all services'|tr }}
+                        <span aria-hidden="true" class="transition-transform group-hover:translate-x-1">&rarr;</span>
+                    </a>
+                </div>
+
+                <!-- Service list -->
+                <div class="lg:border-l lg:border-neutral-200 lg:dark:border-white/5 lg:pl-12">
+                    {% for service in services %}
+                    <a href="{% url 'booking' %}?service={{ service.slug }}" class="jt-srv group flex items-start gap-5 py-6 border-b border-neutral-200 dark:border-white/5 transition hover:opacity-100">
+                        <i class="{{ service.icon_class }} text-primary text-xl mt-1 w-8 shrink-0" aria-hidden="true"></i>
+                        <div class="flex-1">
+                            <h3 class="text-lg font-semibold text-neutral-900 dark:text-white mb-1.5">{{ service.name }}</h3>
+                            <p class="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">{{ service.short_description }}</p>
+                        </div>
+                        <span class="inline-flex items-center gap-1.5 text-sm font-medium text-neutral-400 mt-1 shrink-0 transition-all group-hover:text-primary group-hover:gap-2.5" aria-hidden="true">
+                            {{ 'Book'|tr }}
+                            <i class="fa-solid fa-arrow-right text-xs"></i>
+                        </span>
+                    </a>
+                    {% empty %}
+                    <div class="rounded-2xl border border-dashed border-neutral-300 dark:border-white/10 p-8 text-sm text-neutral-500 dark:text-neutral-400">
+                        {{ 'Add services in the admin panel.'|tr }}
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+         EVENT AUDIO
+         ============================================================ -->
+    <section class="py-16 md:py-24 border-t border-neutral-200 dark:border-white/5" aria-label="Event audio">
+        <div class="container mx-auto px-6 lg:px-8">
+            <div class="grid lg:grid-cols-2 lg:gap-16 items-center">
+                <!-- Imagery -->
+                <div class="grid grid-cols-2 gap-4 mb-12 lg:mb-0">
+                    <img src="https://images.unsplash.com/photo-1516280440614-37939bbacd81?auto=format&fit=crop&w=2070&q=80"
+                         alt="Audio mixing console during setup" loading="lazy"
+                         class="w-full aspect-[3/4] object-cover rounded-2xl">
+                    <img src="https://images.unsplash.com/photo-1540039155733-5bb30b53aa14?auto=format&fit=crop&w=2070&q=80"
+                         alt="Live concert audience as sound is mixed" loading="lazy"
+                         class="w-full aspect-[3/4] object-cover rounded-2xl mt-10">
+                </div>
+
+                <!-- Copy -->
+                <div>
+                    <p class="eyebrow mb-6">{{ 'Event Audio'|tr }}</p>
+                    <h2 class="text-3xl md:text-4xl font-semibold text-neutral-900 dark:text-white mb-6">
+                        {{ 'You run the event.<br>We handle the sound.'|tr }}
+                    </h2>
+                    <p class="text-neutral-600 dark:text-neutral-400 leading-relaxed mb-8 max-w-md">
+                        {{ 'From soundcheck to the last song, we take care of the technical side — so the room sounds the way it should and your team can focus on the event.'|tr }}
+                    </p>
+
+                    <ul class="flex flex-wrap gap-2 mb-10" aria-label="{{ 'Event Audio'|tr }}">
+                        <li class="text-xs font-medium px-3 py-1.5 rounded-full bg-neutral-100 text-neutral-600 dark:bg-white/5 dark:text-neutral-300">{{ 'Setup'|tr }}</li>
+                        <li class="text-xs font-medium px-3 py-1.5 rounded-full bg-neutral-100 text-neutral-600 dark:bg-white/5 dark:text-neutral-300">{{ 'System tuning'|tr }}</li>
+                        <li class="text-xs font-medium px-3 py-1.5 rounded-full bg-neutral-100 text-neutral-600 dark:bg-white/5 dark:text-neutral-300">{{ 'Soundcheck'|tr }}</li>
+                        <li class="text-xs font-medium px-3 py-1.5 rounded-full bg-neutral-100 text-neutral-600 dark:bg-white/5 dark:text-neutral-300">{{ 'Mixing & monitoring'|tr }}</li>
+                        <li class="text-xs font-medium px-3 py-1.5 rounded-full bg-neutral-100 text-neutral-600 dark:bg-white/5 dark:text-neutral-300">{{ 'Live operation'|tr }}</li>
+                        <li class="text-xs font-medium px-3 py-1.5 rounded-full bg-neutral-100 text-neutral-600 dark:bg-white/5 dark:text-neutral-300">{{ 'Technical support'|tr }}</li>
+                        <li class="text-xs font-medium px-3 py-1.5 rounded-full bg-neutral-100 text-neutral-600 dark:bg-white/5 dark:text-neutral-300">{{ 'Breakdown'|tr }}</li>
+                    </ul>
+
+                    <p class="text-sm text-neutral-500 dark:text-neutral-400 mb-10 max-w-md">
+                        {{ 'Concerts, conferences, churches, corporate events, weddings and private events — any space that needs professional sound.'|tr }}
+                    </p>
+
+                    <div class="flex flex-wrap gap-4">
+                        <a href="{% url 'booking' %}?service=event-services" class="btn-primary text-sm px-7 py-3">
+                            {{ 'Book event sound'|tr }}
+                        </a>
+                        <a href="{% url 'services' %}" class="btn-secondary text-sm px-7 py-3">
+                            {{ 'Explore services'|tr }}
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+         FEATURED WORK
+         ============================================================ -->
+    <section class="py-16 md:py-24 border-t border-neutral-200 dark:border-white/5" aria-label="Featured work">
+        <div class="container mx-auto px-6 lg:px-8">
+            <div class="flex flex-wrap items-end justify-between gap-6 mb-12 lg:mb-16">
+                <div class="max-w-xl">
+                    <p class="eyebrow mb-6">{{ 'Work'|tr }}</p>
+                    <h2 class="text-3xl md:text-4xl font-semibold text-neutral-900 dark:text-white mb-4">{{ 'Recent work'|tr }}</h2>
+                </div>
+                <a href="{% url 'portfolio' %}" class="inline-flex items-center gap-2 text-sm font-medium text-primary transition group">
+                    {{ 'View all work'|tr }}
+                    <span aria-hidden="true" class="transition-transform group-hover:translate-x-1">&rarr;</span>
+                </a>
+            </div>
+
+            {% if featured_portfolio %}
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+                {% for item in featured_portfolio %}
+                {% if forloop.first %}
+                <a href="{% url 'portfolio' %}" class="group relative block overflow-hidden rounded-2xl bg-neutral-100 dark:bg-neutral-800 md:col-span-2 lg:row-span-2">
+                    <img src="{{ item.image_url }}" alt="{{ item.title }}" loading="lazy"
+                         class="w-full h-full aspect-video lg:aspect-auto lg:absolute lg:inset-0 lg:h-full object-cover grayscale transition duration-500 group-hover:grayscale-0 group-hover:scale-105">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 right-0 p-7">
+                        <p class="text-white font-semibold text-xl mb-1">{{ item.title }}</p>
+                        {% if item.category %}<p class="text-sm text-white/70">{{ item.category }}</p>{% endif %}
+                    </div>
+                </a>
+                {% else %}
+                <a href="{% url 'portfolio' %}" class="group relative block overflow-hidden rounded-2xl bg-neutral-100 dark:bg-neutral-800">
+                    <img src="{{ item.image_url }}" alt="{{ item.title }}" loading="lazy"
+                         class="w-full aspect-[4/3] object-cover grayscale transition duration-500 group-hover:grayscale-0 group-hover:scale-105">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent opacity-100 lg:opacity-0 transition duration-300 lg:group-hover:opacity-100"></div>
+                    <div class="absolute bottom-0 left-0 right-0 p-5 lg:translate-y-2 lg:opacity-0 lg:transition lg:duration-300 lg:group-hover:translate-y-0 lg:group-hover:opacity-100">
+                        <p class="text-white font-medium">{{ item.title }}</p>
+                        {% if item.category %}<p class="text-sm text-white/70 mt-0.5">{{ item.category }}</p>{% endif %}
+                    </div>
+                </a>
+                {% endif %}
+                {% endfor %}
+            </div>
+            {% else %}
+            <div class="rounded-2xl border border-dashed border-neutral-300 dark:border-white/10 p-8 text-sm text-neutral-500 dark:text-neutral-400">
+                {{ 'Featured work appears here once projects are added in the admin panel.'|tr }}
+            </div>
+            {% endif %}
+        </div>
+    </section>
+
+    <!-- ============================================================
+         LEARNING
+         ============================================================ -->
+    <section class="py-16 md:py-24 border-t border-neutral-200 dark:border-white/5" aria-label="Learning">
+        <div class="container mx-auto px-6 lg:px-8">
+            <div class="max-w-2xl mb-12 lg:mb-16">
+                <p class="eyebrow mb-6">{{ 'Learning'|tr }}</p>
+                <h2 class="text-3xl md:text-4xl font-semibold text-neutral-900 dark:text-white mb-6">{{ 'Learn the craft behind the sound.'|tr }}</h2>
+                <p class="text-neutral-600 dark:text-neutral-400 leading-relaxed">
+                    {{ 'We teach what we do every day — hands-on, practical, and at your pace. Whether you want to play an instrument or run a mix, the quickest way is to do it.'|tr }}
+                </p>
+            </div>
+
+            <div class="grid lg:grid-cols-2 gap-5">
+                <!-- Music -->
+                <div class="card-hover rounded-2xl border border-neutral-200 bg-white p-8 md:p-10 dark:border-white/10 dark:bg-white/[0.02]">
+                    <p class="text-xs font-semibold uppercase tracking-widest text-neutral-400 dark:text-neutral-500 mb-4">{{ 'Music'|tr }}</p>
+                    <h3 class="text-2xl font-semibold text-neutral-900 dark:text-white mb-3">{{ 'Piano, guitar & instruments'|tr }}</h3>
+                    <p class="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed mb-8">
+                        {{ 'Lessons for every level — play real music from your first session. Instruments are provided, so just book and show up.'|tr }}
+                    </p>
+                    <ul class="space-y-3 mb-10">
+                        <li class="flex items-start gap-3 text-sm text-neutral-600 dark:text-neutral-400">
+                            <i class="fa-solid fa-check text-primary mt-0.5" aria-hidden="true"></i>
+                            {{ 'One-on-one lessons at your level'|tr }}
+                        </li>
+                        <li class="flex items-start gap-3 text-sm text-neutral-600 dark:text-neutral-400">
+                            <i class="fa-solid fa-check text-primary mt-0.5" aria-hidden="true"></i>
+                            {{ 'Instruments and gear provided'|tr }}
+                        </li>
+                        <li class="flex items-start gap-3 text-sm text-neutral-600 dark:text-neutral-400">
+                            <i class="fa-solid fa-check text-primary mt-0.5" aria-hidden="true"></i>
+                            {{ 'From absolute beginner to advanced'|tr }}
+                        </li>
+                    </ul>
+                    <a href="{% url 'learning' %}" class="inline-flex items-center gap-2 text-sm font-semibold text-primary transition group">
+                        {{ 'Explore music lessons'|tr }}
+                        <span aria-hidden="true" class="transition-transform group-hover:translate-x-1">&rarr;</span>
+                    </a>
+                </div>
+
+                <!-- Technical -->
+                <div class="card-hover rounded-2xl border border-neutral-200 bg-white p-8 md:p-10 dark:border-white/10 dark:bg-white/[0.02]">
+                    <p class="text-xs font-semibold uppercase tracking-widest text-neutral-400 dark:text-neutral-500 mb-4">{{ 'Technical'|tr }}</p>
+                    <h3 class="text-2xl font-semibold text-neutral-900 dark:text-white mb-3">{{ 'Sound engineering & live audio'|tr }}</h3>
+                    <p class="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed mb-8">
+                        {{ 'Mixing, sound systems and streaming — taught on real equipment so you finish confident enough to run the show.'|tr }}
+                    </p>
+                    <ul class="space-y-3 mb-10">
+                        <li class="flex items-start gap-3 text-sm text-neutral-600 dark:text-neutral-400">
+                            <i class="fa-solid fa-check text-primary mt-0.5" aria-hidden="true"></i>
+                            {{ 'Sound engineering & live mixing'|tr }}
+                        </li>
+                        <li class="flex items-start gap-3 text-sm text-neutral-600 dark:text-neutral-400">
+                            <i class="fa-solid fa-check text-primary mt-0.5" aria-hidden="true"></i>
+                            {{ 'Audio systems & streaming setups'|tr }}
+                        </li>
+                        <li class="flex items-start gap-3 text-sm text-neutral-600 dark:text-neutral-400">
+                            <i class="fa-solid fa-check text-primary mt-0.5" aria-hidden="true"></i>
+                            {{ 'One-on-one and structured training'|tr }}
+                        </li>
+                    </ul>
+                    <a href="{% url 'learning' %}" class="inline-flex items-center gap-2 text-sm font-semibold text-primary transition group">
+                        {{ 'Explore technical training'|tr }}
+                        <span aria-hidden="true" class="transition-transform group-hover:translate-x-1">&rarr;</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="flex flex-wrap gap-4 mt-8">
+                <a href="{% url 'booking' %}" class="btn-primary text-sm px-7 py-3">
+                    {{ 'Book a lesson'|tr }}
+                </a>
+                <a href="{% url 'learning' %}" class="btn-secondary text-sm px-7 py-3">
+                    {{ 'Explore learning'|tr }}
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+         WHY JUSTTECH / PROCESS
+         ============================================================ -->
+    <section class="py-16 md:py-24 border-t border-neutral-200 dark:border-white/5" aria-label="Why choose JustTech">
+        <div class="container mx-auto px-6 lg:px-8">
+            <div class="max-w-xl mb-12 lg:mb-16">
+                <p class="eyebrow mb-6">{{ 'Why JustTech'|tr }}</p>
+                <h2 class="text-3xl md:text-4xl font-semibold text-neutral-900 dark:text-white mb-6">{{ 'Built on the details'|tr }}</h2>
+                <p class="text-neutral-600 dark:text-neutral-400 leading-relaxed">
+                    {{ 'We treat every project like it matters — because the room always hears the difference.'|tr }}
+                </p>
+            </div>
+
+            <div class="grid lg:grid-cols-2 lg:gap-16">
+                <!-- Principles -->
+                <ul class="space-y-7 mb-12 lg:mb-0">
+                    <li class="flex items-start gap-4">
+                        <span class="w-1.5 h-1.5 mt-2 rounded-full bg-primary shrink-0" aria-hidden="true"></span>
+                        <div>
+                            <h3 class="font-semibold text-neutral-900 dark:text-white mb-1">{{ 'Detail matters'|tr }}</h3>
+                            <p class="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">{{ 'Every setup is designed, built and tested carefully before it goes live.'|tr }}</p>
+                        </div>
+                    </li>
+                    <li class="flex items-start gap-4">
+                        <span class="w-1.5 h-1.5 mt-2 rounded-full bg-primary shrink-0" aria-hidden="true"></span>
+                        <div>
+                            <h3 class="font-semibold text-neutral-900 dark:text-white mb-1">{{ 'Real-world experience'|tr }}</h3>
+                            <p class="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">{{ 'Systems are made for actual venues, events and workflows — not just brochure specs.'|tr }}</p>
+                        </div>
+                    </li>
+                    <li class="flex items-start gap-4">
+                        <span class="w-1.5 h-1.5 mt-2 rounded-full bg-primary shrink-0" aria-hidden="true"></span>
+                        <div>
+                            <h3 class="font-semibold text-neutral-900 dark:text-white mb-1">{{ 'Built for you'|tr }}</h3>
+                            <p class="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">{{ 'Recommendations match your use case and budget, rather than simply selling equipment.'|tr }}</p>
+                        </div>
+                    </li>
+                    <li class="flex items-start gap-4">
+                        <span class="w-1.5 h-1.5 mt-2 rounded-full bg-primary shrink-0" aria-hidden="true"></span>
+                        <div>
+                            <h3 class="font-semibold text-neutral-900 dark:text-white mb-1">{{ 'Support beyond installation'|tr }}</h3>
+                            <p class="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">{{ 'We stay involved after the setup goes in — running events, training teams and troubleshooting.'|tr }}</p>
+                        </div>
+                    </li>
+                    <li class="flex items-start gap-4">
+                        <span class="w-1.5 h-1.5 mt-2 rounded-full bg-primary shrink-0" aria-hidden="true"></span>
+                        <div>
+                            <h3 class="font-semibold text-neutral-900 dark:text-white mb-1">{{ 'Practical learning'|tr }}</h3>
+                            <p class="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">{{ 'Training is hands-on — you leave behind the gear and knowing how to use it.'|tr }}</p>
+                        </div>
+                    </li>
+                </ul>
+
+                <!-- Process -->
+                <ol class="lg:border-l lg:border-neutral-200 lg:dark:border-white/5 lg:pl-12" aria-label="{{ 'By the numbers'|tr }}">
+                    <li class="py-4 flex items-baseline gap-5 lg:py-5 border-b border-neutral-200 dark:border-white/5">
+                        <span class="text-sm font-semibold text-primary w-6" aria-hidden="true">01</span>
+                        <span class="text-neutral-900 dark:text-white font-medium">{{ 'Tell us what you need'|tr }}</span>
+                    </li>
+                    <li class="py-4 flex items-baseline gap-5 lg:py-5 border-b border-neutral-200 dark:border-white/5">
+                        <span class="text-sm font-semibold text-primary w-6" aria-hidden="true">02</span>
+                        <span class="text-neutral-900 dark:text-white font-medium">{{ 'We design the right setup'|tr }}</span>
+                    </li>
+                    <li class="py-4 flex items-baseline gap-5 lg:py-5 border-b border-neutral-200 dark:border-white/5">
+                        <span class="text-sm font-semibold text-primary w-6" aria-hidden="true">03</span>
+                        <span class="text-neutral-900 dark:text-white font-medium">{{ 'We build and configure'|tr }}</span>
+                    </li>
+                    <li class="py-4 flex items-baseline gap-5 lg:py-5 border-b border-neutral-200 dark:border-white/5">
+                        <span class="text-sm font-semibold text-primary w-6" aria-hidden="true">04</span>
+                        <span class="text-neutral-900 dark:text-white font-medium">{{ 'We test and soundcheck'|tr }}</span>
+                    </li>
+                    <li class="py-4 flex items-baseline gap-5 lg:py-5">
+                        <span class="text-sm font-semibold text-primary w-6" aria-hidden="true">05</span>
+                        <span class="text-neutral-900 dark:text-white font-medium">{{ 'We support the experience'|tr }}</span>
+                    </li>
+                </ol>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+         TESTIMONIALS — autonomous carousel (autoplay + arrows)
+         ============================================================ -->
+    <section class="py-16 md:py-24 border-t border-neutral-200 dark:border-white/5 overflow-hidden" aria-label="Testimonials">
+        <div class="container mx-auto px-6 lg:px-8">
+            <div class="max-w-xl mb-12 lg:mb-16">
+                <p class="eyebrow mb-6">{{ 'Testimonials'|tr }}</p>
+                <h2 class="text-3xl md:text-4xl font-semibold text-neutral-900 dark:text-white mb-4">{{ 'What people say'|tr }}</h2>
+            </div>
+
+            <div class="jt-carousel" data-jt-carousel>
+                <div class="jt-carousel__stage" data-jt-stage>
+                    {% with t=1 %}{% endwith %}
+                    <div class="jt-carousel__slide" data-jt-slide>
+                        <figure class="jt-carousel__card">
+                            <img class="jt-carousel__avatar" src="https://randomuser.me/api/portraits/women/44.jpg" alt="Jacqueline Kwafo" loading="lazy" />
+                            <i class="fa-solid fa-quote-right jt-carousel__quote" aria-hidden="true"></i>
+                            <blockquote class="jt-carousel__quote-text">&ldquo;JustTech designed and installed the full sound system for our church. The room sounds incredible and they trained our volunteers to run it.&rdquo;</blockquote>
+                            <figcaption class="jt-carousel__who">
+                                <span class="jt-carousel__name">Jacqueline Kwafo</span>
+                                <span class="jt-carousel__title">Worship &amp; Audio Director</span>
+                            </figcaption>
+                        </figure>
+                    </div>
+
+                    <div class="jt-carousel__slide" data-jt-slide>
+                        <figure class="jt-carousel__card">
+                            <img class="jt-carousel__avatar" src="https://randomuser.me/api/portraits/men/32.jpg" alt="Jason Kwafo" loading="lazy" />
+                            <i class="fa-solid fa-quote-right jt-carousel__quote" aria-hidden="true"></i>
+                            <blockquote class="jt-carousel__quote-text">&ldquo;From a single live event to our streaming setup, Jason and the team handled everything. Professional from the first call to the last song.&rdquo;</blockquote>
+                            <figcaption class="jt-carousel__who">
+                                <span class="jt-carousel__name">Jason Kwafo</span>
+                                <span class="jt-carousel__title">Event Producer, Toronto</span>
+                            </figcaption>
+                        </figure>
+                    </div>
+
+                    <div class="jt-carousel__slide" data-jt-slide>
+                        <figure class="jt-carousel__card">
+                            <img class="jt-carousel__avatar" src="https://randomuser.me/api/portraits/women/68.jpg" alt="Sarah Tremblay" loading="lazy" />
+                            <i class="fa-solid fa-quote-right jt-carousel__quote" aria-hidden="true"></i>
+                            <blockquote class="jt-carousel__quote-text">&ldquo;Our conference sound used to be a gamble. Now it just works — clear, consistent and loud enough for four hundred people.&rdquo;</blockquote>
+                            <figcaption class="jt-carousel__who">
+                                <span class="jt-carousel__name">Sarah Tremblay</span>
+                                <span class="jt-carousel__title">Events Manager, Ottawa</span>
+                            </figcaption>
+                        </figure>
+                    </div>
+
+                    <div class="jt-carousel__slide" data-jt-slide>
+                        <figure class="jt-carousel__card">
+                            <img class="jt-carousel__avatar" src="https://randomuser.me/api/portraits/men/22.jpg" alt="Marcus Chen" loading="lazy" />
+                            <i class="fa-solid fa-quote-right jt-carousel__quote" aria-hidden="true"></i>
+                            <blockquote class="jt-carousel__quote-text">&ldquo;They built our streaming studio from an empty room — acoustic treatment, cameras, audio and the call flows. We went live on schedule.&rdquo;</blockquote>
+                            <figcaption class="jt-carousel__who">
+                                <span class="jt-carousel__name">Marcus Chen</span>
+                                <span class="jt-carousel__title">Content Lead, Vancouver</span>
+                            </figcaption>
+                        </figure>
+                    </div>
+
+                    <div class="jt-carousel__slide" data-jt-slide>
+                        <figure class="jt-carousel__card">
+                            <img class="jt-carousel__avatar" src="https://randomuser.me/api/portraits/women/33.jpg" alt="Emily Thompson" loading="lazy" />
+                            <i class="fa-solid fa-quote-right jt-carousel__quote" aria-hidden="true"></i>
+                            <blockquote class="jt-carousel__quote-text">&ldquo;The lessons are hands-on and practical. I went from zero to running sound on Sundays with real confidence in a few months.&rdquo;</blockquote>
+                            <figcaption class="jt-carousel__who">
+                                <span class="jt-carousel__name">Emily Thompson</span>
+                                <span class="jt-carousel__title">Volunteer Sound Engineer</span>
+                            </figcaption>
+                        </figure>
+                    </div>
+
+                    <div class="jt-carousel__slide" data-jt-slide>
+                        <figure class="jt-carousel__card">
+                            <img class="jt-carousel__avatar" src="https://randomuser.me/api/portraits/men/76.jpg" alt="Ryan MacDonald" loading="lazy" />
+                            <i class="fa-solid fa-quote-right jt-carousel__quote" aria-hidden="true"></i>
+                            <blockquote class="jt-carousel__quote-text">&ldquo;We upgraded our sanctuary audio and recorded the difference. The clarity is night and day and the system is simple for our team to operate.&rdquo;</blockquote>
+                            <figcaption class="jt-carousel__who">
+                                <span class="jt-carousel__name">Ryan MacDonald</span>
+                                <span class="jt-carousel__title">Pastor, Presbyterian Church</span>
+                            </figcaption>
+                        </figure>
+                    </div>
+
+                    <div class="jt-carousel__slide" data-jt-slide>
+                        <figure class="jt-carousel__card">
+                            <img class="jt-carousel__avatar" src="https://randomuser.me/api/portraits/women/90.jpg" alt="Priya Sharma" loading="lazy" />
+                            <i class="fa-solid fa-quote-right jt-carousel__quote" aria-hidden="true"></i>
+                            <blockquote class="jt-carousel__quote-text">&ldquo;Our hybrid services needed reliable audio and streaming for hundreds of viewers each week. JustTech delivered — and keeps it running.&rdquo;</blockquote>
+                            <figcaption class="jt-carousel__who">
+                                <span class="jt-carousel__name">Priya Sharma</span>
+                                <span class="jt-carousel__title">Media Producer, Calgary</span>
+                            </figcaption>
+                        </figure>
+                    </div>
+
+                    <div class="jt-carousel__slide" data-jt-slide>
+                        <figure class="jt-carousel__card">
+                            <img class="jt-carousel__avatar" src="https://randomuser.me/api/portraits/women/26.jpg" alt="Hélène Bouchard" loading="lazy" />
+                            <i class="fa-solid fa-quote-right jt-carousel__quote" aria-hidden="true"></i>
+                            <blockquote class="jt-carousel__quote-text">&ldquo;The conference room systems they installed are effortless. One button and the call is live, with sound that actually carries the room.&rdquo;</blockquote>
+                            <figcaption class="jt-carousel__who">
+                                <span class="jt-carousel__name">Hélène Bouchard</span>
+                                <span class="jt-carousel__title">Office Manager, Montreal</span>
+                            </figcaption>
+                        </figure>
+                    </div>
+
+                    <div class="jt-carousel__slide" data-jt-slide>
+                        <figure class="jt-carousel__card">
+                            <img class="jt-carousel__avatar" src="https://randomuser.me/api/portraits/men/85.jpg" alt="David Okafor" loading="lazy" />
+                            <i class="fa-solid fa-quote-right jt-carousel__quote" aria-hidden="true"></i>
+                            <blockquote class="jt-carousel__quote-text">&ldquo;Paging, background music and emergency announcements across our campus — one clean system, tuned and supported. Exactly what we needed.&rdquo;</blockquote>
+                            <figcaption class="jt-carousel__who">
+                                <span class="jt-carousel__name">David Okafor</span>
+                                <span class="jt-carousel__title">Facilities Manager, Vanguard Hospital</span>
+                            </figcaption>
+                        </figure>
+                    </div>
+
+                    <div class="jt-carousel__slide" data-jt-slide>
+                        <figure class="jt-carousel__card">
+                            <img class="jt-carousel__avatar" src="https://randomuser.me/api/portraits/women/1.jpg" alt="Chloe Dubois" loading="lazy" />
+                            <i class="fa-solid fa-quote-right jt-carousel__quote" aria-hidden="true"></i>
+                            <blockquote class="jt-carousel__quote-text">&ldquo;Their sound engineering course gave me the practical foundation I was missing. I now mix confidently for bands and events.&rdquo;</blockquote>
+                            <figcaption class="jt-carousel__who">
+                                <span class="jt-carousel__name">Chloe Dubois</span>
+                                <span class="jt-carousel__title">Sound Engineering Student</span>
+                            </figcaption>
+                        </figure>
+                    </div>
+
+                    <div class="jt-carousel__slide" data-jt-slide>
+                        <figure class="jt-carousel__card">
+                            <img class="jt-carousel__avatar" src="https://randomuser.me/api/portraits/men/47.jpg" alt="Ethan Miller" loading="lazy" />
+                            <i class="fa-solid fa-quote-right jt-carousel__quote" aria-hidden="true"></i>
+                            <blockquote class="jt-carousel__quote-text">&ldquo;They built my custom streaming PC and tuned my whole setup. Latency-free calls and clean captures from day one.&rdquo;</blockquote>
+                            <figcaption class="jt-carousel__who">
+                                <span class="jt-carousel__name">Ethan Miller</span>
+                                <span class="jt-carousel__title">Streamer &amp; Creator, Winnipeg</span>
+                            </figcaption>
+                        </figure>
+                    </div>
+
+                    <div class="jt-carousel__slide" data-jt-slide>
+                        <figure class="jt-carousel__card">
+                            <img class="jt-carousel__avatar" src="https://randomuser.me/api/portraits/women/75.jpg" alt="Aminata Diallo" loading="lazy" />
+                            <i class="fa-solid fa-quote-right jt-carousel__quote" aria-hidden="true"></i>
+                            <blockquote class="jt-carousel__quote-text">&ldquo;Our weekend services were transformed. The congregation hears every word clearly and our livestream finally matches it.&rdquo;</blockquote>
+                            <figcaption class="jt-carousel__who">
+                                <span class="jt-carousel__name">Aminata Diallo</span>
+                                <span class="jt-carousel__title">Pentecost Church, Media Team</span>
+                            </figcaption>
+                        </figure>
+                    </div>
+
+                    <div class="jt-carousel__slide" data-jt-slide>
+                        <figure class="jt-carousel__card">
+                            <img class="jt-carousel__avatar" src="https://randomuser.me/api/portraits/men/60.jpg" alt="James Anderson" loading="lazy" />
+                            <i class="fa-solid fa-quote-right jt-carousel__quote" aria-hidden="true"></i>
+                            <blockquote class="jt-carousel__quote-text">&ldquo;Methodist district gatherings rely on clean, reliable audio. JustTech has run ours for years without a single miss.&rdquo;</blockquote>
+                            <figcaption class="jt-carousel__who">
+                                <span class="jt-carousel__name">James Anderson</span>
+                                <span class="jt-carousel__title">Methodist Church, Events</span>
+                            </figcaption>
+                        </figure>
+                    </div>
+
+                    <div class="jt-carousel__slide" data-jt-slide>
+                        <figure class="jt-carousel__card">
+                            <img class="jt-carousel__avatar" src="https://randomuser.me/api/portraits/women/57.jpg" alt="Grace Osei" loading="lazy" />
+                            <i class="fa-solid fa-quote-right jt-carousel__quote" aria-hidden="true"></i>
+                            <blockquote class="jt-carousel__quote-text">&ldquo;They installed our sanctuary system and taught our whole team to use it in one weekend. Kind, patient and incredibly thorough.&rdquo;</blockquote>
+                            <figcaption class="jt-carousel__who">
+                                <span class="jt-carousel__name">Grace Osei</span>
+                                <span class="jt-carousel__title">Worship Director, Toronto</span>
+                            </figcaption>
+                        </figure>
+                    </div>
+
+                    <div class="jt-carousel__slide" data-jt-slide>
+                        <figure class="jt-carousel__card">
+                            <img class="jt-carousel__avatar" src="https://randomuser.me/api/portraits/men/91.jpg" alt="Michael Brown" loading="lazy" />
+                            <i class="fa-solid fa-quote-right jt-carousel__quote" aria-hidden="true"></i>
+                            <blockquote class="jt-carousel__quote-text">&ldquo;From design to installation to the final soundcheck, everything was seamless. Our new venue opened on time and sounded outstanding.&rdquo;</blockquote>
+                            <figcaption class="jt-carousel__who">
+                                <span class="jt-carousel__name">Michael Brown</span>
+                                <span class="jt-carousel__title">Venue Owner, Halifax</span>
+                            </figcaption>
+                        </figure>
+                    </div>
+                </div>
+
+                <button type="button" class="jt-carousel__arrow jt-carousel__prev" data-jt-prev aria-label="{{ 'Previous testimonial'|tr }}">
+                    <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>
+                </button>
+                <button type="button" class="jt-carousel__arrow jt-carousel__next" data-jt-next aria-label="{{ 'Next testimonial'|tr }}">
+                    <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+                </button>
+
+                <div class="jt-carousel__dots" data-jt-dots></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+         HOW WE WORK — four steps, the JustTech way
+         ============================================================ -->
+    <section class="py-16 md:py-24 border-t border-neutral-200 dark:border-white/5" aria-label="{{ 'How we work'|tr }}">
+        <div class="container mx-auto px-6 lg:px-8">
+            <div class="max-w-2xl mb-12 lg:mb-16">
+                <p class="eyebrow mb-6">{{ 'How we work'|tr }}</p>
+                <h2 class="text-3xl md:text-4xl font-semibold text-neutral-900 dark:text-white">
+                    {{ 'From first call to first show — the JustTech way.'|tr }}
+                </h2>
+            </div>
+
+            <div class="jt-steps grid md:grid-cols-2 lg:grid-cols-4 gap-5" data-reveal>
+                <div class="jt-step rounded-2xl border border-neutral-200 bg-white p-7 dark:border-white/10 dark:bg-white/[0.02]">
+                    <span class="jt-step__num">01</span>
+                    <h3 class="text-xl font-semibold text-neutral-900 dark:text-white mb-2">{{ 'Consult'|tr }}</h3>
+                    <p class="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
+                        {{ 'We talk about your space, your budget and the sound you actually want.'|tr }}
+                    </p>
+                </div>
+
+                <div class="jt-step rounded-2xl border border-neutral-200 bg-white p-7 dark:border-white/10 dark:bg-white/[0.02]">
+                    <span class="jt-step__num">02</span>
+                    <h3 class="text-xl font-semibold text-neutral-900 dark:text-white mb-2">{{ 'Design'|tr }}</h3>
+                    <p class="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
+                        {{ 'We plan the system and show you exactly what goes where — before we build.'|tr }}
+                    </p>
+                </div>
+
+                <div class="jt-step rounded-2xl border border-neutral-200 bg-white p-7 dark:border-white/10 dark:bg-white/[0.02]">
+                    <span class="jt-step__num">03</span>
+                    <h3 class="text-xl font-semibold text-neutral-900 dark:text-white mb-2">{{ 'Build'|tr }}</h3>
+                    <p class="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
+                        {{ 'Real gear, clean installation, tested and tuned before you go live.'|tr }}
+                    </p>
+                </div>
+
+                <div class="jt-step rounded-2xl border border-neutral-200 bg-white p-7 dark:border-white/10 dark:bg-white/[0.02]">
+                    <span class="jt-step__num">04</span>
+                    <h3 class="text-xl font-semibold text-neutral-900 dark:text-white mb-2">{{ 'Train & Support'|tr }}</h3>
+                    <p class="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
+                        {{ 'We teach your team to run it and stay on call when you need us.'|tr }}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+         FAQ (database-driven)
+         ============================================================ -->
+    {% if home_faqs %}
+    <section class="py-16 md:py-24 border-t border-neutral-200 dark:border-white/5" aria-label="Frequently asked questions">
+        <div class="container mx-auto px-6 lg:px-8">
+            <div class="max-w-2xl mb-12 lg:mb-16">
+                <p class="eyebrow mb-6">FAQ</p>
+                <h2 class="text-3xl md:text-4xl font-semibold text-neutral-900 dark:text-white">{{ 'Questions, answered'|tr }}</h2>
+            </div>
+
+            <div class="max-w-3xl space-y-3">
+                {% for faq in home_faqs %}
+                <div class="faq-item faq-hover rounded-2xl border border-neutral-200 bg-white dark:border-white/10 dark:bg-white/[0.02]">
+                    <button type="button" class="faq-question w-full flex items-center justify-between gap-4 p-6 text-left" aria-expanded="false" aria-controls="faq-answer-{{ forloop.counter }}">
+                        <span class="font-medium text-neutral-900 dark:text-white">{{ faq.question }}</span>
+                        <i class="fa-solid fa-plus text-sm text-primary shrink-0" aria-hidden="true"></i>
+                    </button>
+                    <div class="faq-answer hidden px-6 pb-6" id="faq-answer-{{ forloop.counter }}">
+                        <p class="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">{{ faq.answer }}</p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+    {% endif %}
+
+    <!-- ============================================================
+         FINAL CTA
+         ============================================================ -->
+    <section class="py-16 md:py-24 border-t border-neutral-200 dark:border-white/5" aria-label="Get started">
+        <div class="container mx-auto px-6 lg:px-8">
+            <div class="relative overflow-hidden rounded-3xl bg-neutral-950 px-6 py-16 md:px-16 md:py-24 text-center dark:bg-neutral-900">
+                <div class="absolute -top-24 left-1/2 -translate-x-1/2 w-96 h-96 rounded-full bg-primary/15 blur-3xl pointer-events-none" aria-hidden="true"></div>
+                <div class="jt-bubbles" data-jt-bubbles aria-hidden="true"></div>
+                <div class="relative z-10 max-w-2xl mx-auto">
+                    <h2 class="text-3xl md:text-4xl font-semibold text-white mb-6">{{ 'Have a project in mind?'|tr }}</h2>
+                    <p class="text-neutral-400 leading-relaxed mb-10 text-base md:text-lg">
+                        {{ 'Tell us what you’re building, planning or trying to learn — we’ll take it from there.'|tr }}
+                    </p>
+                    <div class="flex flex-wrap justify-center gap-4">
+                        <a href="{% url 'booking' %}" class="btn-primary text-sm px-8 py-3.5">
+                            {{ 'Book Now'|tr }}
+                        </a>
+                        <a href="{% url 'contact' %}" class="inline-flex items-center justify-center border border-white/20 text-white text-sm font-semibold px-8 py-3.5 rounded-full transition hover:border-white/50 hover:bg-white/5">
+                            {{ 'Contact Us'|tr }}
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="jt-progress" data-jt-progress aria-hidden="true"></div>
+    <button type="button" class="jt-totop" data-jt-totop aria-label="{{ 'Back to top'|tr }}">
+        <i class="fa-solid fa-arrow-up" aria-hidden="true"></i>
+    </button>
+
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+(function () {
+    'use strict';
+    var REDUCE = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    /* ============================================================
+       TESTIMONIAL CAROUSEL — centered coverflow, autoplay, arrows
+       ============================================================ */
+    var carousel = document.querySelector('[data-jt-carousel]');
+    if (carousel) {
+        var stage = carousel.querySelector('[data-jt-stage]');
+        var slides = Array.prototype.slice.call(carousel.querySelectorAll('[data-jt-slide]'));
+        var dotsHost = carousel.querySelector('[data-jt-dots]');
+        if (stage && slides.length) {
+            var count = slides.length;
+            var index = 0;
+            var autoplay = null;
+            var INTERVAL = 4500;
+
+            var dots = [];
+            for (var i = 0; i < count; i++) {
+                var dot = document.createElement('button');
+                dot.type = 'button';
+                dot.className = 'jt-carousel__dot';
+                dot.setAttribute('aria-label', 'Slide ' + (i + 1));
+                dot.addEventListener('click', (function (n) {
+                    return function (e) {
+                        if (e && e.stopPropagation) e.stopPropagation();
+                        window.clearInterval(autoplay);
+                        go(n);
+                        autoplay = startAutoplay();
+                    };
+                })(i));
+                dotsHost.appendChild(dot);
+                dots.push(dot);
+            }
+
+            function render() {
+                slides.forEach(function (slide, i) {
+                    var diff = i - index;
+                    if (diff < 0) diff += count;
+                    if (diff > count / 2) diff -= count;
+                    slide.classList.remove('jt-carousel__slide--active', 'jt-carousel__slide--left', 'jt-carousel__slide--right');
+                    slide.setAttribute('aria-hidden', 'true');
+                    if (diff === 0) {
+                        slide.classList.add('jt-carousel__slide--active');
+                        slide.removeAttribute('aria-hidden');
+                    } else if (diff === -1 || diff === count - 1) {
+                        slide.classList.add('jt-carousel__slide--left');
+                    } else if (diff === 1) {
+                        slide.classList.add('jt-carousel__slide--right');
+                    }
+                });
+                dots.forEach(function (dot, d) {
+                    dot.classList.toggle('is-active', d === index);
+                });
+            }
+
+            function go(n) {
+                index = (n + count) % count;
+                render();
+            }
+            function next() {
+                window.clearInterval(autoplay);
+                go(index + 1);
+                autoplay = startAutoplay();
+            }
+            function prev() {
+                window.clearInterval(autoplay);
+                go(index - 1);
+                autoplay = startAutoplay();
+            }
+            function startAutoplay() {
+                if (REDUCE) return null;
+                return window.setInterval(function () { go(index + 1); }, INTERVAL);
+            }
+
+            var prevBtn = carousel.querySelector('[data-jt-prev]');
+            var nextBtn = carousel.querySelector('[data-jt-next]');
+            if (prevBtn) prevBtn.addEventListener('click', prev);
+            if (nextBtn) nextBtn.addEventListener('click', next);
+
+            // Pause on hover (desktop)
+            carousel.addEventListener('mouseenter', function () { window.clearInterval(autoplay); });
+            carousel.addEventListener('mouseleave', function () { if (!REDUCE) autoplay = startAutoplay(); });
+
+            // Keyboard arrows when carousel focused
+            carousel.setAttribute('tabindex', '0');
+            carousel.addEventListener('keydown', function (e) {
+                if (e.key === 'ArrowRight') { e.preventDefault(); next(); }
+                if (e.key === 'ArrowLeft') { e.preventDefault(); prev(); }
+            });
+
+            // Click a side card to jump to it
+            slides.forEach(function (slide, i) {
+                slide.addEventListener('click', function (e) {
+                    if (i === index) return;
+                    window.clearInterval(autoplay);
+                    go(i);
+                    autoplay = startAutoplay();
+                });
+            });
+
+            render();
+            if (!REDUCE) autoplay = startAutoplay();
+        }
+    }
+
+    /* ============================================================
+       RED BUBBLES — CTA "have a project in mind"
+       ============================================================ */
+    var bubblesHost = document.querySelector('[data-jt-bubbles]');
+    if (bubblesHost) {
+        if (REDUCE) {
+            bubblesHost.style.display = 'none';
+        } else {
+            var BW = bubblesHost.clientWidth || 1200;
+            var BH = bubblesHost.clientHeight || 500;
+            var COUNT = 16;
+            var frag = document.createDocumentFragment();
+            for (var b = 0; b < COUNT; b++) {
+                var bubble = document.createElement('span');
+                bubble.className = 'jt-bubble';
+                var size = 10 + Math.random() * 32;
+                bubble.style.width = size + 'px';
+                bubble.style.height = size + 'px';
+                bubble.style.left = (Math.random() * 100) + '%';
+                bubble.style.setProperty('--rise', (BH * (0.45 + Math.random() * 0.5)).toFixed(0) + 'px');
+                bubble.style.setProperty('--drift', (((Math.random() * 2) - 1) * BW * 0.16).toFixed(0) + 'px');
+                bubble.style.setProperty('--dur', (Math.random() * 6 + 7).toFixed(1) + 's');
+                bubble.style.setProperty('--delay', (Math.random() * 7).toFixed(1) + 's');
+                frag.appendChild(bubble);
+            }
+            bubblesHost.appendChild(frag);
+        }
+    }
+
+    /* ============================================================
+       SCROLL REVEAL — staggered fade-up for key blocks
+       ============================================================ */
+    function initReveal() {
+        var targets = document.querySelectorAll('[data-reveal]');
+        if (!targets.length) return;
+        if (REDUCE || !('IntersectionObserver' in window)) {
+            targets.forEach(function (el) { el.classList.add('is-in'); });
+            return;
+        }
+        var io = new IntersectionObserver(function (entries) {
+            entries.forEach(function (entry) {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-in');
+                    io.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.15, rootMargin: '0px 0px -6% 0px' });
+        targets.forEach(function (el) { io.observe(el); });
+    }
+    initReveal();
+    document.addEventListener('htmx:afterSwap', initReveal);
+
+    /* ============================================================
+       SCROLL PROGRESS + BACK TO TOP
+       ============================================================ */
+    var progressBar = document.querySelector('[data-jt-progress]');
+    var toTop = document.querySelector('[data-jt-totop]');
+
+    function onScroll() {
+        var doc = document.documentElement;
+        var max = doc.scrollHeight - doc.clientHeight;
+        var p = max > 0 ? (window.scrollY || doc.scrollTop) / max : 0;
+        if (progressBar) progressBar.style.setProperty('--p', p.toFixed(4));
+        if (toTop) toTop.classList.toggle('is-show', (window.scrollY || doc.scrollTop) > 600);
+    }
+    if (progressBar || toTop) {
+        window.addEventListener('scroll', onScroll, { passive: true });
+        if (toTop) {
+            toTop.addEventListener('click', function () {
+                window.scrollTo({ top: 0, behavior: REDUCE ? 'auto' : 'smooth' });
+            });
+        }
+        onScroll();
+    }
+})();
+</script>
 {% endblock %}

@@ -2,6 +2,7 @@ from django.contrib import admin
 
 from .models import (
     Booking,
+    ContactMessage,
     EquipmentItem,
     FAQ,
     LearningOffering,
@@ -11,6 +12,7 @@ from .models import (
     SiteSettings,
     TeamMember,
     Testimonial,
+    UserProfile,
     Workshop,
     WorkshopRegistration,
 )
@@ -87,4 +89,19 @@ class BookingAdmin(admin.ModelAdmin):
     list_display = ('name', 'service', 'preferred_date', 'preferred_time', 'status', 'created_at')
     list_filter = ('status', 'service', 'preferred_date')
     search_fields = ('name', 'email', 'phone')
+    date_hierarchy = 'created_at'
+
+
+@admin.register(UserProfile)
+class UserProfileAdmin(admin.ModelAdmin):
+    list_display = ('user', 'intent', 'created_at')
+    list_filter = ('intent',)
+    search_fields = ('user__username', 'user__email')
+    date_hierarchy = 'created_at'
+
+
+@admin.register(ContactMessage)
+class ContactMessageAdmin(admin.ModelAdmin):
+    list_display = ('name', 'email', 'subject', 'created_at')
+    search_fields = ('name', 'email', 'subject', 'message')
     date_hierarchy = 'created_at'

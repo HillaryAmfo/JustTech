@@ -1,0 +1,194 @@
+{% extends 'main_app/base.html' %}
+{% load i18n_tags %}
+
+{% block title %}{{ 'Tell us what you need'|tr }} | {{ site_settings.company_name|default:'Just Tech' }}{% endblock %}
+
+{% block robots %}index, follow{% endblock %}
+
+{% block meta_description %}{{ 'Send JustTech a message — sessions, installs, builds or anything that does not fit a box.'|tr }}{% endblock %}
+
+{% block content %}
+<div id="what-you-need-page" data-accent="message">
+
+    <!-- ============================================================
+         HERO — sky accent
+         ============================================================ -->
+    <section class="relative overflow-hidden pt-28 md:pt-36 pb-14 md:pb-18" aria-label="Introduction">
+        <div class="absolute inset-0 pointer-events-none" aria-hidden="true">
+            <div class="absolute inset-0 bg-[radial-gradient(ellipse_90%_60%_at_50%_-20%,rgba(14,165,233,0.08),transparent)]"></div>
+            <div class="absolute -right-40 top-10 w-[420px] h-[420px] rounded-full bg-[#0ea5e9]/10 blur-3xl"></div>
+        </div>
+
+        <div class="container mx-auto px-6 lg:px-8">
+            <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center max-w-6xl">
+                <div>
+                    <p class="eyebrow mb-6" style="color: var(--accent)">{{ 'SEND A MESSAGE'|tr }}</p>
+                    <h1 class="text-4xl sm:text-5xl font-semibold text-neutral-900 dark:text-white leading-[1.08] mb-6">
+                        {{ 'Tell us what you need.'|tr }}
+                    </h1>
+                    <p class="text-lg text-neutral-600 dark:text-neutral-400 leading-relaxed mb-10 max-w-xl">
+                        {{ 'Sessions, installs, builds or a message that does not fit a box — send it and we will take it from there.'|tr }}
+                    </p>
+
+                    <div class="flex flex-wrap gap-3" id="jt-need-topic">
+                        <button type="button" class="jt-acc-chip is-active" aria-pressed="true" data-topic="{{ 'Studio session'|tr }}"><i class="fas fa-headphones" aria-hidden="true"></i>{{ 'Studio session'|tr }}</button>
+                        <button type="button" class="jt-acc-chip" aria-pressed="false" data-topic="{{ 'Sound setup'|tr }}"><i class="fas fa-volume-high" aria-hidden="true"></i>{{ 'Sound setup'|tr }}</button>
+                        <button type="button" class="jt-acc-chip" aria-pressed="false" data-topic="{{ 'Custom build'|tr }}"><i class="fas fa-microchip" aria-hidden="true"></i>{{ 'Custom build'|tr }}</button>
+                        <button type="button" class="jt-acc-chip" aria-pressed="false" data-topic="{{ 'Live event'|tr }}"><i class="fas fa-calendar-day" aria-hidden="true"></i>{{ 'Live event'|tr }}</button>
+                        <button type="button" class="jt-acc-chip" aria-pressed="false" data-topic="{{ 'Something else'|tr }}"><i class="fas fa-ellipsis-h" aria-hidden="true"></i>{{ 'Something else'|tr }}</button>
+                    </div>
+                </div>
+
+                <div class="relative flex justify-center" data-reveal>
+                    <div class="jt-acc-card w-full max-w-sm p-8" data-reveal data-reveal-delay="100">
+                        <span class="jt-acc-line" aria-hidden="true"></span>
+                        <div class="flex items-center justify-between mb-6">
+                            <span class="jt-acc-icon jt-acc-icon-lg" aria-hidden="true"><i class="fas fa-paper-plane"></i></span>
+                            <span class="jt-acc-dot" aria-hidden="true"></span>
+                        </div>
+                        <h2 class="text-xl font-semibold text-neutral-900 dark:text-white mb-2">{{ 'We read everything.'|tr }}</h2>
+                        <p class="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
+                            {{ 'Tell us about the track, the session or the room — not the technical solution. We will read it properly and suggest a practical next step.'|tr }}
+                        </p>
+                        <div class="mt-6 pt-5 border-t border-neutral-200 dark:border-white/5">
+                            <span class="inline-flex items-center gap-2 jt-acc-text text-sm font-semibold">
+                                <i class="fas fa-arrow-right" aria-hidden="true"></i>{{ site_settings.primary_email|default:'info@justtech.com' }}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+         MESSAGE FORM — sky accent ContactForm
+         ============================================================ -->
+    <section class="py-16 md:py-20 border-t border-neutral-200 dark:border-white/5" aria-label="{{ 'Send a message'|tr }}">
+        <div class="container mx-auto px-6 lg:px-8">
+            <div class="max-w-3xl mx-auto">
+                <div class="rounded-3xl border border-neutral-200 bg-white p-8 md:p-12 dark:border-white/10 dark:bg-white/[0.02]">
+                    <div class="mb-8">
+                        <p class="eyebrow mb-4" style="color: var(--accent)">{{ 'SEND A MESSAGE'|tr }}</p>
+                        <h2 class="text-2xl md:text-3xl font-semibold text-neutral-900 dark:text-white">{{ 'Your message'|tr }}</h2>
+                        <p class="mt-2 text-sm text-neutral-500 dark:text-neutral-400">{{ 'Lets pick up a conversation. Our inbox, your words.'|tr }}</p>
+                    </div>
+
+                    {% if submitted %}
+                    <div class="mb-8 p-4 rounded-xl border border-green-500/40 bg-green-500/5" role="status">
+                        <p class="text-green-600 dark:text-green-400 text-sm">{{ 'Your message has been received.'|tr }}</p>
+                    </div>
+                    {% endif %}
+
+                    {% if form.non_field_errors %}
+                    <div class="mb-8 p-4 rounded-xl border border-[#0ea5e9]/40 bg-[#0ea5e9]/5" role="alert">
+                        {% for error in form.non_field_errors %}
+                        <p class="text-[#0284c7] text-sm">{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+
+                    <form method="POST" action="{% url 'what_you_need' %}" novalidate>
+                        {% csrf_token %}
+                        <div class="grid md:grid-cols-2 gap-x-4">
+                            <div class="mb-6">
+                                <label for="{{ form.name.id_for_label }}" class="form-label form-required">{{ 'Your name'|tr }}<span class="sr-only"> (required)</span></label>
+                                {{ form.name }}
+                                {% if form.name.errors %}<p class="form-error">{{ form.name.errors.0 }}</p>{% endif %}
+                            </div>
+                            <div class="mb-6">
+                                <label for="{{ form.email.id_for_label }}" class="form-label form-required">{{ 'Email address'|tr }}<span class="sr-only"> (required)</span></label>
+                                {{ form.email }}
+                                {% if form.email.errors %}<p class="form-error">{{ form.email.errors.0 }}</p>{% endif %}
+                            </div>
+                        </div>
+
+                        <div class="mb-6">
+                            <label for="{{ form.subject.id_for_label }}" class="form-label form-required">{{ 'Subject'|tr }}<span class="sr-only"> (required)</span></label>
+                            {{ form.subject }}
+                            {% if form.subject.errors %}<p class="form-error">{{ form.subject.errors.0 }}</p>{% endif %}
+                        </div>
+
+                        <div class="mb-8">
+                            <label for="{{ form.message.id_for_label }}" class="form-label form-required">{{ 'Message'|tr }}<span class="sr-only"> (required)</span></label>
+                            {{ form.message }}
+                            <p id="{{ form.message.id_for_label }}-help" class="mt-1 text-xs text-neutral-500 dark:text-neutral-500">{{ 'Tell us about your project or question.'|tr }}</p>
+                            {% if form.message.errors %}<p class="form-error">{{ form.message.errors.0 }}</p>{% endif %}
+                        </div>
+
+                        <button type="submit" class="jt-acc-btn w-full text-sm px-8 py-3.5">
+                            <i class="fas fa-paper-plane" aria-hidden="true"></i>
+                            {{ 'Send message'|tr }}
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+         WHAT HAPPENS NEXT — sky accent
+         ============================================================ -->
+    <section class="py-16 md:py-24 border-t border-neutral-200 dark:border-white/5" aria-label="{{ 'What happens next?'|tr }}"> 
+        <div class="container mx-auto px-6 lg:px-8">
+            <div class="max-w-2xl text-center mx-auto mb-16">
+                <p class="eyebrow justify-center mb-6" style="color: var(--accent)">{{ 'NEXT STEPS'|tr }}</p>
+                <h2 class="text-3xl md:text-4xl font-semibold text-neutral-900 dark:text-white">{{ 'What happens next?'|tr }}</h2>
+            </div>
+
+            <div class="grid sm:grid-cols-3 gap-6 max-w-5xl mx-auto">
+                <div class="jt-acc-card p-7" data-reveal>
+                    <span class="jt-acc-line" aria-hidden="true"></span>
+                    <div class="flex items-center justify-between mb-6">
+                        <span class="jt-acc-icon" aria-hidden="true"><i class="fas fa-envelope-open-text"></i></span>
+                        <span class="text-sm font-bold jt-acc-text" aria-hidden="true">01</span>
+                    </div>
+                    <h3 class="font-semibold text-neutral-900 dark:text-white mb-2">{{ 'We read it'|tr }}</h3>
+                    <p class="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">{{ 'A real person reads every message — usually the same day.'|tr }}</p>
+                </div>
+                <div class="jt-acc-card p-7" data-reveal data-reveal-delay="80">
+                    <span class="jt-acc-line" aria-hidden="true"></span>
+                    <div class="flex items-center justify-between mb-6">
+                        <span class="jt-acc-icon" aria-hidden="true"><i class="fas fa-comments"></i></span>
+                        <span class="text-sm font-bold jt-acc-text" aria-hidden="true">02</span>
+                    </div>
+                    <h3 class="font-semibold text-neutral-900 dark:text-white mb-2">{{ 'We reply'|tr }}</h3>
+                    <p class="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">{{ 'A clear answer or a request for the last details — no jargon.'|tr }}</p>
+                </div>
+                <div class="jt-acc-card p-7" data-reveal data-reveal-delay="160">
+                    <span class="jt-acc-line" aria-hidden="true"></span>
+                    <div class="flex items-center justify-between mb-6">
+                        <span class="jt-acc-icon" aria-hidden="true"><i class="fas fa-rocket"></i></span>
+                        <span class="text-sm font-bold jt-acc-text" aria-hidden="true">03</span>
+                    </div>
+                    <h3 class="font-semibold text-neutral-900 dark:text-white mb-2">{{ 'We get moving'|tr }}</h3>
+                    <p class="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">{{ 'Booked, built, installed — whatever the next step is, you get it.'|tr }}</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    (function () {
+        var chips = document.querySelectorAll('#jt-need-topic .jt-acc-chip');
+        var subject = document.getElementById('{{ form.subject.id_for_label }}');
+        if (!chips.length || !subject) return;
+        chips.forEach(function (chip) {
+            chip.addEventListener('click', function () {
+                chips.forEach(function (c) {
+                    c.classList.remove('is-active');
+                    c.setAttribute('aria-pressed', 'false');
+                });
+                chip.classList.add('is-active');
+                chip.setAttribute('aria-pressed', 'true');
+                subject.value = chip.getAttribute('data-topic') || subject.value;
+                subject.focus({ preventScroll: true });
+            });
+        });
+    })();
+</script>
+{% endblock %}

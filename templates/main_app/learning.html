@@ -1,72 +1,348 @@
 {% extends 'main_app/base.html' %}
+{% load i18n_tags %}
 
 {% block title %}Learning | {{ site_settings.company_name|default:'Just Tech' }}{% endblock %}
 
+{% block meta_description %}Learn organ or piano, guitar and drums at JustTech — pick your sessions, choose one-on-one or group lessons, and start playing.{% endblock %}
+
+{% block og_title %}Learning | {{ site_settings.company_name|default:'Just Tech' }}{% endblock %}
+
+{% block og_description %}Instrument lessons the way they should work — choose your instrument, schedule and class size.{% endblock %}
+
 {% block content %}
-<section class="relative py-20 bg-dark-bg min-h-[40vh] flex items-center">
-    <div class="absolute inset-0 z-0">
-        <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" alt="Learning Hero" class="w-full h-full object-cover opacity-30">
-        <div class="absolute inset-0 bg-gradient-to-r from-dark-bg to-transparent"></div>
-    </div>
-    <div class="container mx-auto px-4 relative z-10">
-        <h1 class="text-5xl md:text-6xl font-bold mb-6">Learn with {{ site_settings.company_name|default:'Just Tech' }}</h1>
-        <p class="text-xl text-gray-300 max-w-3xl">Master audio production, visual setups, or learn an instrument with our expert instructors.</p>
-    </div>
-</section>
+<div id="learning-page">
 
-<section class="py-20 bg-gray-900">
-    <div class="container mx-auto px-4">
-        <h2 class="text-4xl font-bold mb-2 section-title">Our Courses</h2>
-        <p class="text-gray-400 mb-8 max-w-3xl">Master the art of audio production, visual setups, or learn an instrument with our expert instructors.</p>
-
-        <!-- Category Filters -->
-        <div class="flex flex-wrap gap-3 mb-10" id="filter-bar">
-            <button class="px-5 py-2 rounded-full border border-red-500 text-red-500 font-medium text-sm transition hover:bg-red-500 hover:text-white active-filter"
-                    hx-get="{% url 'filter_offerings' 'all' %}"
-                    hx-target="#offerings-grid"
-                    hx-swap="innerHTML"
-                    hx-trigger="click"
-                    hx-indicator="#filter-loading"
-                    data-category="all">All</button>
-            {% for value, label in categories %}
-            <button class="px-5 py-2 rounded-full border border-gray-600 text-gray-400 font-medium text-sm transition hover:border-red-500 hover:text-red-500"
-                    hx-get="{% url 'filter_offerings' value %}"
-                    hx-target="#offerings-grid"
-                    hx-swap="innerHTML"
-                    hx-trigger="click"
-                    hx-indicator="#filter-loading"
-                    data-category="{{ value }}">{{ label }}</button>
-            {% endfor %}
-            <span id="filter-loading" class="htmx-indicator text-red-500 self-center"><i class="fas fa-spinner fa-spin"></i></span>
+    <!-- ============================================================
+         HERO
+         ============================================================ -->
+    <section class="relative overflow-hidden pt-28 md:pt-36 pb-20 md:pb-28" aria-label="{{ 'Learning'|tr }}">
+        <div class="absolute inset-0 pointer-events-none" aria-hidden="true">
+            <div class="absolute inset-0 bg-[radial-gradient(ellipse_90%_60%_at_50%_-20%,rgba(255,0,60,0.07),transparent)]"></div>
+            <div class="jt-orb jt-orb-a"></div>
+            <div class="jt-orb jt-orb-b"></div>
+            <div class="jt-grid-overlay"></div>
         </div>
 
-        <!-- Offerings Grid -->
-        <div id="offerings-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
-            {% include 'main_app/components/offering_cards.html' %}
+        <div class="container mx-auto px-6 lg:px-8 relative">
+            <div class="grid lg:grid-cols-12 gap-14 lg:gap-8 items-end">
+                <div class="lg:col-span-7">
+                    <p class="eyebrow mb-8">{{ 'Learning'|tr }}</p>
+                    <h1 class="text-4xl sm:text-5xl xl:text-6xl font-semibold text-neutral-900 dark:text-white leading-[1.08] mb-8">
+                        {{ 'Learn an instrument'|tr }} <span class="text-primary">{{ 'your way.'|tr }}</span>
+                    </h1>
+                    <p class="text-lg text-neutral-600 dark:text-neutral-400 leading-relaxed mb-10 max-w-2xl">
+                        {{ 'Organ, piano, guitar or drums — pick what you want to play, choose how many sessions you will take, and decide: private or in a group.'|tr }}
+                    </p>
+                    <div class="flex flex-wrap items-center gap-4">
+                        <a href="#instruments" class="btn-primary text-sm px-7 py-3">
+                            <i class="fas fa-guitar" aria-hidden="true"></i>
+                            {{ 'Choose an instrument'|tr }}
+                        </a>
+                        <a href="#plan-builder" class="btn-secondary text-sm px-7 py-3">
+                            <i class="fas fa-sliders" aria-hidden="true"></i>
+                            {{ 'Build your plan'|tr }}
+                        </a>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-5">
+                    <div class="grid grid-cols-3 gap-3 lg:justify-self-end" aria-hidden="true">
+                        <div class="jt-tagpill jt-float" style="animation-delay:0s"><i class="fa-solid fa-music"></i></div>
+                        <div class="jt-tagpill jt-float" style="animation-delay:.45s"><i class="fa-solid fa-guitar"></i></div>
+                        <div class="jt-tagpill jt-float" style="animation-delay:.9s"><i class="fa-solid fa-drum"></i></div>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <!-- Workshops -->
-        <div class="bg-gray-800 rounded-lg p-8 mb-16" id="workshops-section">
-            <h3 class="text-2xl font-bold mb-6">Upcoming Workshops</h3>
+        <svg class="jt-hero-wave w-full h-10 md:h-14 text-neutral-100 dark:text-neutral-900 absolute bottom-0 left-0 pointer-events-none" viewBox="0 0 1440 56" preserveAspectRatio="none" fill="currentColor" aria-hidden="true">
+            <path d="M0 32 C 240 56 480 8 720 24 C 960 40 1200 12 1440 28 L 1440 56 L 0 56 Z"></path>
+        </svg>
+    </section>
+
+    <!-- ============================================================
+         INSTRUMENTS — pick what you want to play
+         ============================================================ -->
+    <section id="instruments" class="py-16 md:py-24 border-t border-neutral-200 dark:border-white/5 scroll-mt-28" aria-label="{{ 'Choose an instrument'|tr }}">
+        <div class="container mx-auto px-6 lg:px-8">
+            <div class="max-w-xl mb-12 lg:mb-16">
+                <p class="eyebrow mb-6">{{ 'Lessons'|tr }}</p>
+                <h2 class="text-3xl md:text-4xl font-semibold text-neutral-900 dark:text-white mb-6">{{ 'Pick your instrument.'|tr }}</h2>
+                <p class="text-neutral-600 dark:text-neutral-400 leading-relaxed">
+                    {{ 'Choose one to start your plan. From your very first session you play real music — instruments and gear provided.'|tr }}
+                </p>
+            </div>
+
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5" id="instrument-picker" role="group" aria-label="{{ 'Instruments'|tr }}">
+                <button type="button"
+                        class="jt-ins-card group text-left rounded-3xl border border-neutral-200 bg-white p-8 dark:border-white/10 dark:bg-white/[0.02]"
+                        data-instrument="keys"
+                        data-label-en="Organ &amp; Piano"
+                        data-label-fr="Orgue &amp; Piano"
+                        aria-pressed="false">
+                    <span class="jt-ins-icon mb-6" aria-hidden="true"><i class="fa-solid fa-music"></i></span>
+                    <span class="block text-xl font-semibold text-neutral-900 dark:text-white mb-2">
+                        <span class="lt-en">Organ &amp; Piano</span><span class="lt-fr hidden">Orgue &amp; Piano</span>
+                    </span>
+                    <span class="block text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed mb-6">
+                        <span class="lt-en">Keys, worship organ &amp; piano — chords, reading and playing with both hands.</span>
+                        <span class="lt-fr hidden">Claviers, orgue d&rsquo;église &amp; piano — accords, lecture et jeu à deux mains.</span>
+                    </span>
+                    <span class="cil-text cil-text-primary">{{ 'Choose this'|tr }} &rarr;</span>
+                </button>
+
+                <button type="button"
+                        class="jt-ins-card group text-left rounded-3xl border border-neutral-200 bg-white p-8 dark:border-white/10 dark:bg-white/[0.02]"
+                        data-instrument="guitar"
+                        data-label-en="Guitar"
+                        data-label-fr="Guitare"
+                        aria-pressed="false">
+                    <span class="jt-ins-icon mb-6" aria-hidden="true"><i class="fa-solid fa-guitar"></i></span>
+                    <span class="block text-xl font-semibold text-neutral-900 dark:text-white mb-2">
+                        <span class="lt-en">Guitar</span><span class="lt-fr hidden">Guitare</span>
+                    </span>
+                    <span class="block text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed mb-6">
+                        <span class="lt-en">Acoustic or electric — open chords, strumming, leads and playing along to songs.</span>
+                        <span class="lt-fr hidden">Acoustique ou électrique — accords ouverts, rythmes, leads et jeu sur vos chansons.</span>
+                    </span>
+                    <span class="cil-text cil-text-primary">{{ 'Choose this'|tr }} &rarr;</span>
+                </button>
+
+                <button type="button"
+                        class="jt-ins-card group text-left rounded-3xl border border-neutral-200 bg-white p-8 dark:border-white/10 dark:bg-white/[0.02] sm:col-span-2 lg:col-span-1"
+                        data-instrument="drums"
+                        data-label-en="Drums"
+                        data-label-fr="Batterie"
+                        aria-pressed="false">
+                    <span class="jt-ins-icon mb-6" aria-hidden="true"><i class="fa-solid fa-drum"></i></span>
+                    <span class="block text-xl font-semibold text-neutral-900 dark:text-white mb-2">
+                        <span class="lt-en">Drums</span><span class="lt-fr hidden">Batterie</span>
+                    </span>
+                    <span class="block text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed mb-6">
+                        <span class="lt-en">Grooves, fills, timing and dynamics — on our kit, or bring play-along backing tracks.</span>
+                        <span class="lt-fr hidden">Grooves, fills, tempo et dynamique — sur notre batterie, ou avec des pistes d&rsquo;accompagnement.</span>
+                    </span>
+                    <span class="cil-text cil-text-primary">{{ 'Choose this'|tr }} &rarr;</span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+         PLAN BUILDER — instrument, sessions, one-on-one or group
+         ============================================================ -->
+    <section id="plan-builder" class="py-16 md:py-24 border-t border-neutral-200 dark:border-white/5 scroll-mt-28" aria-label="{{ 'Build your plan'|tr }}">
+        <div class="container mx-auto px-6 lg:px-8">
+            <div class="max-w-xl mb-12 lg:mb-16">
+                <p class="eyebrow mb-6">{{ 'Set it up in three steps'|tr }}</p>
+                <h2 class="text-3xl md:text-4xl font-semibold text-neutral-900 dark:text-white mb-6">{{ 'Build your lesson plan.'|tr }}</h2>
+                <p class="text-neutral-600 dark:text-neutral-400 leading-relaxed">
+                    {{ 'Choose the instrument, decide how many sessions you want, and pick a private lesson or a group class. The price updates as you go.'|tr }}
+                </p>
+            </div>
+
+            <div class="grid lg:grid-cols-5 gap-10 lg:gap-14 items-start">
+
+                <!-- Builder -->
+                <div class="lg:col-span-3">
+                    <ol class="jt-progress mb-10 grid grid-cols-3 gap-3" aria-hidden="true">
+                        <li class="jt-progress__step" data-step="1"><span>1</span>{{ 'Instrument'|tr }}</li>
+                        <li class="jt-progress__step" data-step="2"><span>2</span>{{ 'Sessions'|tr }}</li>
+                        <li class="jt-progress__step" data-step="3"><span>3</span>{{ 'Class type'|tr }}</li>
+                    </ol>
+
+                    <!-- Step 1 — instrument -->
+                    <div class="jt-step mb-10">
+                        <h3 class="text-lg font-semibold text-neutral-900 dark:text-white mb-5">
+                            <span class="text-primary font-mono mr-3">01</span>{{ 'Which instrument?'|tr }}
+                        </h3>
+                        <div class="grid sm:grid-cols-3 gap-3" data-group="instrument" role="radiogroup" aria-label="{{ 'Instruments'|tr }}">
+                            <button type="button" class="jt-option" role="radio" aria-checked="false" data-instrument-opt="keys">
+                                <i class="fa-solid fa-music" aria-hidden="true"></i>
+                                <span class="lt-en">Organ &amp; Piano</span><span class="lt-fr hidden">Orgue &amp; Piano</span>
+                            </button>
+                            <button type="button" class="jt-option" role="radio" aria-checked="false" data-instrument-opt="guitar">
+                                <i class="fa-solid fa-guitar" aria-hidden="true"></i>
+                                <span class="lt-en">Guitar</span><span class="lt-fr hidden">Guitare</span>
+                            </button>
+                            <button type="button" class="jt-option" role="radio" aria-checked="false" data-instrument-opt="drums">
+                                <i class="fa-solid fa-drum" aria-hidden="true"></i>
+                                <span class="lt-en">Drums</span><span class="lt-fr hidden">Batterie</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Step 2 — sessions -->
+                    <div class="jt-step mb-10">
+                        <h3 class="text-lg font-semibold text-neutral-900 dark:text-white mb-5">
+                            <span class="text-primary font-mono mr-3">02</span>{{ 'How many sessions?'|tr }}
+                            <span class="block text-sm font-normal text-neutral-500 dark:text-neutral-400 mt-1">{{ 'Sessions are once a week — pick a plan that fits your pace.'|tr }}</span>
+                        </h3>
+                        <div class="grid sm:grid-cols-3 gap-3" data-group="duration" role="radiogroup" aria-label="{{ 'Sessions'|tr }}">
+                            <button type="button" class="jt-option jt-option--plain" role="radio" aria-checked="false" data-duration="8">
+                                <span class="jt-option__num">8</span>
+                                <span class="lt-en">sessions · 2 months</span><span class="lt-fr hidden">séances · 2 mois</span>
+                            </button>
+                            <button type="button" class="jt-option jt-option--plain jt-option--hot" role="radio" aria-checked="false" data-duration="12">
+                                <span class="jt-option__num">12</span>
+                                <span class="lt-en">sessions · 3 months</span><span class="lt-fr hidden">séances · 3 mois</span>
+                            </button>
+                            <button type="button" class="jt-option jt-option--plain" role="radio" aria-checked="false" data-duration="24">
+                                <span class="jt-option__num">24</span>
+                                <span class="lt-en">sessions · 6 months</span><span class="lt-fr hidden">séances · 6 mois</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Step 3 — format -->
+                    <div class="jt-step mb-4">
+                        <h3 class="text-lg font-semibold text-neutral-900 dark:text-white mb-5">
+                            <span class="text-primary font-mono mr-3">03</span>{{ 'One-on-one or group?'|tr }}
+                        </h3>
+                        <div class="grid sm:grid-cols-2 gap-3" data-group="format" role="radiogroup" aria-label="{{ 'Class type'|tr }}">
+                            <button type="button" class="jt-option jt-option--format" role="radio" aria-checked="false" data-format="solo" data-rate="75">
+                                <span class="jt-option__icon" aria-hidden="true"><i class="fa-solid fa-user"></i></span>
+                                <span>
+                                    <span class="block font-semibold"><span class="lt-en">One-on-one</span><span class="lt-fr hidden">Particulier</span></span>
+                                    <span class="block text-xs text-neutral-500 dark:text-neutral-400">$75 <span class="lt-en">/ session</span><span class="lt-fr hidden">/ séance</span></span>
+                                </span>
+                            </button>
+                            <button type="button" class="jt-option jt-option--format" role="radio" aria-checked="false" data-format="group" data-rate="45">
+                                <span class="jt-option__icon" aria-hidden="true"><i class="fa-solid fa-users"></i></span>
+                                <span>
+                                    <span class="block font-semibold"><span class="lt-en">Group class</span><span class="lt-fr hidden">En groupe</span></span>
+                                    <span class="block text-xs text-neutral-500 dark:text-neutral-400">$45 <span class="lt-en">/ session</span><span class="lt-fr hidden">/ séance</span></span>
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Summary -->
+                <div class="lg:col-span-2 lg:sticky lg:top-28">
+                    <div class="jt-summary-card rounded-3xl border border-neutral-200 bg-white p-8 md:p-9 dark:border-white/10 dark:bg-white/[0.02] relative overflow-hidden">
+                        <span class="absolute top-0 left-0 w-full h-1 bg-primary" aria-hidden="true"></span>
+                        <p class="eyebrow mb-6">{{ 'Your plan'|tr }}</p>
+
+                        <dl class="space-y-5 mb-8">
+                            <div class="flex items-start justify-between gap-4">
+                                <dt class="text-sm text-neutral-500 dark:text-neutral-400">{{ 'Instrument'|tr }}</dt>
+                                <dd id="sum-instrument" class="text-sm font-semibold text-right text-neutral-800 dark:text-neutral-200">{{ 'Not selected'|tr }}</dd>
+                            </div>
+                            <div class="flex items-start justify-between gap-4">
+                                <dt class="text-sm text-neutral-500 dark:text-neutral-400">{{ 'Length'|tr }}</dt>
+                                <dd id="sum-sessions" class="text-sm font-semibold text-right text-neutral-800 dark:text-neutral-200">—</dd>
+                            </div>
+                            <div class="flex items-start justify-between gap-4">
+                                <dt class="text-sm text-neutral-500 dark:text-neutral-400">{{ 'Class type'|tr }}</dt>
+                                <dd id="sum-format" class="text-sm font-semibold text-right text-neutral-800 dark:text-neutral-200">{{ 'Not selected'|tr }}</dd>
+                            </div>
+                            <div class="flex items-start justify-between gap-4">
+                                <dt class="text-sm text-neutral-500 dark:text-neutral-400">{{ 'Price per session'|tr }}</dt>
+                                <dd id="sum-rate" class="text-sm font-semibold text-right text-neutral-800 dark:text-neutral-200">—</dd>
+                            </div>
+                        </dl>
+
+                        <div class="rounded-2xl bg-neutral-950 dark:bg-neutral-900 px-6 py-5 mb-8 flex items-end justify-between gap-4">
+                            <span class="text-sm text-neutral-400">{{ 'Estimated total'|tr }}</span>
+                            <span id="sum-total" class="text-3xl font-bold text-white">$0</span>
+                        </div>
+
+                        <button type="button" id="btn-request" disabled class="btn-primary w-full text-sm px-6 py-3.5 mb-3">
+                            <i class="fas fa-paper-plane text-xs" aria-hidden="true"></i>
+                            {{ 'Request this plan'|tr }}
+                        </button>
+                        <a href="{% url 'booking' %}" class="inline-flex items-center justify-center w-full text-sm font-semibold text-primary border border-primary/40 rounded-full px-6 py-3 transition hover:bg-primary/5">
+                            {{ 'Book a lesson'|tr }}
+                        </a>
+
+                        <p id="builder-hint" class="text-xs text-center text-neutral-500 dark:text-neutral-400 mt-4">
+                            {{ 'Select all three steps to see your total.'|tr }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+         COURSES & FILTERS
+         ============================================================ -->
+    <section id="courses" class="py-16 md:py-24 border-t border-neutral-200 dark:border-white/5 scroll-mt-28" aria-label="{{ 'Courses and lessons'|tr }}">
+        <div class="container mx-auto px-6 lg:px-8">
+            <div class="max-w-xl mb-10">
+                <p class="eyebrow mb-6">{{ 'Courses'|tr }}</p>
+                <h2 class="text-3xl md:text-4xl font-semibold text-neutral-900 dark:text-white mb-6">{{ 'Find your next skill'|tr }}</h2>
+                <p class="text-neutral-600 dark:text-neutral-400 leading-relaxed">
+                    {{ 'Filter by topic. The list updates to show what’s available in each area.'|tr }}
+                </p>
+            </div>
+
+            <!-- Category Filters -->
+            <div class="flex flex-wrap items-center gap-3 mb-8" id="filter-bar" role="group" aria-label="{{ 'Filter lessons by category'|tr }}">
+                <button type="button"
+                        class="filter-btn active-filter"
+                        hx-get="{% url 'filter_offerings' 'all' %}"
+                        hx-target="#offerings-wrap"
+                        hx-swap="innerHTML"
+                        hx-trigger="click"
+                        hx-indicator="#filter-loading"
+                        data-category="all"
+                        aria-pressed="true">{{ 'All'|tr }}</button>
+                {% for value, label in categories %}
+                <button type="button"
+                        class="filter-btn"
+                        hx-get="{% url 'filter_offerings' value %}"
+                        hx-target="#offerings-wrap"
+                        hx-swap="innerHTML"
+                        hx-trigger="click"
+                        hx-indicator="#filter-loading"
+                        data-category="{{ value }}"
+                        aria-pressed="false">{{ label }}</button>
+                {% endfor %}
+                <span id="filter-loading" class="htmx-indicator text-primary self-center" aria-hidden="true"><i class="fa-solid fa-spinner fa-spin"></i></span>
+            </div>
+
+            <!-- Offerings -->
+            <div id="offerings-wrap">
+                {% include 'main_app/components/offering_cards.html' %}
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+         WORKSHOPS
+         ============================================================ -->
+    <section id="workshops" class="py-16 md:py-24 border-t border-neutral-200 dark:border-white/5 scroll-mt-28" aria-label="{{ 'Upcoming workshops'|tr }}">
+        <div class="container mx-auto px-6 lg:px-8">
+            <div class="max-w-xl mb-10">
+                <p class="eyebrow mb-6">{{ 'Workshops'|tr }}</p>
+                <h2 class="text-3xl md:text-4xl font-semibold text-neutral-900 dark:text-white mb-6">{{ 'Upcoming workshops'|tr }}</h2>
+                <p class="text-neutral-600 dark:text-neutral-400 leading-relaxed">
+                    {{ 'Register straight from this page — no extra forms, no waiting.'|tr }}
+                </p>
+            </div>
+
             {% if workshops %}
             <div class="space-y-4">
                 {% for workshop in workshops %}
-                <div class="border border-gray-700 rounded-lg p-5">
-                    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                <div class="rounded-2xl border border-neutral-200 bg-white p-6 md:p-8 dark:border-white/10 dark:bg-white/[0.02]">
+                    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-5">
                         <div class="flex-1">
-                            <h4 class="text-lg font-bold">{{ workshop.title }}</h4>
-                            <div class="flex flex-wrap gap-x-6 gap-y-1 mt-2 text-sm text-gray-400">
-                                <span><i class="far fa-calendar-alt mr-1"></i> {{ workshop.date_label }}</span>
-                                <span><i class="far fa-clock mr-1"></i> {{ workshop.duration_label }}</span>
-                                <span><i class="fas fa-tag mr-1"></i> {{ workshop.price_label }}</span>
-                                <span class="{{ workshop.availability_class }}"><i class="fas fa-circle text-xs mr-1"></i> {{ workshop.availability_label }}</span>
+                            <h3 class="text-lg md:text-xl font-semibold text-neutral-900 dark:text-white">{{ workshop.title }}</h3>
+                            <div class="flex flex-wrap gap-x-6 gap-y-2 mt-3 text-sm text-neutral-500 dark:text-neutral-400">
+                                {% if workshop.date_label %}<span><i class="far fa-calendar-alt mr-2 text-primary" aria-hidden="true"></i> {{ workshop.date_label }}</span>{% endif %}
+                                {% if workshop.duration_label %}<span><i class="far fa-clock mr-2 text-primary" aria-hidden="true"></i> {{ workshop.duration_label }}</span>{% endif %}
+                                {% if workshop.price_label %}<span><i class="fas fa-tag mr-2 text-primary" aria-hidden="true"></i> {{ workshop.price_label }}</span>{% endif %}
+                                <span class="{{ workshop.availability_class }}"><i class="fas fa-circle text-xs mr-2" aria-hidden="true"></i> {{ workshop.availability_label }}</span>
                             </div>
                         </div>
-                        <button class="btn-primary text-sm py-2 px-5 whitespace-nowrap"
+                        <button type="button"
+                                class="inline-flex items-center justify-center bg-primary text-white text-sm font-medium px-6 py-3 rounded-full transition hover:bg-primary/90 whitespace-nowrap"
                                 hx-get="{% url 'register_workshop' workshop.id %}"
                                 hx-target="#workshop-form-slot-{{ workshop.id }}"
                                 hx-swap="innerHTML">
-                            <i class="fas fa-pen mr-1"></i> Register
+                            <i class="fas fa-pen mr-2" aria-hidden="true"></i> {{ 'Register'|tr }}
                         </button>
                     </div>
                     <div id="workshop-form-slot-{{ workshop.id }}"></div>
@@ -74,62 +350,306 @@
                 {% endfor %}
             </div>
             {% else %}
-            <p class="text-gray-400">No workshops scheduled yet. Check back soon!</p>
+            <div class="rounded-2xl border border-dashed border-neutral-300 dark:border-white/10 p-10 md:p-14 text-center">
+                <i class="fa-solid fa-calendar-plus text-2xl text-neutral-300 dark:text-neutral-600 mb-4" aria-hidden="true"></i>
+                <p class="font-medium text-neutral-500 dark:text-neutral-400 mb-6 max-w-md mx-auto">
+                    Workshops are scheduled through the year. New dates will appear here when available.
+                </p>
+                <a href="{% url 'booking' %}" class="btn-secondary text-sm px-6 py-3">{{ 'Book a lesson'|tr }}</a>
+            </div>
             {% endif %}
         </div>
+    </section>
 
-        <!-- Instructors -->
-        <h3 class="text-2xl font-bold mb-8">Meet Your Instructors</h3>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
-            {% for instructor in instructors %}
-            <div class="text-center">
-                <div class="w-40 h-40 rounded-full bg-gray-700 mx-auto mb-6 overflow-hidden">
-                    {% if instructor.image_url %}
-                    <img src="{{ instructor.image_url }}" alt="{{ instructor.name }}" class="w-full h-full object-cover">
-                    {% endif %}
-                </div>
-                <h4 class="text-xl font-bold mb-2">{{ instructor.name }}</h4>
-                <p class="text-red-500 mb-2">{{ instructor.role }}</p>
-                <p class="text-gray-400 text-sm">{{ instructor.bio }}</p>
+    <!-- ============================================================
+         INSTRUCTORS
+         ============================================================ -->
+    <section class="py-16 md:py-24 border-t border-neutral-200 dark:border-white/5" aria-label="{{ 'Instructors'|tr }}">
+        <div class="container mx-auto px-6 lg:px-8">
+            <div class="max-w-xl mb-10 lg:mb-16">
+                <p class="eyebrow mb-6">{{ 'Instructors'|tr }}</p>
+                <h2 class="text-3xl md:text-4xl font-semibold text-neutral-900 dark:text-white mb-6">{{ 'Learn from people who do it daily'|tr }}</h2>
+                <p class="text-neutral-600 dark:text-neutral-400 leading-relaxed">
+                    {{ 'Every instructor is an active engineer, musician or producer — not a full-time lecturer.'|tr }}
+                </p>
             </div>
-            {% endfor %}
-        </div>
-    </div>
-</section>
 
-<section class="py-20 bg-dark-bg">
-    <div class="container mx-auto px-4">
-        <h2 class="text-3xl font-bold mb-10 text-center">What Our Students Say</h2>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {% for testimonial in learning_testimonials %}
-            <div class="testimonial-card">
-                <p class="text-gray-300 mb-6">"{{ testimonial.quote }}"</p>
-                <div class="flex items-center">
-                    <div class="w-12 h-12 rounded-full bg-gray-700 mr-4"></div>
-                    <div>
-                        <h4 class="font-bold">{{ testimonial.author_name }}</h4>
-                        <p class="text-gray-400 text-sm">{{ testimonial.author_title }}</p>
+            {% if instructors %}
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {% for instructor in instructors %}
+                <figure class="rounded-2xl border border-neutral-200 bg-white p-8 text-center dark:border-white/10 dark:bg-white/[0.02]">
+                    <div class="w-28 h-28 rounded-full overflow-hidden bg-primary/10 mx-auto mb-6 ring-4 ring-primary/10">
+                        {% if instructor.image_url %}
+                        <img src="{{ instructor.image_url }}" alt="{{ instructor.name }}" loading="lazy" class="w-full h-full object-cover">
+                        {% else %}
+                        <div class="w-full h-full flex items-center justify-center text-4xl font-semibold text-primary" aria-hidden="true">{{ instructor.name|slice:":1" }}</div>
+                        {% endif %}
+                    </div>
+                    <figcaption>
+                        <h3 class="text-xl font-semibold text-neutral-900 dark:text-white mb-1">{{ instructor.name }}</h3>
+                        <p class="text-xs font-medium uppercase tracking-[0.15em] text-primary mb-4">{{ instructor.role }}</p>
+                        <p class="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">{{ instructor.bio }}</p>
+                    </figcaption>
+                </figure>
+                {% endfor %}
+            </div>
+            {% else %}
+            <div class="rounded-2xl border border-dashed border-neutral-300 dark:border-white/10 p-10 md:p-14 text-center">
+                <i class="fa-solid fa-chalkboard-user text-2xl text-neutral-300 dark:text-neutral-600 mb-4" aria-hidden="true"></i>
+                <p class="font-medium text-neutral-500 dark:text-neutral-400 max-w-md mx-auto">
+                    Instructors will be introduced here as lessons and workshops are added.
+                </p>
+            </div>
+            {% endif %}
+        </div>
+    </section>
+
+    <!-- ============================================================
+         TESTIMONIALS
+         ============================================================ -->
+    {% if learning_testimonials %}
+    <section class="py-16 md:py-24 border-t border-neutral-200 dark:border-white/5" aria-label="{{ 'Testimonials'|tr }}">
+        <div class="container mx-auto px-6 lg:px-8">
+            <div class="max-w-xl mb-10 lg:mb-16">
+                <p class="eyebrow mb-6">{{ 'Testimonials'|tr }}</p>
+                <h2 class="text-3xl md:text-4xl font-semibold text-neutral-900 dark:text-white mb-6">{{ 'What students say'|tr }}</h2>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+                {% for testimonial in learning_testimonials|slice:":6" %}
+                <figure class="rounded-2xl border border-neutral-200 bg-white p-8 flex flex-col dark:border-white/10 dark:bg-white/[0.02]">
+                    <i class="fa-solid fa-quote-left text-primary text-xl mb-6" aria-hidden="true"></i>
+                    <blockquote class="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed mb-8">&ldquo;{{ testimonial.quote }}&rdquo;</blockquote>
+                    <figcaption class="mt-auto pt-4 border-t border-neutral-100 dark:border-white/5 flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-sm font-semibold text-primary shrink-0" aria-hidden="true">{{ testimonial.author_name|slice:":1" }}</div>
+                        <div>
+                            <p class="text-sm font-semibold text-neutral-900 dark:text-white">{{ testimonial.author_name }}</p>
+                            {% if testimonial.author_title %}<p class="text-xs text-neutral-500 dark:text-neutral-400">{{ testimonial.author_title }}</p>{% endif %}
+                        </div>
+                    </figcaption>
+                </figure>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+    {% endif %}
+
+    <!-- ============================================================
+         FINAL CTA
+         ============================================================ -->
+    <section class="py-16 md:py-24 border-t border-neutral-200 dark:border-white/5" aria-label="{{ 'Get started'|tr }}">
+        <div class="container mx-auto px-6 lg:px-8">
+            <div class="relative overflow-hidden rounded-3xl bg-neutral-950 px-6 py-16 md:px-16 md:py-24 text-center dark:bg-neutral-900">
+                <div class="absolute -top-24 left-1/2 -translate-x-1/2 w-96 h-96 rounded-full bg-primary/15 blur-3xl pointer-events-none" aria-hidden="true"></div>
+                <div class="relative max-w-2xl mx-auto">
+                    <h2 class="text-3xl md:text-4xl font-semibold text-white mb-6">{{ 'Start with a practical first session'|tr }}</h2>
+                    <p class="text-neutral-400 leading-relaxed mb-10 text-base md:text-lg">
+                        {{ 'Whether you want to learn an instrument or run the sound for a whole room — the first session is hands-on.'|tr }}
+                    </p>
+                    <div class="flex flex-wrap justify-center gap-4">
+                        <a href="{% url 'booking' %}" class="btn-primary text-sm px-8 py-3.5">{{ 'Book a lesson'|tr }}</a>
+                        <a href="{% url 'contact' %}" class="inline-flex items-center justify-center border border-white/20 text-white text-sm font-semibold px-8 py-3.5 rounded-full transition hover:border-white/50 hover:bg-white/5">{{ 'Ask a question'|tr }}</a>
                     </div>
                 </div>
             </div>
-            {% endfor %}
         </div>
-    </div>
-</section>
+    </section>
+
+</div>
 {% endblock %}
 
 {% block extra_js %}
 <script>
-    document.getElementById('filter-bar')?.addEventListener('click', function(e) {
-        if (e.target.matches('button[data-category]')) {
-            this.querySelectorAll('button').forEach(b => {
-                b.className = b.className.replace(/active-filter/g, '').trim();
-                b.classList.remove('bg-red-500', 'text-white');
-                b.classList.add('border-gray-600', 'text-gray-400');
-            });
-            e.target.classList.remove('border-gray-600', 'text-gray-400');
-            e.target.classList.add('active-filter', 'bg-red-500', 'text-white', 'border-red-500');
+(function () {
+    var IS_FR = (document.documentElement.lang || '').toLowerCase().indexOf('fr') === 0;
+
+    var RATES = { solo: 75, group: 45 };
+    var MONTHS = {
+        en: { 8: '2 months', 12: '3 months', 24: '6 months' },
+        fr: { 8: '2 mois', 12: '3 mois', 24: '6 mois' }
+    };
+    var SESSION_LABEL = { en: 'session', fr: 'séance' };
+    var AND_LABEL = { en: 'and', fr: 'et' };
+    var formatLabels = {};
+    var instrumentNames = {};
+
+    function applyLang() {
+        document.querySelectorAll('.lt-en').forEach(function (el) {
+            el.classList.toggle('hidden', IS_FR);
+        });
+        document.querySelectorAll('.lt-fr').forEach(function (el) {
+            el.classList.toggle('hidden', !IS_FR);
+        });
+    }
+
+    // Instrument picker on the cards section
+    var picker = document.getElementById('instrument-picker');
+    var state = { instrument: null, duration: null, format: null };
+
+    function labelOf(group, id) {
+        var el = document.querySelector('[' + group + '="' + id + '"]');
+        if (!el) return el;
+        var en = el.querySelector('.lt-en');
+        var fr = el.querySelector('.lt-fr');
+        return (IS_FR && fr) ? fr.textContent.trim() : (en ? en.textContent.trim() : el.dataset.labelEn);
+    }
+
+    function setInstrument(id) {
+        state.instrument = id;
+        document.querySelectorAll('.jt-ins-card').forEach(function (c) {
+            var isSel = c.dataset.instrument === id;
+            c.classList.toggle('selected', isSel);
+            c.setAttribute('aria-pressed', isSel ? 'true' : 'false');
+        });
+        document.querySelectorAll('[data-instrument-opt]').forEach(function (o) {
+            var isSel = o.dataset.instrumentOpt === id;
+            o.classList.toggle('selected', isSel);
+            o.setAttribute('aria-checked', isSel ? 'true' : 'false');
+        });
+    }
+
+    function pickFromBuilder() {
+        var o = document.querySelector('[data-instrument-opt].selected');
+        return o ? o.dataset.instrumentOpt : null;
+    }
+
+    function updateSummary() {
+        var dur = state.duration;
+        var fmt = state.format;
+
+        var dish = dur ? dur + ' ' + SESSION_LABEL[IS_FR ? 'fr' : 'en'] + ' · ' + MONTHS[IS_FR ? 'fr' : 'en'][dur] : '—';
+        document.getElementById('sum-instrument').textContent = state.instrument
+            ? instrumentNames[state.instrument]
+            : (IS_FR ? 'Non sélectionné' : 'Not selected');
+        document.getElementById('sum-sessions').textContent = dish;
+        document.getElementById('sum-format').textContent = fmt
+            ? formatLabels[fmt]
+            : (IS_FR ? 'Non sélectionné' : 'Not selected');
+
+        if (fmt) {
+            document.getElementById('sum-rate').textContent = '$' + RATES[fmt];
+        } else {
+            document.getElementById('sum-rate').textContent = '—';
         }
+
+        var total = (dur && fmt) ? (dur * RATES[fmt]) : 0;
+        document.getElementById('sum-total').textContent = total ? '$' + total : '$0';
+
+        var btn = document.getElementById('btn-request');
+        var ready = state.instrument && dur && fmt;
+        if (btn) {
+            btn.disabled = !ready;
+            btn.classList.toggle('opacity-50', !ready);
+            btn.classList.toggle('cursor-not-allowed', !ready);
+        }
+
+        var hint = document.getElementById('builder-hint');
+        if (hint) {
+            if (ready) {
+                hint.textContent = IS_FR ? 'Vous pouvez maintenant envoyer votre demande.' : 'Your plan is ready — send it and we\'ll confirm your spot.';
+            } else {
+                hint.textContent = IS_FR ? 'Sélectionnez les trois étapes pour voir votre total.' : 'Select all three steps to see your total.';
+            }
+        }
+    }
+
+    // Step highlights
+    function refreshSteps() {
+        var n = (state.instrument ? 1 : 0) + (state.duration ? 1 : 0) + (state.format ? 1 : 0);
+        document.querySelectorAll('.jt-progress__step').forEach(function (s) {
+            var idx = parseInt(s.dataset.step, 10);
+            s.classList.toggle('active', idx <= n);
+        });
+    }
+
+    // Cards
+    if (picker) {
+        picker.addEventListener('click', function (e) {
+            var card = e.target && e.target.closest ? e.target.closest('.jt-ins-card') : null;
+            if (!card) return;
+            setInstrument(card.dataset.instrument);
+            var pb = document.getElementById('plan-builder');
+            if (pb) pb.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+    }
+
+    // Builder radio groups
+    document.querySelectorAll('[data-group]').forEach(function (groupWrap) {
+        groupWrap.addEventListener('click', function (e) {
+            var opt = e.target && e.target.closest ? e.target.closest('.jt-option') : null;
+            if (!opt) return;
+            var key = groupWrap.dataset.group; // instrument | duration | format
+            groupWrap.querySelectorAll('.jt-option').forEach(function (o) {
+                o.classList.remove('selected');
+                o.setAttribute('aria-checked', 'false');
+            });
+            opt.classList.add('selected');
+            opt.setAttribute('aria-checked', 'true');
+
+            if (key === 'instrument') {
+                state.instrument = opt.dataset.instrumentOpt;
+                setInstrument(state.instrument);
+            } else if (key === 'duration') {
+                state.duration = parseInt(opt.dataset.duration, 10);
+            } else if (key === 'format') {
+                state.format = opt.dataset.format;
+            }
+            updateSummary();
+            refreshSteps();
+        });
     });
+
+    // Populate bilingual labels used in the summary
+    document.querySelectorAll('[data-instrument]').forEach(function (card) {
+        var en = card.querySelector('.lt-en');
+        var fr = card.querySelector('.lt-fr');
+        instrumentNames[card.dataset.instrument] = (IS_FR && fr) ? fr.textContent.trim() : (en ? en.textContent.trim() : '');
+    });
+    document.querySelectorAll('[data-format]').forEach(function (opt) {
+        var en = opt.querySelector('.lt-en');
+        var fr = opt.querySelector('.lt-fr');
+        formatLabels[opt.dataset.format] = (IS_FR && fr) ? fr.textContent.trim() : (en ? en.textContent.trim() : '');
+    });
+
+    // Request button -> email the chosen plan
+    var requestBtn = document.getElementById('btn-request');
+    if (requestBtn) {
+        requestBtn.addEventListener('click', function () {
+            var email = "{{ site_settings.booking_email|default:'' }}";
+            var subject = encodeURIComponent(
+                (IS_FR ? 'Demande de cours' : 'Lesson request') + ' — ' + (state.instrument ? instrumentNames[state.instrument] : '')
+            );
+            var body = encodeURIComponent([
+                (IS_FR ? 'Bonjour JustTech,' : 'Hello JustTech,') + '',
+                '',
+                (IS_FR ? 'Je souhaite planifier des cours :' : 'I\'d like to plan some lessons:'),
+                '- ' + (IS_FR ? 'Instrument : ' : 'Instrument: ') + (state.instrument ? instrumentNames[state.instrument] : ''),
+                '- ' + (IS_FR ? 'Séances : ' : 'Sessions: ') + state.duration,
+                '- ' + (IS_FR ? 'Format : ' : 'Format: ') + (state.format ? formatLabels[state.format] : ''),
+                '- ' + (IS_FR ? 'Total estimé : ' : 'Estimated total: ') + '$' + ((state.duration || 0) * (state.format ? RATES[state.format] : 0)),
+                ''
+            ].join('\n'));
+            window.location.href = 'mailto:' + email + '?subject=' + subject + '&body=' + body;
+        });
+    }
+
+    // Filter bar active state (same behaviour as before)
+    var filterBar = document.getElementById('filter-bar');
+    if (filterBar) {
+        filterBar.addEventListener('click', function (e) {
+            var button = e.target.closest('button[data-category]');
+            if (!button) return;
+            filterBar.querySelectorAll('button[data-category]').forEach(function (b) {
+                var isActive = b === button;
+                b.classList.toggle('active-filter', isActive);
+                b.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+            });
+        });
+    }
+
+    applyLang();
+    updateSummary();
+    refreshSteps();
+})();
 </script>
 {% endblock %}

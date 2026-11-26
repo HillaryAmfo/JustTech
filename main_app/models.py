@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.db import models
 
 
@@ -17,6 +18,7 @@ class SiteSettings(models.Model):
     instagram_url = models.URLField(blank=True)
     youtube_url = models.URLField(blank=True)
     linkedin_url = models.URLField(blank=True)
+    tiktok_url = models.URLField(blank=True)
 
     privacy_policy_url = models.URLField(blank=True)
     terms_url = models.URLField(blank=True)
@@ -142,6 +144,7 @@ class Testimonial(models.Model):
     quote = models.TextField()
     author_name = models.CharField(max_length=120)
     author_title = models.CharField(max_length=120, blank=True)
+    image_url = models.URLField(blank=True)
     display_order = models.PositiveIntegerField(default=0)
 
     class Meta:
@@ -249,3 +252,37 @@ class WorkshopRegistration(models.Model):
 
     def __str__(self):
         return f'{self.name} - {self.workshop.title}'
+
+
+class ContactMessage(models.Model):
+    name = models.CharField(max_length=120)
+    email = models.EmailField()
+    subject = models.CharField(max_length=160)
+    message = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['-created_at']
+
+    def __str__(self):
+        return f'{self.name} - {self.subject}'
+
+
+class UserProfile(models.Model):
+    INTENT_CHOICES = [
+        ('learning', 'Learning'),
+        ('studio', 'Book a studio session'),
+        ('event', 'Events & production'),
+        ('other', 'Something else'),
+    ]
+
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='profile')
+    intent = models.CharField(max_length=20, choices=INTENT_CHOICES, default='other')
+    intent_detail = models.CharField(max_length=255, blank=True, help_text='Contextual answer for the selected intent (e.g. what to learn, session type).')
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['-created_at']
+
+    def __str__(self):
+        return f'{self.user.get_username()} - {self.get_intent_display()}'

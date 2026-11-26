@@ -1,125 +1,518 @@
 {% extends 'main_app/base.html' %}
+{% load i18n_tags %}
 
 {% block title %}Contact | {{ site_settings.company_name|default:'Just Tech' }}{% endblock %}
 
+{% block meta_description %}Get in touch with JustTech about audio, streaming, production, event services, or a custom PC build.{% endblock %}
+
+{% block og_title %}Contact | {{ site_settings.company_name|default:'Just Tech' }}{% endblock %}
+
+{% block og_description %}Questions about our services? Contact JustTech and we'll get back to you.{% endblock %}
+
 {% block content %}
-<section class="relative py-20 bg-dark-bg min-h-[40vh] flex items-center">
-    <div class="absolute inset-0 z-0">
-        <img src="https://images.unsplash.com/photo-1587560699334-cc4ff634909a?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" alt="Contact Hero" class="w-full h-full object-cover opacity-30">
-        <div class="absolute inset-0 bg-gradient-to-r from-dark-bg to-transparent"></div>
-    </div>
-    <div class="container mx-auto px-4 relative z-10">
-        <h1 class="text-5xl md:text-6xl font-bold mb-6">Contact Us</h1>
-        <p class="text-xl text-gray-300 max-w-3xl">Have questions or ready to book? Get in touch with our team.</p>
-    </div>
-</section>
+<div id="contact-page">
 
-<section class="py-20 bg-gray-900">
-    <div class="container mx-auto px-4">
-        <h2 class="text-4xl font-bold mb-2 section-title">Contact Us</h2>
-        <p class="text-gray-400 mb-12 max-w-3xl">Have questions or ready to book? Get in touch with our team.</p>
+    <!-- ============================================================
+         HERO
+         ============================================================ -->
+    <section class="relative overflow-hidden pt-28 md:pt-36 pb-20 md:pb-28" aria-label="{{ 'Contact'|tr }}">
+        <div class="absolute inset-0 pointer-events-none" aria-hidden="true">
+            <div class="absolute inset-0 bg-[radial-gradient(ellipse_90%_60%_at_50%_-20%,rgba(255,0,60,0.07),transparent)]"></div>
+            <div class="jt-orb jt-orb-a"></div>
+            <div class="jt-orb jt-orb-b"></div>
+            <div class="jt-grid-overlay"></div>
+        </div>
 
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
-            <div class="booking-form">
-                <h3 class="text-2xl font-bold mb-6">Send Us a Message</h3>
-                <div class="mb-6"><input type="text" class="form-input" placeholder="Your Name"></div>
-                <div class="mb-6"><input type="email" class="form-input" placeholder="Your Email"></div>
-                <div class="mb-6"><textarea class="form-input h-40" placeholder="Your Message"></textarea></div>
-                <button class="btn-primary w-full"><i class="fas fa-paper-plane mr-2"></i> Send Message</button>
-            </div>
-
-            <div>
-                <h3 class="text-2xl font-bold mb-6">Contact Information</h3>
-
-                <div class="space-y-6 mb-10">
-                    <div class="flex items-center">
-                        <div class="w-12 h-12 bg-red-500 bg-opacity-20 rounded-full flex items-center justify-center mr-4">
-                            <i class="fas fa-map-marker-alt text-red-500"></i>
-                        </div>
-                        <div>
-                            <h4 class="font-bold">Our Studio</h4>
-                            <p class="text-gray-400">{{ site_settings.address_line_1|default:'123 Tech Avenue, Suite 400' }}<br>{{ site_settings.address_line_2|default:'San Francisco, CA 94107' }}</p>
-                        </div>
-                    </div>
-
-                    <div class="flex items-center">
-                        <div class="w-12 h-12 bg-red-500 bg-opacity-20 rounded-full flex items-center justify-center mr-4">
-                            <i class="fas fa-phone-alt text-red-500"></i>
-                        </div>
-                        <div>
-                            <h4 class="font-bold">Call Us</h4>
-                            <p class="text-gray-400">{{ site_settings.phone|default:'+1 (555) 123-4567' }}</p>
-                        </div>
-                    </div>
-
-                    <div class="flex items-center">
-                        <div class="w-12 h-12 bg-red-500 bg-opacity-20 rounded-full flex items-center justify-center mr-4">
-                            <i class="fas fa-envelope text-red-500"></i>
-                        </div>
-                        <div>
-                            <h4 class="font-bold">Email Us</h4>
-                            <p class="text-gray-400">{{ site_settings.primary_email|default:'info@justtech.com' }}<br>{{ site_settings.booking_email|default:'bookings@justtech.com' }}</p>
-                        </div>
+        <div class="container mx-auto px-6 lg:px-8 relative">
+            <div class="grid lg:grid-cols-12 gap-14 lg:gap-8 items-end">
+                <div class="lg:col-span-7">
+                    <p class="eyebrow mb-8">{{ 'Contact'|tr }}</p>
+                    <h1 class="text-4xl sm:text-5xl xl:text-6xl font-semibold text-neutral-900 dark:text-white leading-[1.08] mb-8">
+                        {{ "Let's talk about"|tr }} <span class="text-primary">{{ 'what you need.'|tr }}</span>
+                    </h1>
+                    <p class="text-lg text-neutral-600 dark:text-neutral-400 leading-relaxed mb-10 max-w-2xl">
+                        {{ 'Drop by, call or send a note — whatever works best for you.'|tr }}
+                    </p>
+                    <div class="flex flex-wrap items-center gap-4">
+                        <a href="#contact-form-container" class="btn-primary text-sm px-7 py-3">
+                            <i class="fas fa-paper-plane" aria-hidden="true"></i>
+                            {{ 'Send a message'|tr }}
+                        </a>
+                        <a href="#location" class="btn-secondary text-sm px-7 py-3">
+                            <i class="fas fa-map-location-dot" aria-hidden="true"></i>
+                            {{ 'Find the studio'|tr }}
+                        </a>
                     </div>
                 </div>
 
-                <div>
-                    <h4 class="font-bold mb-4">Follow Us</h4>
-                    <div class="flex space-x-4">
-                        <a href="{{ site_settings.facebook_url|default:'#' }}" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-red-500 transition"><i class="fab fa-facebook-f"></i></a>
-                        <a href="{{ site_settings.twitter_url|default:'#' }}" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-red-500 transition"><i class="fab fa-twitter"></i></a>
-                        <a href="{{ site_settings.instagram_url|default:'#' }}" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-red-500 transition"><i class="fab fa-instagram"></i></a>
-                        <a href="{{ site_settings.youtube_url|default:'#' }}" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-red-500 transition"><i class="fab fa-youtube"></i></a>
-                        <a href="{{ site_settings.linkedin_url|default:'#' }}" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-red-500 transition"><i class="fab fa-linkedin-in"></i></a>
+                <div class="lg:col-span-5 lg:justify-self-end">
+                    <div class="jt-rt-card jt-float">
+                        <div class="flex items-center gap-5">
+                            <div class="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center shrink-0" aria-hidden="true">
+                                <i class="fas fa-headset text-primary text-xl"></i>
+                            </div>
+                            <div>
+                                <p class="text-xs font-semibold uppercase tracking-[0.15em] text-primary mb-1">{{ 'Response time'|tr }}</p>
+                                <p class="text-sm text-neutral-600 dark:text-neutral-400">{{ 'Usually within one working day.'|tr }}</p>
+                            </div>
+                        </div>
+                        <div class="jt-pulse-dot" aria-hidden="true"></div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
 
-<section class="py-20 bg-dark-bg">
-    <div class="container mx-auto px-4">
-        <h2 class="text-3xl font-bold mb-10 text-center">Frequently Asked Questions</h2>
+        <svg class="jt-hero-wave w-full h-10 md:h-14 text-neutral-100 dark:text-neutral-900 absolute bottom-0 left-0 pointer-events-none" viewBox="0 0 1440 56" preserveAspectRatio="none" fill="currentColor" aria-hidden="true">
+            <path d="M0 32 C 240 56 480 8 720 24 C 960 40 1200 12 1440 28 L 1440 56 L 0 56 Z"></path>
+        </svg>
+    </section>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div class="space-y-6 md:col-span-2">
-                {% for faq in contact_faqs %}
-                <div class="border-b border-gray-700 pb-6">
-                    <h3 class="text-xl font-bold mb-3">{{ faq.question }}</h3>
-                    <p class="text-gray-400">{{ faq.answer }}</p>
+    <!-- ============================================================
+         SIGN IN — Azubi portal layout: hero panel + sign-in card
+         ============================================================ -->
+    <section id="client-access" class="py-12 md:py-16 scroll-mt-28" aria-label="{{ 'Client access'|tr }}">
+        <div class="container mx-auto px-6 lg:px-8">
+            <div class="grid lg:grid-cols-2 rounded-3xl overflow-hidden border border-neutral-200 dark:border-white/10 shadow-[0_18px_44px_rgba(15,23,42,0.06)] dark:shadow-none">
+
+                <!-- Left: studio panel (hidden on mobile, like Azubi) -->
+                <div class="hidden lg:flex relative min-h-[560px] overflow-hidden jt-sig-visual">
+                    <img class="jt-sig-img" loading="lazy" decoding="async"
+                         src="https://images.pexels.com/photos/2049411/pexels-photo-2049411.jpeg?auto=compress&cs=tinysrgb&w=1400"
+                         alt="Monitor displaying the studio session in the JustTech control room"
+                         onerror="this.style.display='none'">
+                    <div class="jt-sig-overlay" aria-hidden="true"></div>
+                    <div class="relative z-10 flex h-full w-full items-end p-8">
+                        <div class="max-w-md text-white">
+                            <div class="flex flex-wrap items-center gap-2.5 mb-4">
+                                <span class="inline-flex items-center rounded-full border border-white/15 bg-white/10 px-3 py-1.5 backdrop-blur-sm">
+                                    <span class="inline-flex items-baseline gap-[0.1rem]">
+                                        <span class="jt-signin-logo-mark">
+                                            {% include 'main_app/components/logo_mark.html' %}
+                                        </span>
+                                        <span class="jt-signin-wordmark jt-signin-wordmark--light"><span class="jt-signin-wordmark__ust">ust</span> Tech</span>
+                                    </span>
+                                </span>
+                            </div>
+                            <p class="text-[10px] sm:text-[11px] font-semibold uppercase tracking-[0.2em] text-white/75">{{ 'Client access'|tr }}</p>
+                            <h2 class="mt-2 text-2xl sm:text-3xl font-semibold leading-tight text-white">{{ 'Your next session starts here.'|tr }}</h2>
+                            <p class="mt-2 max-w-md text-[13px] sm:text-sm leading-6 text-white/80">{{ 'Book studio time, track requests and keep your projects moving — all in one place.'|tr }}</p>
+                        </div>
+                    </div>
+                    <div class="jt-sig-chip jt-sig-chip--tl jt-float">
+                        <span class="jt-rec-dot" aria-hidden="true"></span>
+                        <span>
+                            <span class="jt-sig-chip__label">REC</span>
+                            <span class="jt-sig-chip__value">{{ 'NOW TRACKING'|tr }}</span>
+                        </span>
+                    </div>
                 </div>
-                {% empty %}
-                <div class="border-b border-gray-700 pb-6">
-                    <h3 class="text-xl font-bold mb-3">How far in advance should I book event services?</h3>
-                    <p class="text-gray-400">We recommend booking at least 2-4 weeks in advance for events.</p>
+
+                <!-- Right: sign-in card (Azubi layout) -->
+                <div class="bg-white dark:bg-white/[0.02] px-4 py-6 sm:px-6 sm:py-8 lg:px-10 lg:py-10">
+                    <div class="mx-auto max-w-md w-full">
+
+                        <!-- Logo (same as navbar: J mark + ust in red + Tech) -->
+                        <div class="mb-6 text-center" data-reveal>
+                            <span class="inline-flex items-center rounded-full border border-neutral-200 bg-neutral-50 px-3 py-1.5 dark:border-white/10 dark:bg-white/5">
+                                <span class="inline-flex items-baseline gap-[0.1rem]">
+                                    <span class="jt-signin-logo-mark">
+                                        {% include 'main_app/components/logo_mark.html' %}
+                                    </span>
+                                    <span class="jt-signin-wordmark"><span class="jt-signin-wordmark__ust">ust</span> Tech</span>
+                                </span>
+                            </span>
+                        </div>
+
+                        <h1 class="text-2xl sm:text-[1.9rem] font-semibold tracking-tight text-neutral-900 dark:text-white text-center" data-reveal data-reveal-delay="60">{{ 'Sign in'|tr }}</h1>
+                        <p class="mt-1 text-[13px] sm:text-sm leading-5 text-neutral-500 dark:text-neutral-400 text-center" data-reveal data-reveal-delay="120">{{ 'Continue to your client space.'|tr }}</p>
+
+                        <div class="mt-6 space-y-3" data-reveal data-reveal-delay="180">
+                            <button type="button" class="provider-btn" data-provider="Microsoft">
+                                <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="1" y="1" width="10.5" height="10.5" fill="#F25022"/><rect x="12.5" y="1" width="10.5" height="10.5" fill="#7FBA00"/><rect x="1" y="12.5" width="10.5" height="10.5" fill="#00A4EF"/><rect x="12.5" y="12.5" width="10.5" height="10.5" fill="#FFB900"/></svg>
+                                <span>{{ 'Sign in with Microsoft'|tr }}</span>
+                            </button>
+                            <button type="button" class="provider-btn" data-provider="Google">
+                                <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#EA4335" d="M12 5.1c1.7 0 3.2.6 4.4 1.7l3.3-3.3C17.4 1.5 14.9.7 12 .7 7.6.7 3.8 3.3 2 7.2l3.9 3C6.9 7.5 9.2 5.1 12 5.1z"/><path fill="#4285F4" d="M23.4 12.3c0-.9-.1-1.6-.2-2.3H12v4.4h6.4c-.3 1.5-1.2 2.9-2.5 3.7l3.8 3c2.3-2.1 3.7-5.2 3.7-8.8z"/><path fill="#FBBC05" d="M5.9 14.1c-.3-.8-.4-1.6-.4-2.4s.2-1.6.4-2.4L1.9 6.3C1 8.1.6 10 .6 11.9s.4 3.8 1.3 5.5l4-3.3z"/><path fill="#34A853" d="M12 23.2c3.2 0 6-1.1 8-2.9l-3.8-3c-1.1.7-2.5 1.2-4.1 1.2-2.8 0-5.1-1.9-6-4.4l-4 3.1c1.9 3.9 5.6 6 10.1 6z"/></svg>
+                                <span>{{ 'Sign in with Google'|tr }}</span>
+                            </button>
+                            <button type="button" class="provider-btn" data-provider="Apple ID">
+                                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.4 12.7c0-2.2 1.6-3.2 1.7-3.3-.9-1.3-2.4-1.5-2.9-1.6-1.2-.1-2.4.7-3 .7-.6 0-1.6-.7-2.6-.7-1.3 0-2.6.8-3.3 2-1.4 2.5-.4 6.2 1 8.2.7 1 1.5 2.1 2.5 2.1 1 0 1.4-.7 2.6-.7 1.2 0 1.5.7 2.6.7 1.1 0 1.8-1 2.4-2 .8-1.1 1-2.2 1.1-2.3-.1 0-2.1-.8-2.1-3.1zM14.2 6.1c.6-.7 1-1.7.9-2.7-.8 0-1.9.5-2.5 1.2-.5.6-1 1.6-.9 2.6.9.1 1.9-.4 2.5-1.1z"/></svg>
+                                <span>{{ 'Sign in with Apple ID'|tr }}</span>
+                            </button>
+                        </div>
+
+                        <div id="jt-provider-note" class="jt-provider-note" role="status" aria-live="polite" hidden
+                             data-template="{{ 'Continue with __PROVIDER__? Not yet — but your email works today.'|tr }}"></div>
+
+                        <div class="flex items-center my-5" data-reveal data-reveal-delay="220" aria-hidden="true">
+                            <span class="h-px flex-1 bg-neutral-200 dark:bg-white/10"></span>
+                            <span class="px-3 text-[11px] font-semibold uppercase tracking-[0.18em] text-neutral-400">{{ 'or'|tr }}</span>
+                            <span class="h-px flex-1 bg-neutral-200 dark:bg-white/10"></span>
+                        </div>
+
+                        <!-- Email + password form -->
+                        <form method="POST" action="{% url 'login' %}" novalidate class="mt-4" data-reveal data-reveal-delay="260">
+                            {% csrf_token %}
+                            {% if request.GET.next %}<input type="hidden" name="next" value="{{ request.GET.next }}">{% endif %}
+
+                            <div class="mb-4">
+                                <label for="jt-email" class="jt-signin-label">{{ 'Email address'|tr }}</label>
+                                <div class="relative">
+                                    <i class="fas fa-envelope jt-signin-ic" aria-hidden="true"></i>
+                                    <input type="email" name="username" id="jt-email" placeholder="{{ 'Email address'|tr }}" required autocomplete="email" class="jt-signin-input" aria-required="true">
+                                </div>
+                            </div>
+
+                            <div class="mb-4">
+                                <label for="jt-password" class="jt-signin-label">{{ 'Password'|tr }}</label>
+                                <div class="relative">
+                                    <i class="fas fa-lock jt-signin-ic" aria-hidden="true"></i>
+                                    <input type="password" name="password" id="jt-password" placeholder="{{ 'Password'|tr }}" required autocomplete="current-password" class="jt-signin-input jt-signin-input--pw" aria-required="true">
+                                    <button type="button" id="jt-toggle-password" class="jt-signin-eye" aria-label="Show password" aria-pressed="false" aria-controls="jt-password">
+                                        <i class="fa-solid fa-eye" aria-hidden="true"></i>
+                                        <i class="fa-solid fa-eye-slash hidden" aria-hidden="true"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="mt-2 mb-1.5 flex justify-end pt-1.5">
+                                <a href="{% url 'forgot_password' %}" class="text-sm font-semibold text-neutral-700 dark:text-neutral-300 hover:underline">{{ 'Forgot Password?'|tr }}</a>
+                            </div>
+
+                            <button type="submit" class="btn-primary w-full text-sm px-8 py-3.5 mt-1.5">
+                                <i class="fas fa-sign-in-alt" aria-hidden="true"></i>
+                                {{ 'Sign In'|tr }}
+                            </button>
+                        </form>
+
+                        <p class="mt-4 text-center text-sm" data-reveal data-reveal-delay="300">
+                            <span class="text-neutral-600 dark:text-neutral-400">{{ 'Not having an account?'|tr }}</span>
+                            <a href="{% url 'register' %}" class="font-semibold text-primary hover:underline">{{ 'Register'|tr }}</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+         GET IN TOUCH — Agbedus-style detail rows + action cards
+         ============================================================ -->
+    <section id="get-in-touch" class="py-16 md:py-24 border-t border-neutral-200 dark:border-white/5 scroll-mt-28" aria-label="{{ 'Ways to reach us'|tr }}">
+        <div class="container mx-auto px-6 lg:px-8">
+            <div class="grid lg:grid-cols-12 gap-10 lg:gap-14 items-start">
+
+                <!-- Left: detail rows + CTAs + socials -->
+                <div class="lg:col-span-5 lg:sticky lg:top-28">
+                    <p class="eyebrow mb-6" data-reveal>{{ 'Get in touch'|tr }}</p>
+                    <h2 class="text-3xl md:text-4xl font-semibold text-neutral-900 dark:text-white mb-5" data-reveal data-reveal-delay="60">
+                        {{ 'Talk to JustTech.'|tr }}
+                    </h2>
+                    <p class="text-neutral-600 dark:text-neutral-400 leading-relaxed mb-9 max-w-lg" data-reveal data-reveal-delay="120">
+                        {{ 'Tell us about the track, the session or the room — not the technical solution. We will read it properly and suggest a practical next step.'|tr }}
+                    </p>
+
+                    {% if site_settings.address_line_1 or site_settings.address_line_2 %}
+                    <a href="#location" class="jt-contact-row group" data-reveal data-reveal-delay="160">
+                        <span class="jt-contact-row__icon" aria-hidden="true"><i class="fas fa-map-marker-alt"></i></span>
+                        <span class="min-w-0">
+                            <span class="jt-contact-row__label">{{ 'Address'|tr }}</span>
+                            <span class="jt-contact-row__value">
+                                {% if site_settings.address_line_1 %}{{ site_settings.address_line_1 }}{% endif %}{% if site_settings.address_line_2 %}, {{ site_settings.address_line_2 }}{% endif %}
+                            </span>
+                        </span>
+                    </a>
+                    {% endif %}
+
+                    {% if site_settings.primary_email or site_settings.booking_email %}
+                    <a href="mailto:{{ site_settings.primary_email|default:site_settings.booking_email }}" class="jt-contact-row group" data-reveal data-reveal-delay="200">
+                        <span class="jt-contact-row__icon" aria-hidden="true"><i class="fas fa-envelope"></i></span>
+                        <span class="min-w-0">
+                            <span class="jt-contact-row__label">{{ 'Email'|tr }}</span>
+                            <span class="jt-contact-row__value">{{ site_settings.primary_email|default:site_settings.booking_email }}</span>
+                        </span>
+                    </a>
+                    {% endif %}
+
+                    {% if site_settings.phone %}
+                    <a href="tel:{{ site_settings.phone }}" class="jt-contact-row group" data-reveal data-reveal-delay="240">
+                        <span class="jt-contact-row__icon" aria-hidden="true"><i class="fas fa-phone-alt"></i></span>
+                        <span class="min-w-0">
+                            <span class="jt-contact-row__label">{{ 'Phone'|tr }}</span>
+                            <span class="jt-contact-row__value">{{ site_settings.phone }}</span>
+                        </span>
+                    </a>
+                    {% endif %}
+
+                    {% if site_settings.business_hours %}
+                    <div class="jt-contact-row" data-reveal data-reveal-delay="280">
+                        <span class="jt-contact-row__icon" aria-hidden="true"><i class="fas fa-clock"></i></span>
+                        <span class="min-w-0">
+                            <span class="jt-contact-row__label">{{ 'Working hours'|tr }}</span>
+                            <span class="jt-contact-row__value whitespace-pre-line">{{ site_settings.business_hours }}</span>
+                        </span>
+                    </div>
+                    {% endif %}
+
+                    <div class="mt-9 flex flex-wrap gap-3" data-reveal data-reveal-delay="320">
+                        <a href="{% url 'booking' %}" class="btn-primary text-sm px-6 py-3">
+                            <i class="fas fa-calendar-check" aria-hidden="true"></i>
+                            {{ 'Book a call'|tr }}
+                        </a>
+                        {% if site_settings.phone %}
+                        <a href="https://wa.me/{{ site_settings.phone|cut:' '|cut:'-'|cut:'('|cut:')'|cut:'+' }}" class="jt-chat-cta jt-chat-cta--wa text-sm" target="_blank" rel="noopener">
+                            <i class="fab fa-whatsapp" aria-hidden="true"></i>
+                            {{ 'Chat with us on WhatsApp'|tr }}
+                        </a>
+                        {% endif %}
+                    </div>
+
+                    <div class="mt-10 pt-8 border-t border-neutral-200 dark:border-white/10" data-reveal data-reveal-delay="360">
+                        <p class="text-xs font-semibold uppercase tracking-[0.2em] text-neutral-400 mb-4">{{ 'Follow Us'|tr }}</p>
+                        <div class="flex flex-wrap gap-2.5">
+                            <a href="{{ site_settings.facebook_url|default:'#' }}" class="jt-social" aria-label="Facebook"{% if site_settings.facebook_url %} target="_blank" rel="noopener"{% endif %}><i class="fab fa-facebook-f" aria-hidden="true"></i></a>
+                            <a href="{{ site_settings.tiktok_url|default:'#' }}" class="jt-social" aria-label="TikTok"{% if site_settings.tiktok_url %} target="_blank" rel="noopener"{% endif %}><i class="fab fa-tiktok" aria-hidden="true"></i></a>
+                            <a href="{{ site_settings.instagram_url|default:'#' }}" class="jt-social" aria-label="Instagram"{% if site_settings.instagram_url %} target="_blank" rel="noopener"{% endif %}><i class="fab fa-instagram" aria-hidden="true"></i></a>
+                            <a href="{{ site_settings.linkedin_url|default:'#' }}" class="jt-social" aria-label="LinkedIn"{% if site_settings.linkedin_url %} target="_blank" rel="noopener"{% endif %}><i class="fab fa-linkedin-in" aria-hidden="true"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: 2x2 action cards -->
+                <div class="lg:col-span-7">
+                    <div class="grid sm:grid-cols-2 gap-4">
+
+                        <a href="{% url 'hire_the_band' %}" class="jt-action jt-action--band group" data-reveal data-reveal-delay="60">
+                            <span class="jt-action-line" aria-hidden="true"></span>
+                            <div class="p-6 lg:p-8 flex flex-col h-full">
+                                <div class="flex items-center justify-between mb-6 lg:mb-9">
+                                    <span class="jt-action-icon" aria-hidden="true"><i class="fas fa-music"></i></span>
+                                    <span class="jt-action-dot" aria-hidden="true"></span>
+                                </div>
+                                <h3 class="text-lg lg:text-xl font-semibold text-neutral-900 dark:text-white mb-2">{{ 'Hire the band'|tr }}</h3>
+                                <p class="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed flex-1">{{ 'Session keyboard & guitar for the song you are about to produce — played, recorded and honed in your studio.'|tr }}</p>
+                                <div class="mt-6 pt-5 border-t border-neutral-200 dark:border-white/5 flex items-center justify-between">
+                                    <span class="inline-flex items-center gap-2 text-sm font-semibold text-primary">{{ 'Start a session'|tr }}<i class="fas fa-arrow-right jt-action-arrow text-xs" aria-hidden="true"></i></span>
+                                    <span class="jt-action__num" aria-hidden="true">01</span>
+                                </div>
+                            </div>
+                        </a>
+
+                        <a href="{% url 'book_studio' %}" class="jt-action jt-action--studio group" data-reveal data-reveal-delay="120">
+                            <span class="jt-action-line" aria-hidden="true"></span>
+                            <div class="p-6 lg:p-8 flex flex-col h-full">
+                                <div class="flex items-center justify-between mb-6 lg:mb-9">
+                                    <span class="jt-action-icon" aria-hidden="true"><i class="fas fa-sliders"></i></span>
+                                    <span class="jt-action-dot" aria-hidden="true"></span>
+                                </div>
+                                <h3 class="text-lg lg:text-xl font-semibold text-neutral-900 dark:text-white mb-2">{{ 'Book studio time'|tr }}</h3>
+                                <p class="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed flex-1">{{ 'Track, mix and master in a room tuned for real results — by the hour or by the day.'|tr }}</p>
+                                <div class="mt-6 pt-5 border-t border-neutral-200 dark:border-white/5 flex items-center justify-between">
+                                    <span class="inline-flex items-center gap-2 text-sm font-semibold text-primary">{{ 'Check availability'|tr }}<i class="fas fa-arrow-right jt-action-arrow text-xs" aria-hidden="true"></i></span>
+                                    <span class="jt-action__num" aria-hidden="true">02</span>
+                                </div>
+                            </div>
+                        </a>
+
+                        <a href="{% url 'what_you_need' %}" class="jt-action jt-action--message group" data-reveal data-reveal-delay="180">
+                            <span class="jt-action-line" aria-hidden="true"></span>
+                            <div class="p-6 lg:p-8 flex flex-col h-full">
+                                <div class="flex items-center justify-between mb-6 lg:mb-9">
+                                    <span class="jt-action-icon" aria-hidden="true"><i class="fas fa-paper-plane"></i></span>
+                                    <span class="jt-action-dot" aria-hidden="true"></span>
+                                </div>
+                                <h3 class="text-lg lg:text-xl font-semibold text-neutral-900 dark:text-white mb-2">{{ 'Tell us what you need'|tr }}</h3>
+                                <p class="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed flex-1">{{ 'Sessions, installs, builds or a message that does not fit a box — send it and we will take it from there.'|tr }}</p>
+                                <div class="mt-6 pt-5 border-t border-neutral-200 dark:border-white/5 flex items-center justify-between">
+                                    <span class="inline-flex items-center gap-2 text-sm font-semibold text-primary">{{ 'Send a message'|tr }}<i class="fas fa-arrow-right jt-action-arrow text-xs" aria-hidden="true"></i></span>
+                                    <span class="jt-action__num" aria-hidden="true">03</span>
+                                </div>
+                            </div>
+                        </a>
+
+                        <a href="{% url 'book_a_lesson' %}" class="jt-action jt-action--lessons group" data-reveal data-reveal-delay="240">
+                            <span class="jt-action-line" aria-hidden="true"></span>
+                            <div class="p-6 lg:p-8 flex flex-col h-full">
+                                <div class="flex items-center justify-between mb-6 lg:mb-9">
+                                    <span class="jt-action-icon" aria-hidden="true"><i class="fas fa-graduation-cap"></i></span>
+                                    <span class="jt-action-dot" aria-hidden="true"></span>
+                                </div>
+                                <h3 class="text-lg lg:text-xl font-semibold text-neutral-900 dark:text-white mb-2">{{ 'Book a lesson'|tr }}</h3>
+                                <p class="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed flex-1">{{ 'Piano, guitar and audio lessons — hands-on, at your pace, on studio gear.'|tr }}</p>
+                                <div class="mt-6 pt-5 border-t border-neutral-200 dark:border-white/5 flex items-center justify-between">
+                                    <span class="inline-flex items-center gap-2 text-sm font-semibold text-primary">{{ 'Explore lessons'|tr }}<i class="fas fa-arrow-right jt-action-arrow text-xs" aria-hidden="true"></i></span>
+                                    <span class="jt-action__num" aria-hidden="true">04</span>
+                                </div>
+                            </div>
+                        </a>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+         DETAILS + FORM
+         ============================================================ -->
+    <section id="contact-form" class="py-12 md:py-20 border-t border-neutral-200 dark:border-white/5 scroll-mt-28" aria-label="{{ 'Contact form'|tr }}">
+        <div class="container mx-auto px-6 lg:px-8">
+            <div class="grid lg:grid-cols-2 rounded-3xl overflow-hidden border border-neutral-200 bg-white dark:border-white/10 dark:bg-white/[0.02]">
+
+                <!-- Left: music image panel (azubi-style, hidden on mobile) -->
+                <div class="relative min-h-[420px] overflow-hidden hidden lg:flex jt-sig-visual">
+                    <img class="jt-sig-img" loading="lazy" decoding="async"
+                         src="https://images.unsplash.com/photo-1510915361894-db8b60106cb1?auto=format&fit=crop&w=1400&q=80"
+                         alt="Microphone in the JustTech studio"
+                         onerror="this.style.display='none'">
+                    <div class="jt-sig-overlay" aria-hidden="true"></div>
+                    <div class="relative z-10 flex h-full w-full items-end p-8">
+                        <div class="max-w-md text-white">
+                            <p class="eyebrow mb-4">{{ 'IN THE STUDIO'|tr }}</p>
+                            <h2 class="text-2xl md:text-3xl font-semibold mb-3">{{ 'Tell us what you need'|tr }}</h2>
+                            <p class="text-white/85 leading-relaxed text-sm">{{ 'Live outside the area? We work across Canada.'|tr }}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: form card -->
+                <div id="contact-form-container" class="scroll-mt-28">
+                    <div class="p-8 md:p-12 lg:p-14 h-full">
+                        <div class="mb-9 max-w-xl lg:hidden">
+                            <p class="eyebrow mb-4">{{ 'Send a message'|tr }}</p>
+                            <h2 class="text-2xl md:text-3xl font-semibold text-neutral-900 dark:text-white mb-3">{{ 'Tell us what you need'|tr }}</h2>
+                        </div>
+
+                        {% if submitted %}
+                        <div class="mb-8 p-4 rounded-xl border border-green-500/40 bg-green-500/5" role="status">
+                            <p class="text-green-600 dark:text-green-400 text-sm">{{ 'Your message has been received.'|tr }}</p>
+                        </div>
+                        {% endif %}
+
+                        {% if form.non_field_errors %}
+                        <div class="mb-8 p-4 rounded-xl border border-[#ff003c]/40 bg-[#ff003c]/5" role="alert">
+                            {% for error in form.non_field_errors %}
+                            <p class="text-[#ff003c] text-sm">{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+
+                        <form hx-post="{% url 'contact' %}" hx-target="#contact-form-container" hx-swap="outerHTML" method="POST" action="{% url 'contact' %}">
+                            {% csrf_token %}
+
+                            <div class="grid md:grid-cols-2 gap-x-4">
+                                <div class="mb-6 {% if form.name.errors %}has-error{% endif %}">
+                                    <label for="{{ form.name.id_for_label }}" class="form-label {% if form.name.field.required %}form-required{% endif %}">
+                                        {{ 'Your name'|tr }}{% if form.name.field.required %}<span class="sr-only"> (required)</span>{% endif %}
+                                    </label>
+                                    {{ form.name }}
+                                    {% if form.name.errors %}<p class="form-error" id="{{ form.name.id_for_label }}-error">{{ form.name.errors.0 }}</p>{% endif %}
+                                </div>
+                                <div class="mb-6 {% if form.email.errors %}has-error{% endif %}">
+                                    <label for="{{ form.email.id_for_label }}" class="form-label {% if form.email.field.required %}form-required{% endif %}">
+                                        {{ 'Email address'|tr }}{% if form.email.field.required %}<span class="sr-only"> (required)</span>{% endif %}
+                                    </label>
+                                    {{ form.email }}
+                                    {% if form.email.errors %}<p class="form-error" id="{{ form.email.id_for_label }}-error">{{ form.email.errors.0 }}</p>{% endif %}
+                                </div>
+                            </div>
+
+                            <div class="mb-6 {% if form.subject.errors %}has-error{% endif %}">
+                                <label for="{{ form.subject.id_for_label }}" class="form-label {% if form.subject.field.required %}form-required{% endif %}">
+                                    {{ 'Subject'|tr }}{% if form.subject.field.required %}<span class="sr-only"> (required)</span>{% endif %}
+                                </label>
+                                {{ form.subject }}
+                                {% if form.subject.errors %}<p class="form-error" id="{{ form.subject.id_for_label }}-error">{{ form.subject.errors.0 }}</p>{% endif %}
+                            </div>
+
+                            <div class="mb-8 {% if form.message.errors %}has-error{% endif %}">
+                                <label for="{{ form.message.id_for_label }}" class="form-label {% if form.message.field.required %}form-required{% endif %}">
+                                    {{ 'Message'|tr }}{% if form.message.field.required %}<span class="sr-only"> (required)</span>{% endif %}
+                                </label>
+                                {{ form.message }}
+                                <p id="{{ form.message.id_for_label }}-help" class="mt-1 text-xs text-neutral-500 dark:text-neutral-500">{{ 'Tell us about your project or question.'|tr }}</p>
+                                {% if form.message.errors %}<p class="form-error" id="{{ form.message.id_for_label }}-error">{{ form.message.errors.0 }}</p>{% endif %}
+                            </div>
+
+                            <button type="submit" class="btn-primary w-full text-sm px-8 py-3.5">
+                                {{ 'Send message'|tr }}
+                                <i class="fas fa-paper-plane text-xs" aria-hidden="true"></i>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+         LOCATION (MAP)
+         ============================================================ -->
+    <div id="location" class="scroll-mt-24 py-10 md:py-16 border-t border-neutral-200 dark:border-white/5">
+        <div class="container mx-auto px-6 lg:px-8 mb-10">
+            <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
+                <div class="max-w-xl">
+                    <p class="eyebrow mb-6">{{ 'Our studio'|tr }}</p>
+                    <h2 class="text-3xl md:text-4xl font-semibold text-neutral-900 dark:text-white mb-4">{{ 'Based in Barrie, Ontario — serving Canada.'|tr }}</h2>
+                    <p class="text-neutral-600 dark:text-neutral-400 leading-relaxed">
+                        {{ 'Aerial view of our studio on the shores of Kempenfelt Bay, Lake Simcoe.'|tr }}
+                    </p>
+                </div>
+            </div>
+        </div>
+        {% include 'main_app/components/locator.html' %}
+    </div>
+
+    <!-- ============================================================
+         FAQ
+         ============================================================ -->
+    {% if contact_faqs %}
+    <section class="py-16 md:py-24 border-t border-neutral-200 dark:border-white/5" aria-label="{{ 'Frequently asked questions'|tr }}">
+        <div class="container mx-auto px-6 lg:px-8">
+            <div class="max-w-2xl mx-auto text-center mb-16">
+                <p class="eyebrow justify-center mb-6">{{ 'FAQ'|tr }}</p>
+                <h2 class="text-3xl md:text-4xl font-semibold text-neutral-900 dark:text-white">{{ 'Common questions'|tr }}</h2>
+            </div>
+
+            <div class="max-w-3xl mx-auto space-y-3">
+                {% for faq in contact_faqs %}
+                <div class="faq-item rounded-2xl border border-neutral-200 bg-white dark:border-white/10 dark:bg-white/[0.02]">
+                    <button type="button" class="faq-question w-full flex items-center justify-between gap-4 p-6 text-left" aria-expanded="false" aria-controls="faq-answer-{{ forloop.counter }}">
+                        <span class="font-medium text-neutral-900 dark:text-white transition">{{ faq.question }}</span>
+                        <i class="fa-solid fa-plus text-sm text-primary shrink-0" aria-hidden="true"></i>
+                    </button>
+                    <div id="faq-answer-{{ forloop.counter }}" class="faq-answer hidden px-6 pb-6">
+                        <p class="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">{{ faq.answer }}</p>
+                    </div>
                 </div>
                 {% endfor %}
             </div>
         </div>
+    </section>
+    {% endif %}
 
-        <div class="mt-16 bg-gray-800 rounded-lg p-8">
-            <h3 class="text-2xl font-bold mb-6 text-center">Quick Links</h3>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <a href="{% url 'booking' %}" class="bg-gray-700 hover:bg-red-500 transition rounded-lg p-6 text-center">
-                    <i class="fas fa-calendar-alt text-2xl mb-4"></i>
-                    <h4 class="font-bold mb-2">Book a Service</h4>
-                    <p class="text-gray-400 text-sm">Schedule consultation or book equipment</p>
-                </a>
+</div>
+{% endblock %}
 
-                <a href="{% url 'services' %}" class="bg-gray-700 hover:bg-red-500 transition rounded-lg p-6 text-center">
-                    <i class="fas fa-tools text-2xl mb-4"></i>
-                    <h4 class="font-bold mb-2">View Services</h4>
-                    <p class="text-gray-400 text-sm">Explore our full range of offerings</p>
-                </a>
+{% block extra_js %}
+<script>
+    (function () {
+        var button = document.getElementById('jt-toggle-password');
+        var input = document.getElementById('jt-password');
+        if (!button || !input) return;
 
-                <a href="{% url 'pricing' %}" class="bg-gray-700 hover:bg-red-500 transition rounded-lg p-6 text-center">
-                    <i class="fas fa-dollar-sign text-2xl mb-4"></i>
-                    <h4 class="font-bold mb-2">See Pricing</h4>
-                    <p class="text-gray-400 text-sm">Transparent pricing for all services</p>
-                </a>
-            </div>
-        </div>
-    </div>
-</section>
+        button.addEventListener('click', function () {
+            var isPassword = input.type === 'password';
+            input.type = isPassword ? 'text' : 'password';
+            button.setAttribute('aria-label', isPassword ? 'Hide password' : 'Show password');
+            button.setAttribute('aria-pressed', isPassword ? 'true' : 'false');
+            var eye = button.querySelector('.fa-eye');
+            var eyeSlash = button.querySelector('.fa-eye-slash');
+            if (eye) eye.classList.toggle('hidden', isPassword);
+            if (eyeSlash) eyeSlash.classList.toggle('hidden', !isPassword);
+        });
+    })();
+</script>
 {% endblock %}

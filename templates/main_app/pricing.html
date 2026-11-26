@@ -1,111 +1,227 @@
 {% extends 'main_app/base.html' %}
+{% load i18n_tags %}
 
-{% block title %}Pricing | {{ site_settings.company_name|default:'Just Tech' }}{% endblock %}
+{% block title %}{{ 'Pricing'|tr }} | {{ site_settings.company_name|default:'Just Tech' }}{% endblock %}
+
+{% block meta_description %}{{ 'Transparent pricing for JustTech services: custom PCs, audio setups, streaming setups, event production, equipment rental, and consultations.'|tr }}{% endblock %}
+
+{% block og_title %}{{ 'Pricing'|tr }} | {{ site_settings.company_name|default:'Just Tech' }}{% endblock %}
+
+{% block og_description %}{{ 'Honest, upfront pricing for every JustTech service, from custom PCs to full event production.'|tr }}{% endblock %}
 
 {% block content %}
-<section class="relative py-20 bg-dark-bg min-h-[40vh] flex items-center">
-    <div class="absolute inset-0 z-0">
-        <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" alt="Pricing Hero" class="w-full h-full object-cover opacity-30">
-        <div class="absolute inset-0 bg-gradient-to-r from-dark-bg to-transparent"></div>
-    </div>
-    <div class="container mx-auto px-4 relative z-10">
-        <h1 class="text-5xl md:text-6xl font-bold mb-6">Pricing & Packages</h1>
-        <p class="text-xl text-gray-300 max-w-3xl">Transparent pricing for all our services. Choose from standard packages or request a custom quote.</p>
-    </div>
-</section>
+<div id="pricing-page">
 
-<section class="py-20 bg-dark-bg">
-    <div class="container mx-auto px-4">
-        <h2 class="text-4xl font-bold mb-2 section-title">Pricing & Packages</h2>
-        <p class="text-gray-400 mb-12 max-w-3xl">We offer transparent pricing for all our services. Choose from our standard packages or request a custom quote for your specific needs.</p>
+    <div class="jt-page-grad">
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
-            {% for package in packages %}
-            <div class="pricing-card{% if package.is_popular %} popular{% endif %}">
-                {% if package.is_popular %}<div class="popular-badge">MOST POPULAR</div>{% endif %}
-                <h3 class="text-2xl font-bold mb-4">{{ package.name }}</h3>
-                <div class="text-4xl font-bold mb-6">{{ package.price }}</div>
-                <p class="text-gray-400 mb-6">{{ package.description }}</p>
-                <ul class="space-y-3 mb-8">
-                    {% if package.feature_1 %}<li><i class="fas fa-check text-red-500 mr-2"></i> {{ package.feature_1 }}</li>{% endif %}
-                    {% if package.feature_2 %}<li><i class="fas fa-check text-red-500 mr-2"></i> {{ package.feature_2 }}</li>{% endif %}
-                    {% if package.feature_3 %}<li><i class="fas fa-check text-red-500 mr-2"></i> {{ package.feature_3 }}</li>{% endif %}
-                    {% if package.feature_4 %}<li><i class="fas fa-check text-red-500 mr-2"></i> {{ package.feature_4 }}</li>{% endif %}
-                    {% if package.feature_5 %}<li><i class="fas fa-check text-red-500 mr-2"></i> {{ package.feature_5 }}</li>{% endif %}
-                    {% if package.feature_6 %}<li><i class="fas fa-check text-red-500 mr-2"></i> {{ package.feature_6 }}</li>{% endif %}
-                </ul>
-                <a href="{% url 'booking' %}" class="{% if package.is_popular %}btn-primary{% else %}btn-secondary{% endif %} w-full block text-center">Select Plan</a>
-            </div>
-            {% empty %}
-            <div class="pricing-card">
-                <h3 class="text-2xl font-bold mb-4">Basic Setup</h3>
-                <div class="text-4xl font-bold mb-6">$199/event</div>
-                <p class="text-gray-400 mb-6">Perfect for small events or basic streaming setups.</p>
-                <a href="{% url 'booking' %}" class="btn-secondary w-full block text-center">Select Plan</a>
-            </div>
-            {% endfor %}
+    <!-- ============================================================
+         HERO
+         ============================================================ -->
+    <section class="relative overflow-hidden pt-28 md:pt-36 pb-16 md:pb-20" aria-label="{{ 'Pricing introduction'|tr }}">
+        <div class="absolute inset-0 pointer-events-none" aria-hidden="true">
+            <div class="absolute inset-0 bg-[radial-gradient(ellipse_90%_60%_at_50%_-20%,rgba(255,0,60,0.06),transparent)]"></div>
         </div>
 
-        <h3 class="text-2xl font-bold mb-8">Equipment Rental Rates</h3>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-            {% for item in equipment_items %}
-            <div class="equipment-item">
-                <div class="w-12 h-12 bg-red-500 bg-opacity-20 rounded-full flex items-center justify-center mr-4">
-                    <i class="{{ item.icon_class }} text-red-500"></i>
-                </div>
-                <div>
-                    <h4 class="font-bold">{{ item.name }}</h4>
-                    <p class="text-gray-400 text-sm">{{ item.price }}</p>
-                </div>
-            </div>
-            {% empty %}
-            <div class="equipment-item">
-                <div class="w-12 h-12 bg-red-500 bg-opacity-20 rounded-full flex items-center justify-center mr-4">
-                    <i class="fas fa-microphone text-red-500"></i>
-                </div>
-                <div>
-                    <h4 class="font-bold">Shure SM7B</h4>
-                    <p class="text-gray-400 text-sm">$25/day</p>
+        <div class="container mx-auto px-6 lg:px-8">
+            <div class="max-w-3xl">
+                <p class="eyebrow mb-8">{{ 'Pricing'|tr }}</p>
+                <h1 class="text-4xl sm:text-5xl xl:text-6xl font-semibold text-neutral-900 dark:text-white leading-[1.08] mb-8">
+                    {{ 'Clear where it can be.'|tr }} <span class="text-primary">{{ 'Custom where it needs to be.'|tr }}</span>
+                </h1>
+                <p class="text-lg text-neutral-600 dark:text-neutral-400 leading-relaxed mb-12 max-w-2xl">
+                    {{ 'Every service carries a starting price as a guide. The exact quote is confirmed against the scope and requirements of your project.'|tr }}
+                </p>
+                <div class="flex flex-wrap items-center gap-4">
+                    <a href="{% url 'booking' %}" class="btn-primary text-sm px-7 py-3">
+                        <i class="fas fa-calendar-check" aria-hidden="true"></i>
+                        {{ 'Book Now'|tr }}
+                    </a>
+                    <a href="{% url 'contact' %}" class="btn-secondary text-sm px-7 py-3">{{ 'Contact Us'|tr }}</a>
                 </div>
             </div>
-            {% endfor %}
         </div>
-    </div>
-</section>
+    </section>
 
-<section class="py-20 bg-gray-900">
-    <div class="container mx-auto px-4">
-        <h2 class="text-3xl font-bold mb-10 text-center">Frequently Asked Questions</h2>
-        <div class="max-w-3xl mx-auto">
-            <div class="space-y-6">
-                {% for faq in pricing_faqs %}
-                <div class="border-b border-gray-700 pb-6">
-                    <h3 class="text-xl font-bold mb-3">{{ faq.question }}</h3>
-                    <p class="text-gray-400">{{ faq.answer }}</p>
-                </div>
+    <!-- ============================================================
+         SERVICE PRICING
+         ============================================================ -->
+    <section class="py-16 md:py-24 border-t border-neutral-200 dark:border-white/5" aria-label="{{ 'Service pricing'|tr }}">
+        <div class="container mx-auto px-6 lg:px-8">
+            <div class="max-w-2xl mb-16">
+                <p class="eyebrow mb-6">{{ 'Service pricing'|tr }}</p>
+                <h2 class="text-3xl md:text-4xl font-semibold text-neutral-900 dark:text-white leading-tight mb-6">
+                    {{ 'Starting prices, by service.'|tr }}
+                </h2>
+                <p class="text-neutral-600 dark:text-neutral-400 leading-relaxed">
+                    {{ 'Each service lists what work typically starts at. Your final quote is confirmed once we know the details of your project.'|tr }}
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-6">
+                {% for service in services %}
+                <article class="jt-price-card group items-center text-center p-8"
+                         data-reveal data-reveal-delay="{% widthratio forloop.counter0 1 60 %}"
+                         style="--hue: {% cycle '165' '291.34' '338.69' %}; --saturation: {% cycle '82.26%' '95.9%' '100%' %}; --lightness: {% cycle '51.37%' '61.76%' '48.04%' %};">
+                    <div class="flex items-center justify-center gap-3 mb-6">
+                        <span class="text-sm font-semibold text-primary" aria-hidden="true">{{ forloop.counter|stringformat:"02d" }}</span>
+                        <span class="w-2 h-2 rounded-full bg-primary" aria-hidden="true"></span>
+                    </div>
+
+                    <h3 class="text-xl lg:text-2xl font-semibold text-neutral-900 dark:text-white mb-1">
+                        <a href="{% url 'booking' %}?service={{ service.slug }}" class="transition-colors hover:text-primary">
+                            {{ service.name }}
+                        </a>
+                    </h3>
+                    {% if service.short_description %}
+                    <p class="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed mt-3">{{ service.short_description }}</p>
+                    {% endif %}
+
+                    <p class="text-2xl lg:text-3xl font-semibold text-primary my-6">{{ service.starting_price|default:'Contact us for pricing'|tr }}</p>
+
+                    {% if service.starting_price %}
+                    <ul class="space-y-1.5 text-sm text-neutral-600 dark:text-neutral-400 mb-8">
+                        {% if service.feature_1 %}<li class="flex items-center justify-center gap-2"><i class="fas fa-check text-primary text-xs" aria-hidden="true"></i>{{ service.feature_1 }}</li>{% endif %}
+                        {% if service.feature_2 %}<li class="flex items-center justify-center gap-2"><i class="fas fa-check text-primary text-xs" aria-hidden="true"></i>{{ service.feature_2 }}</li>{% endif %}
+                        {% if service.feature_3 %}<li class="flex items-center justify-center gap-2"><i class="fas fa-check text-primary text-xs" aria-hidden="true"></i>{{ service.feature_3 }}</li>{% endif %}
+                    </ul>
+                    {% else %}
+                    <p class="text-sm text-neutral-500 dark:text-neutral-400 mb-8">
+                        {{ 'Quotes are prepared against your project scope.'|tr }}
+                    </p>
+                    {% endif %}
+
+                    <a href="{% url 'booking' %}?service={{ service.slug }}" class="btn-primary text-sm px-7 py-3 mt-auto self-center">
+                        {% if service.starting_price %}<span class="whitespace-nowrap">{{ 'Book this service'|tr }}</span>{% else %}<span class="whitespace-nowrap">{{ 'Request a quote'|tr }}</span>{% endif %}
+                        <span class="transition-transform duration-300 inline-block group-hover:translate-x-0.5" aria-hidden="true">&rarr;</span>
+                    </a>
+                </article>
                 {% empty %}
-                <div class="border-b border-gray-700 pb-6">
-                    <h3 class="text-xl font-bold mb-3">Is there a minimum rental period?</h3>
-                    <p class="text-gray-400">Yes, most equipment has a 24-hour minimum rental period.</p>
+                <div class="sm:col-span-2 xl:col-span-3 py-16 text-center border border-neutral-200 dark:border-white/5 rounded-2xl">
+                    <p class="text-neutral-600 dark:text-neutral-400 mb-6">{{ 'Service pricing is being prepared.'|tr }}</p>
+                    <a href="{% url 'contact' %}" class="btn-secondary text-sm px-7 py-3">{{ 'Contact Us'|tr }}</a>
                 </div>
                 {% endfor %}
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<section class="py-20 bg-dark-bg">
-    <div class="container mx-auto px-4 text-center">
-        <h2 class="text-3xl font-bold mb-6">Need a Custom Quote?</h2>
-        <p class="text-gray-400 mb-10 max-w-2xl mx-auto">Contact us for personalized pricing based on your specific requirements.</p>
-        <div class="flex flex-wrap justify-center gap-4">
-            <a href="{% url 'contact' %}" class="btn-primary">
-                <i class="fas fa-envelope mr-2"></i> Request Custom Quote
-            </a>
-            <a href="{% url 'booking' %}" class="btn-secondary">
-                <i class="fas fa-calendar-alt mr-2"></i> Book Consultation
-            </a>
+    </div><!-- /.jt-page-grad -->
+
+    <!-- ============================================================
+         HOW PRICING WORKS
+         ============================================================ -->
+    <section class="py-16 md:py-24 border-t border-neutral-200 dark:border-white/5" aria-label="{{ 'How pricing works'|tr }}">
+        <div class="container mx-auto px-6 lg:px-8">
+            <div class="grid lg:grid-cols-12 gap-6 lg:gap-10">
+                <div class="lg:col-span-4">
+                    <p class="eyebrow mb-6">{{ 'How pricing works'|tr }}</p>
+                    <h2 class="text-2xl md:text-3xl font-semibold text-neutral-900 dark:text-white leading-tight mb-6">
+                        {{ 'Why a quote can vary.'|tr }}
+                    </h2>
+                    <p class="text-neutral-600 dark:text-neutral-400 leading-relaxed">
+                        {{ 'Starting prices are a guide. The final figure depends on the specific demands of each project.'|tr }}
+                    </p>
+                </div>
+                <div class="lg:col-span-8">
+                    <div class="grid sm:grid-cols-2 gap-4">
+                        <div class="jt-step-tile rounded-2xl border border-neutral-200 bg-white dark:border-white/10 dark:bg-neutral-900 p-8" tabindex="0">
+                            <p class="text-sm font-semibold text-primary mb-2" aria-hidden="true">01</p>
+                            <h3 class="font-semibold text-neutral-900 dark:text-white mb-2">{{ 'Scope and size'|tr }}</h3>
+                            <p class="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">{{ 'The number of stations, channels or systems involved.'|tr }}</p>
+                        </div>
+                        <div class="jt-step-tile rounded-2xl border border-neutral-200 bg-white dark:border-white/10 dark:bg-neutral-900 p-8" tabindex="0">
+                            <p class="text-sm font-semibold text-primary mb-2" aria-hidden="true">02</p>
+                            <h3 class="font-semibold text-neutral-900 dark:text-white mb-2">{{ 'Venue and location'|tr }}</h3>
+                            <p class="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">{{ 'Logistics, travel and on-site requirements.'|tr }}</p>
+                        </div>
+                        <div class="jt-step-tile rounded-2xl border border-neutral-200 bg-white dark:border-white/10 dark:bg-neutral-900 p-8" tabindex="0">
+                            <p class="text-sm font-semibold text-primary mb-2" aria-hidden="true">03</p>
+                            <h3 class="font-semibold text-neutral-900 dark:text-white mb-2">{{ 'Equipment and systems'|tr }}</h3>
+                            <p class="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">{{ 'Gear required to reach the standard you need.'|tr }}</p>
+                        </div>
+                        <div class="jt-step-tile rounded-2xl border border-neutral-200 bg-white dark:border-white/10 dark:bg-neutral-900 p-8" tabindex="0">
+                            <p class="text-sm font-semibold text-primary mb-2" aria-hidden="true">04</p>
+                            <h3 class="font-semibold text-neutral-900 dark:text-white mb-2">{{ 'Duration and complexity'|tr }}</h3>
+                            <p class="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">{{ 'Timeline, changes and technical difficulty.'|tr }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
-</section>
+    </section>
+
+    <!-- ============================================================
+         CTA
+         ============================================================ -->
+    <section class="py-16 md:py-24 border-t border-neutral-200 dark:border-white/5" aria-label="{{ 'Contact call to action'|tr }}">
+        <div class="container mx-auto px-6 lg:px-8">
+            <div id="jt-cta-card" class="relative overflow-hidden rounded-3xl border border-neutral-900 bg-neutral-900 text-white p-10 md:p-16 dark:border-white/10 dark:bg-neutral-950">
+                <div id="jt-cta-glow" class="jt-cta-glow" aria-hidden="true"></div>
+                <div class="absolute -top-24 left-1/2 -translate-x-1/2 w-96 h-96 rounded-full bg-primary/15 blur-3xl pointer-events-none" aria-hidden="true"></div>
+                <div class="relative max-w-xl mx-auto text-center">
+                    <p class="eyebrow mb-6">{{ 'Not sure what you need?'|tr }}</p>
+                    <h2 class="text-3xl md:text-4xl font-semibold mb-4">{{ 'Book a consultation.'|tr }}</h2>
+                    <p class="text-neutral-400 mb-8">
+                        {{ "We'll look at your project and recommend the right scope — with nothing invented along the way."|tr }}
+                    </p>
+                    <div class="flex flex-wrap items-center justify-center gap-4">
+                        <a href="{% url 'booking' %}?service=consultation" class="btn-primary text-sm px-8 py-3.5">
+                            <i class="fas fa-calendar-check" aria-hidden="true"></i>
+                            {{ 'Book a Consultation'|tr }}
+                        </a>
+                        <a href="{% url 'contact' %}" class="inline-flex items-center justify-center border border-white/20 text-white text-sm font-semibold px-8 py-3.5 rounded-full transition hover:border-white/50 hover:bg-white/5">{{ 'Contact Us'|tr }}</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+(function () {
+    'use strict';
+    var card = document.getElementById('jt-cta-card');
+    var glow = document.getElementById('jt-cta-glow');
+    if (!card || !glow) return;
+
+    var REDUCE = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    function baseH(cardWidth) {
+        return cardWidth * 0.15;
+    }
+
+    function setBase() {
+        var r = card.getBoundingClientRect();
+        if (!r.width) return;
+        var h = baseH(r.width);
+        glow.style.setProperty('--h', h.toFixed(1) + 'px');
+        glow.style.setProperty('--cx', (r.width / 2).toFixed(1) + 'px');
+    }
+
+    setBase();
+
+    if (REDUCE) return;
+
+    function onMove(e) {
+        var r = card.getBoundingClientRect();
+        var x = e.clientX - r.left;
+        var y = e.clientY - r.top;
+        var prox = Math.max(0, Math.min(1, y / r.height));
+        var h = baseH(r.width) * (1 + prox * 0.4);
+        var center = Math.max(h, Math.min(x, r.width - h));
+        glow.style.setProperty('--h', h.toFixed(1) + 'px');
+        glow.style.setProperty('--cx', center.toFixed(1) + 'px');
+    }
+
+    function onLeave() {
+        setBase();
+    }
+
+    card.addEventListener('pointermove', onMove);
+    card.addEventListener('pointerleave', onLeave);
+})();
+</script>
 {% endblock %}

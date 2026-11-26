@@ -1,120 +1,875 @@
 {% extends 'main_app/base.html' %}
+{% load static %}
+{% load i18n_tags %}
 
-{% block title %}About | {{ site_settings.company_name|default:'Just Tech' }}{% endblock %}
+{% block title %}{{ 'About'|tr }} | {{ site_settings.company_name|default:'Just Tech' }}{% endblock %}
 
 {% block content %}
-<section class="relative py-20 bg-dark-bg min-h-[40vh] flex items-center">
-    <div class="absolute inset-0 z-0">
-        <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" alt="About Hero" class="w-full h-full object-cover opacity-30">
-        <div class="absolute inset-0 bg-gradient-to-r from-dark-bg to-transparent"></div>
+<div id="about-page">
+<!-- ============================================================
+     ABOUT HERO — studio tape deck & spinning vinyl (editorial dark)
+     ============================================================ -->
+<section class="jt-abt-hero" id="abt-hero" aria-label="About JustTech">
+    <div class="jt-abt-hero__ruler" aria-hidden="true">
+        <span class="jt-abt-hero__rec"><span class="jt-abt-hero__rec-dot"></span>{{ 'REC'|tr }}</span>
+        <span>44.1 kHz / 24-bit</span>
+        <span>{{ 'LIVE SOUND'|tr }}</span>
+        <span>{{ 'STREAMING'|tr }}</span>
+        <span>{{ 'CUSTOM BUILDS'|tr }}</span>
+        <span class="jt-abt-hero__code">00:00:00:00</span>
     </div>
-    <div class="container mx-auto px-4 relative z-10">
-        <h1 class="text-5xl md:text-6xl font-bold mb-6">About {{ site_settings.company_name|default:'Just Tech' }}</h1>
-        <p class="text-xl text-gray-300 max-w-3xl">Passionate audio engineers, visual artists, and tech enthusiasts dedicated to exceptional A/V solutions.</p>
+
+    <div class="jt-abt-hero__grid" aria-hidden="true"></div>
+
+    <div class="container mx-auto px-6 lg:px-8 relative">
+        <div class="grid lg:grid-cols-12 gap-12 items-center">
+
+            <div class="lg:col-span-7">
+                <p class="jt-abt-hero__label r" style="--d:.05s">
+                    <i class="fa-solid fa-bolt" aria-hidden="true"></i>
+                    {{ 'The people · not just the gear'|tr }}
+                </p>
+
+                <h1 class="jt-abt-hero__title">
+                    <span class="block r" style="--d:.15s">{{ 'Meet the people'|tr }}</span>
+                    <span class="block r" style="--d:.25s"><span class="jt-abt-hero__stroke">{{ 'behind'|tr }}</span> <span class="jt-abt-hero__accent">{{ 'the'|tr }}</span></span>
+                    <span class="block r" style="--d:.35s">{{ 'sound.'|tr }}</span>
+                </h1>
+
+                <p class="jt-abt-hero__lead r" style="--d:.45s">
+                    {{ 'Just Tech is a team of technicians, builders and teachers who believe great audio starts with great people. Founded in 2018, we design, build and teach — side by side with our clients.'|tr }}
+                </p>
+
+                <div class="jt-abt-hero__actions r" style="--d:.55s">
+                    <a href="#team" class="btn-primary">
+                        {{ 'Meet the team'|tr }} <i class="fa-solid fa-arrow-down" aria-hidden="true"></i>
+                    </a>
+                    <a href="#about" class="btn-secondary">
+                        {{ 'Our story'|tr }}
+                    </a>
+                </div>
+
+                <p class="jt-abt-hero__meta r" style="--d:.65s" aria-label="What we focus on">
+                    <span>{{ 'People'|tr }}</span><i class="fa-solid fa-circle jt-abt-hero__dot" aria-hidden="true"></i>
+                    <span>{{ 'Technology'|tr }}</span><i class="fa-solid fa-circle jt-abt-hero__dot" aria-hidden="true"></i>
+                    <span>{{ 'Creativity'|tr }}</span>
+                </p>
+            </div>
+
+            <div class="lg:col-span-5 r-media" style="--d:.5s">
+                <div class="jt-vinyl" role="img" aria-label="{{ 'Spinning JustTech studio vinyl record'|tr }}">
+                    <div class="jt-vinyl__glow" aria-hidden="true"></div>
+                    <div class="jt-vinyl__disc" aria-hidden="true"></div>
+                    <div class="jt-vinyl__label" aria-hidden="true">
+                        <strong>JUST&nbsp;TECH</strong>
+                        <small>EST. 2018</small>
+                    </div>
+                    <span class="jt-vinyl__spindle" aria-hidden="true"></span>
+                    <div class="jt-vinyl__arm" aria-hidden="true"></div>
+                    <span class="jt-vinyl__chip jt-vinyl__chip--est">Est. {{ site_settings.founded_year|default:'2018' }}</span>
+                    <span class="jt-vinyl__chip jt-vinyl__chip--proj">500+ {{ 'Projects'|tr }}</span>
+                    <span class="jt-vinyl__chip jt-vinyl__chip--train">{{ 'Training'|tr }}</span>
+                    <span class="jt-vinyl__chip jt-vinyl__chip--learn">{{ 'Learning'|tr }}</span>
+                </div>
+            </div>
+
+        </div>
     </div>
 </section>
 
-<section id="about" class="py-20 bg-dark-bg">
-    <div class="container mx-auto px-4">
-        <h2 class="text-4xl font-bold mb-2 section-title">About {{ site_settings.company_name|default:'Just Tech' }}</h2>
-        <p class="text-gray-400 mb-12 max-w-3xl">We're a team dedicated to providing exceptional A/V solutions and education.</p>
+<!-- ============================================================
+     OUR STORY — began in a room in Ontario (editorial split)
+     ============================================================ -->
+<section id="about" class="section py-16 md:py-28 border-t border-neutral-200 dark:border-white/5 overflow-hidden" aria-label="{{ 'Our Story'|tr }}">
+    <div class="container mx-auto px-6 lg:px-8">
+        <div class="grid lg:grid-cols-12 lg:gap-16 items-center">
 
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
-            <div>
-                <h3 class="text-2xl font-bold mb-6">Our Story</h3>
-                <p class="text-gray-400 mb-6">Founded in {{ site_settings.founded_year|default:'2018' }}, we started as a small studio and expanded to comprehensive audio and visual services.</p>
-                <p class="text-gray-400 mb-6">Our mission is to make professional-grade technology accessible to everyone.</p>
-                <p class="text-gray-400">We believe in technology that transforms creative expression and communication.</p>
+            <div class="lg:col-span-6 mb-14 lg:mb-0">
+                <p class="eyebrow mb-6">
+                    {{ 'Our Story'|tr }}
+                </p>
+                <h2 class="jt-story-heading text-3xl md:text-5xl font-semibold tracking-tight text-neutral-900 dark:text-white mb-7">
+                    {{ 'It started in a room in Ontario.'|tr }}
+                </h2>
+                <p class="text-neutral-600 dark:text-neutral-400 leading-relaxed max-w-lg mb-6">
+                    {{ "JustTech began with a single mixing console, one small room in Ontario and a simple belief — that professional sound should be within everyone's reach."|tr }}
+                </p>
+                <p class="text-neutral-600 dark:text-neutral-400 leading-relaxed max-w-lg mb-9">
+                    {{ 'Today that same hands-on attitude runs through everything we do — live sound, streaming, video, custom PCs and the training we offer.'|tr }}
+                </p>
+
+                <div class="flex flex-wrap gap-3" aria-label="Since">
+                    <span class="stats-chip">Est. {{ site_settings.founded_year|default:'2018' }}</span>
+                    <span class="stats-chip">500+ {{ 'Projects Completed'|tr }}</span>
+                    <span class="stats-chip">250+ {{ 'Students Trained'|tr }}</span>
+                </div>
             </div>
 
-            <div>
-                <h3 class="text-2xl font-bold mb-6">Meet Our Team</h3>
-                <div class="space-y-6">
-                    {% for member in team_members %}
-                    <div class="flex items-center">
-                        <div class="w-20 h-20 rounded-full bg-gray-700 mr-6 overflow-hidden">
-                            {% if member.image_url %}
-                            <img src="{{ member.image_url }}" alt="{{ member.name }}" class="w-full h-full object-cover">
-                            {% endif %}
-                        </div>
-                        <div>
-                            <h4 class="text-xl font-bold">{{ member.name }}</h4>
-                            <p class="text-red-500 mb-2">{{ member.role }}</p>
-                            <p class="text-gray-400 text-sm">{{ member.bio }}</p>
-                        </div>
+            <div class="lg:col-span-6">
+                <div class="jt-story-media" data-reveal>
+                    <div class="jt-story-frame" aria-hidden="true"></div>
+                    <div class="jt-story-img-wrap">
+                        <img class="jt-story-img"
+                             src="https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?auto=format&fit=crop&w=1600&q=80"
+                             alt="{{ 'A sound mixing console in the studio'|tr }}" loading="lazy" decoding="async" />
+                        <span class="jt-story-tag">{{ 'WHERE IT BEGAN'|tr }}</span>
                     </div>
-                    {% empty %}
-                    <p class="text-gray-400">Add team members in admin to populate this section.</p>
+                    <div class="jt-story-note">
+                        <span class="jt-story-note-year">{{ site_settings.founded_year|default:'2018' }}</span>
+                        <span class="jt-story-note-line">{{ 'One room.'|tr }}<br>Ontario</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- ============================================================
+     WHAT MAKES US DIFFERENT — red ring draws around the word on scroll
+     ============================================================ -->
+<section class="py-20 md:py-28 border-t border-neutral-200 dark:border-white/5 overflow-hidden" aria-label="{{ 'What makes us different'|tr }}">
+    <div class="container mx-auto px-6 lg:px-8">
+        <div class="grid lg:grid-cols-12 lg:gap-16 items-end">
+
+            <div class="lg:col-span-7">
+                <p class="eyebrow mb-6">
+                    {{ 'The JustTech difference'|tr }}
+                </p>
+                <h2 class="jt-diff-title" aria-label="{{ 'What makes us different'|tr }}">
+                    <span class="jt-diff-line">{{ 'what makes us'|tr }}</span>
+                    <span class="jt-diff-word" data-diff-word>&nbsp;{{ 'different'|tr }}</span>
+                </h2>
+            </div>
+
+            <div class="lg:col-span-5 lg:pl-10 mt-10 lg:mt-0">
+                <p class="jt-diff-text text-neutral-600 dark:text-neutral-400 leading-relaxed max-w-md" data-reveal>
+                    {{ "Because we design, build and teach — the person who plans your system is the same one who wires it, tunes it and trains your team. One room, one team, end to end."|tr }}
+                </p>
+                <div class="jt-diff-rule h-px w-16 bg-primary mt-8" data-reveal aria-hidden="true"></div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- ============================================================
+     MISSION & VALUES — Agbedus-style ethos (ethos → mission/vision → numbered values)
+     ============================================================ -->
+<section class="py-16 md:py-24 border-t border-neutral-200 dark:border-white/5" aria-label="{{ 'Mission and values'|tr }}">
+    <div class="container mx-auto px-6 lg:px-8">
+        <div class="max-w-2xl mb-12 lg:mb-16" data-reveal>
+            <p class="eyebrow mb-6">{{ 'Our Ethos'|tr }}</p>
+            <h2 class="text-3xl md:text-4xl font-semibold text-neutral-900 dark:text-white mb-4">{{ 'Mission & Values'|tr }}</h2>
+            <p class="text-neutral-600 dark:text-neutral-400 leading-relaxed max-w-xl">
+                {{ 'Why we build, mix and teach the way we do.'|tr }}
+            </p>
+        </div>
+
+        <!-- Mission + Vision -->
+        <div class="grid lg:grid-cols-2 gap-5 mb-5 jt-stagger">
+            <article class="card-hover relative overflow-hidden rounded-2xl border border-neutral-200 bg-white p-8 md:p-10 dark:border-white/10 dark:bg-white/[0.02]" data-reveal>
+                <span class="absolute top-0 left-0 w-full h-1 bg-primary" aria-hidden="true"></span>
+                <span class="inline-flex w-12 h-12 items-center justify-center rounded-xl bg-primary/10 text-primary mb-6" aria-hidden="true">
+                    <i class="fa-solid fa-bullseye text-lg"></i>
+                </span>
+                <p class="text-xs font-bold uppercase tracking-[0.22em] text-primary mb-3">{{ 'Our Mission'|tr }}</p>
+                <h3 class="text-2xl font-semibold text-neutral-900 dark:text-white mb-3">{{ 'Great sound, made simple.'|tr }}</h3>
+                <p class="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
+                    {{ 'To make professional audio and visual technology approachable — wiring good gear, honest builds and hands-on teaching into every project until it works for the people using it.'|tr }}
+                </p>
+            </article>
+
+            <article class="card-hover relative overflow-hidden rounded-2xl border border-neutral-200 bg-white p-8 md:p-10 dark:border-white/10 dark:bg-white/[0.02]" data-reveal>
+                <span class="absolute top-0 left-0 w-full h-1 bg-primary" aria-hidden="true"></span>
+                <span class="inline-flex w-12 h-12 items-center justify-center rounded-xl bg-primary/10 text-primary mb-6" aria-hidden="true">
+                    <i class="fa-solid fa-eye text-lg"></i>
+                </span>
+                <p class="text-xs font-bold uppercase tracking-[0.22em] text-primary mb-3">{{ 'Our Vision'|tr }}</p>
+                <h3 class="text-2xl font-semibold text-neutral-900 dark:text-white mb-3">{{ 'Every space sounds confident.'|tr }}</h3>
+                <p class="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
+                    {{ 'A world where every church, school, stage and home studio speaks with clarity — powered by equipment people understand and skills they can keep.'|tr }}
+                </p>
+            </article>
+        </div>
+
+        <!-- Numbered values -->
+        <div class="grid sm:grid-cols-2 gap-5 jt-stagger">
+            <div class="jt-mv-card card-hover rounded-2xl border border-neutral-200 bg-white p-8 md:p-9 dark:border-white/10 dark:bg-white/[0.02]" data-reveal>
+                <span class="jt-mv-num font-mono" aria-hidden="true">01</span>
+                <span class="inline-flex w-11 h-11 items-center justify-center rounded-xl jt-mv-icon mb-5" aria-hidden="true">
+                    <i class="fa-solid fa-sliders text-base"></i>
+                </span>
+                <h3 class="text-lg font-semibold text-neutral-900 dark:text-white mb-2">{{ 'Sound first'|tr }}</h3>
+                <p class="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
+                    {{ 'Every decision is judged by how it sounds in the real room — not on paper.'|tr }}
+                </p>
+            </div>
+
+            <div class="jt-mv-card card-hover rounded-2xl border border-neutral-200 bg-white p-8 md:p-9 dark:border-white/10 dark:bg-white/[0.02]" data-reveal>
+                <span class="jt-mv-num font-mono" aria-hidden="true">02</span>
+                <span class="inline-flex w-11 h-11 items-center justify-center rounded-xl jt-mv-icon mb-5" aria-hidden="true">
+                    <i class="fa-solid fa-chalkboard-user text-base"></i>
+                </span>
+                <h3 class="text-lg font-semibold text-neutral-900 dark:text-white mb-2">{{ 'Teach as we build'|tr }}</h3>
+                <p class="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
+                    {{ 'We explain what we install. Understanding is part of the deliverable.'|tr }}
+                </p>
+            </div>
+
+            <div class="jt-mv-card card-hover rounded-2xl border border-neutral-200 bg-white p-8 md:p-9 dark:border-white/10 dark:bg-white/[0.02]" data-reveal>
+                <span class="jt-mv-num font-mono" aria-hidden="true">03</span>
+                <span class="inline-flex w-11 h-11 items-center justify-center rounded-xl jt-mv-icon mb-5" aria-hidden="true">
+                    <i class="fa-solid fa-scale-balanced text-base"></i>
+                </span>
+                <h3 class="text-lg font-semibold text-neutral-900 dark:text-white mb-2">{{ 'Honest gear'|tr }}</h3>
+                <p class="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
+                    {{ 'We recommend what fits the budget and the job — no jargon, no upselling.'|tr }}
+                </p>
+            </div>
+
+            <div class="jt-mv-card card-hover rounded-2xl border border-neutral-200 bg-white p-8 md:p-9 dark:border-white/10 dark:bg-white/[0.02]" data-reveal>
+                <span class="jt-mv-num font-mono" aria-hidden="true">04</span>
+                <span class="inline-flex w-11 h-11 items-center justify-center rounded-xl jt-mv-icon mb-5" aria-hidden="true">
+                    <i class="fa-solid fa-circle-check text-base"></i>
+                </span>
+                <h3 class="text-lg font-semibold text-neutral-900 dark:text-white mb-2">{{ 'Stay to the end'|tr }}</h3>
+                <p class="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
+                    {{ 'If the mix is not working, we are not done. We live with the outcome, not just the delivery.'|tr }}
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================================
+     MEET THE TEAM — vertical coverflow carousel
+     NOTE: names/roles/bios are editable placeholders. Swap the
+     data-name / data-role / data-bio attributes for real details.
+     ============================================================ -->
+<section id="team" class="py-16 md:py-24 border-t border-neutral-200 dark:border-white/5" aria-label="{{ 'Meet Our Team'|tr }}">
+    <div class="container mx-auto px-6 lg:px-8">
+        <div class="max-w-xl mb-12 lg:mb-16">
+            <p class="eyebrow mb-6">{{ 'Meet Our Team'|tr }}</p>
+            <h2 class="text-3xl md:text-4xl font-semibold text-neutral-900 dark:text-white mb-4">{{ 'The people behind the console.'|tr }}</h2>
+        </div>
+
+        <div class="grid lg:grid-cols-2 lg:gap-24 items-center">
+            <!-- Carousel column -->
+            <div class="jt-team" aria-roledescription="carousel" aria-label="{{ 'Meet the JustTech team'|tr }}">
+                <button type="button" class="team-arrow team-arrow-up" aria-label="{{ 'Previous team member'|tr }}">
+                    <i class="fa-solid fa-chevron-up" aria-hidden="true"></i>
+                </button>
+
+                <div id="team-carousel" class="team-stage" aria-live="polite">
+
+                    {% for member in team_members %}
+                    <div class="team-card"
+                         data-name="{{ member.name }}"
+                         data-role="{{ member.role }}"
+                         data-bio="{{ member.bio }}"
+                         data-fr-role="{{ member.role }}"
+                         data-fr-bio="{{ member.bio }}">
+                        <span class="team-avatar team-avatar--1" aria-hidden="true">
+                            <span class="team-avatar__initials">{{ member.name|make_list|slice:":2"|join:""|upper }}</span>
+                            {% if member.image_url %}<img class="team-avatar__img" src="{{ member.image_url }}" alt="{{ member.name }}" loading="lazy" onerror="this.remove()">{% endif %}
+                        </span>
+                        <h3 class="team-card__name">{{ member.name }}</h3>
+                        <p class="team-card__role">{{ member.role }}</p>
+                    </div>
                     {% endfor %}
+
+                    <div class="team-card"
+                         data-name="Matthew Nana Opoku"
+                         data-role="Founder · Lead Sound Technician"
+                         data-bio="Over a decade behind the console — live sound, studio work and system design. Matthew started Just Tech with one mixing desk and a mission to make professional audio accessible to everyone."
+                         data-fr-role="Fondateur · Technicien son principal"
+                         data-fr-bio="Plus d’une décennie derrière la console — son live, studio et conception de systèmes. Matthew a fondé JustTech avec une seule console et une mission : rendre l’audio professionnel accessible à tous.">
+                        <span class="team-avatar team-avatar--1" aria-hidden="true">
+                            <span class="team-avatar__initials">MNO</span>
+                            <img class="team-avatar__img" src="https://images.unsplash.com/photo-1564564321837-a57b7070ac4f?w=600&h=600&fit=crop&crop=faces&q=80&auto=format" alt="Matthew Nana Opoku" loading="lazy" onerror="this.remove()">
+                        </span>
+                        <h3 class="team-card__name">Matthew Nana Opoku</h3>
+                        <p class="team-card__role">{% if LANG == 'fr' %}Fondateur · Technicien son principal{% else %}Founder · Lead Sound Technician{% endif %}</p>
+                    </div>
+
+                    <div class="team-card"
+                         data-name="Jacqueline Kwafo"
+                         data-role="Co-founder"
+                         data-bio="Jacqueline brings the studio to life — clients, projects, and the day-to-day that keeps Just Tech moving. She makes sure every client feels heard from first call to final mix."
+                         data-fr-role="Co-fondatrice"
+                         data-fr-bio="Jacqueline donne vie au studio — clients, projets et le quotidien qui fait avancer JustTech. Elle s’assure que chaque client se sente écouté, du premier appel au mix final.">
+                        <span class="team-avatar team-avatar--2" aria-hidden="true">
+                            <span class="team-avatar__initials">JK</span>
+                            <img class="team-avatar__img" src="https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?w=600&h=600&fit=crop&crop=faces&q=80&auto=format" alt="Jacqueline Kwafo" loading="lazy" onerror="this.remove()">
+                        </span>
+                        <h3 class="team-card__name">Jacqueline Kwafo</h3>
+                        <p class="team-card__role">{% if LANG == 'fr' %}Co-fondatrice{% else %}Co-founder{% endif %}</p>
+                    </div>
+
+                    <div class="team-card"
+                         data-name="Phyllis Aseidu"
+                         data-role="Role / Title"
+                         data-bio="Replace this with Phyllis Aseidu's role and a short bio describing what they do at Just Tech."
+                         data-fr-role="Rôle / Titre"
+                         data-fr-bio="Remplacez ce texte par le rôle et une courte bio de Phyllis Aseidu décrivant ce qu’elle fait chez JustTech.">
+                        <span class="team-avatar team-avatar--3" aria-hidden="true">
+                            <span class="team-avatar__initials">PA</span>
+                            <img class="team-avatar__img" src="https://images.unsplash.com/photo-1531384441138-2736e62e0919?w=600&h=600&fit=crop&crop=faces&q=80&auto=format" alt="Phyllis Aseidu" loading="lazy" onerror="this.remove()">
+                        </span>
+                        <h3 class="team-card__name">Phyllis Aseidu</h3>
+                        <p class="team-card__role">{% if LANG == 'fr' %}Rôle / Titre{% else %}Role / Title{% endif %}</p>
+                    </div>
+
+                    <div class="team-card"
+                         data-name="Theophilus Addo"
+                         data-role="Role / Title"
+                         data-bio="Replace this with Theophilus Addo's role and a short bio describing what they do at Just Tech."
+                         data-fr-role="Rôle / Titre"
+                         data-fr-bio="Remplacez ce texte par le rôle et une courte bio de Theophilus Addo décrivant ce qu’il fait chez JustTech.">
+                        <span class="team-avatar team-avatar--4" aria-hidden="true">
+                            <span class="team-avatar__initials">TA</span>
+                            <img class="team-avatar__img" src="https://images.unsplash.com/photo-1583195764036-6dc248ac07d9?w=600&h=600&fit=crop&crop=faces&q=80&auto=format" alt="Theophilus Addo" loading="lazy" onerror="this.remove()">
+                        </span>
+                        <h3 class="team-card__name">Theophilus Addo</h3>
+                        <p class="team-card__role">{% if LANG == 'fr' %}Rôle / Titre{% else %}Role / Title{% endif %}</p>
+                    </div>
+
+                    <div class="team-card"
+                         data-name="Janice Kwafo"
+                         data-role="Role / Title"
+                         data-bio="Replace this with Janice Kwafo's role and a short bio describing what they do at Just Tech."
+                         data-fr-role="Rôle / Titre"
+                         data-fr-bio="Remplacez ce texte par le rôle et une courte bio de Janice Kwafo décrivant ce qu'elles font chez JustTech.">
+                        <span class="team-avatar team-avatar--5" aria-hidden="true">
+                            <span class="team-avatar__initials">JAN</span>
+                            <img class="team-avatar__img" src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=600&h=600&fit=crop&crop=faces&q=80&auto=format" alt="Janice Kwafo" loading="lazy" onerror="this.remove()">
+                        </span>
+                        <h3 class="team-card__name">Janice Kwafo</h3>
+                        <p class="team-card__role">{% if LANG == 'fr' %}Rôle / Titre{% else %}Role / Title{% endif %}</p>
+                    </div>
+
+                    <div class="team-card"
+                         data-name="Jayda Kwafo"
+                         data-role="Role / Title"
+                         data-bio="Replace this with Jayda Kwafo's role and a short bio describing what they do at Just Tech."
+                         data-fr-role="Rôle / Titre"
+                         data-fr-bio="Remplacez ce texte par le rôle et une courte bio de Jayda Kwafo décrivant ce qu'elles font chez JustTech.">
+                        <span class="team-avatar team-avatar--6" aria-hidden="true">
+                            <span class="team-avatar__initials">JAY</span>
+                            <img class="team-avatar__img" src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=600&h=600&fit=crop&crop=faces&q=80&auto=format" alt="Jayda Kwafo" loading="lazy" onerror="this.remove()">
+                        </span>
+                        <h3 class="team-card__name">Jayda Kwafo</h3>
+                        <p class="team-card__role">{% if LANG == 'fr' %}Rôle / Titre{% else %}Role / Title{% endif %}</p>
+                    </div>
+                </div>
+
+                <button type="button" class="team-arrow team-arrow-down" aria-label="{{ 'Next team member'|tr }}">
+                    <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
+                </button>
+
+                <div id="team-dots" class="team-dots" role="tablist" aria-label="{{ 'Team member index'|tr }}"></div>
+            </div>
+
+            <!-- Caption column -->
+            <div class="mt-12 lg:mt-0">
+                <div id="team-image" class="team-caption__avatar">
+                    <span class="team-caption__avatar-inner">
+                        <img id="team-img" class="team-caption__avatar-img" src="https://images.unsplash.com/photo-1564564321837-a57b7070ac4f?w=600&h=600&fit=crop&crop=faces&q=80&auto=format" alt="Matthew Nana Opoku" />
+                        <span id="team-img-initials" class="team-caption__avatar-initials">MNO</span>
+                    </span>
+                    <div class="team-caption__social">
+                        <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in" aria-hidden="true"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram" aria-hidden="true"></i></a>
+                    </div>
+                </div>
+                <p id="team-role" class="eyebrow team-caption__part team-caption__role mb-3"></p>
+                <h3 id="team-name" class="team-caption__part team-caption__name text-3xl md:text-5xl font-semibold text-neutral-900 dark:text-white mb-5"></h3>
+                <p id="team-bio" class="team-caption__part team-caption__bio text-lg text-neutral-600 dark:text-neutral-400 leading-relaxed max-w-md"></p>
+
+                <div class="team-caption__nav" role="group" aria-label="{{ 'Browse team members'|tr }}">
+                    <button type="button" class="team-arrow team-arrow-prev" aria-label="{{ 'Previous team member'|tr }}">
+                        <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>
+                    </button>
+                    <button type="button" class="team-arrow team-arrow-next" aria-label="{{ 'Next team member'|tr }}">
+                        <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+                    </button>
                 </div>
             </div>
         </div>
+    </div>
+</section>
 
-        <h3 class="text-2xl font-bold mb-8">Client Testimonials</h3>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {% for testimonial in about_testimonials %}
-            <div class="testimonial-card">
-                <p class="text-gray-300 mb-6">"{{ testimonial.quote }}"</p>
-                <div class="flex items-center">
-                    <div class="w-12 h-12 rounded-full bg-gray-700 mr-4"></div>
-                    <div>
-                        <h4 class="font-bold">{{ testimonial.author_name }}</h4>
-                        <p class="text-gray-400 text-sm">{{ testimonial.author_title }}</p>
-                    </div>
-                </div>
+<!-- ============================================================
+     BY THE NUMBERS
+     ============================================================ -->
+<section id="abt-numbers" class="py-16 md:py-24 border-t border-neutral-200 dark:border-white/5" aria-label="{{ 'By the numbers'|tr }}">
+    <div class="container mx-auto px-6 lg:px-8">
+        <div class="max-w-xl mb-12 lg:mb-16" data-reveal>
+            <p class="eyebrow mb-6">{{ 'By the numbers'|tr }}</p>
+            <h2 class="text-3xl md:text-4xl font-semibold text-neutral-900 dark:text-white">{{ 'The numbers behind the sound.'|tr }}</h2>
+        </div>
+
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-5 jt-stagger">
+            <div class="nums-tile rounded-2xl border border-neutral-200 bg-white p-7 text-center dark:border-white/10 dark:bg-white/[0.02]" data-reveal>
+                <p class="js-count text-4xl md:text-5xl font-bold text-primary mb-2 tabular-nums">{{ site_settings.projects_completed_text|default:'500+' }}</p>
+                <p class="text-sm text-neutral-500 dark:text-neutral-400">{{ 'Projects Completed'|tr }}</p>
             </div>
-            {% empty %}
-            <div class="testimonial-card">
-                <p class="text-gray-300 mb-6">"Great service and professionalism throughout the project."</p>
-                <div class="flex items-center">
-                    <div class="w-12 h-12 rounded-full bg-gray-700 mr-4"></div>
-                    <div>
-                        <h4 class="font-bold">Happy Client</h4>
-                        <p class="text-gray-400 text-sm">Client</p>
-                    </div>
-                </div>
+            <div class="nums-tile rounded-2xl border border-neutral-200 bg-white p-7 text-center dark:border-white/10 dark:bg-white/[0.02]" data-reveal>
+                <p class="js-count text-4xl md:text-5xl font-bold text-primary mb-2 tabular-nums">{{ site_settings.client_satisfaction_text|default:'98%' }}</p>
+                <p class="text-sm text-neutral-500 dark:text-neutral-400">{{ 'Client Satisfaction'|tr }}</p>
             </div>
+            <div class="nums-tile rounded-2xl border border-neutral-200 bg-white p-7 text-center dark:border-white/10 dark:bg-white/[0.02]" data-reveal>
+                <p class="js-count text-4xl md:text-5xl font-bold text-primary mb-2 tabular-nums">{{ site_settings.students_trained_text|default:'250+' }}</p>
+                <p class="text-sm text-neutral-500 dark:text-neutral-400">{{ 'Students Trained'|tr }}</p>
+            </div>
+            <div class="nums-tile rounded-2xl border border-neutral-200 bg-white p-7 text-center dark:border-white/10 dark:bg-white/[0.02]" data-reveal>
+                <p class="js-count text-4xl md:text-5xl font-bold text-primary mb-2 tabular-nums">{{ site_settings.support_availability_text|default:'24/7' }}</p>
+                <p class="text-sm text-neutral-500 dark:text-neutral-400">{{ 'Support Available'|tr }}</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================================
+     OUR JOURNEY — Agbedus-style milestones timeline
+     ============================================================ -->
+<section class="py-16 md:py-24 border-t border-neutral-200 dark:border-white/5" aria-label="{{ 'Our journey'|tr }}">
+    <div class="container mx-auto px-6 lg:px-8">
+        <div class="max-w-2xl mb-12 lg:mb-16" data-reveal>
+            <p class="eyebrow mb-6">{{ 'Our Journey'|tr }}</p>
+            <h2 class="text-3xl md:text-4xl font-semibold text-neutral-900 dark:text-white mb-4">{{ 'Milestones.'|tr }}</h2>
+            <p class="text-neutral-600 dark:text-neutral-400 leading-relaxed max-w-xl">
+                {{ 'From one mixing desk to a full studio — the moments that built Just Tech.'|tr }}
+            </p>
+        </div>
+
+        <ol class="jt-journey jt-stagger">
+            <li class="jt-journey__item card-hover" data-reveal>
+                <span class="jt-journey__year" aria-hidden="true">{{ site_settings.founded_year|default:'2018' }}</span>
+                <span class="jt-journey__rail" aria-hidden="true"></span>
+                <div class="jt-journey__body">
+                    <h3 class="text-xl font-semibold text-neutral-900 dark:text-white mb-2">{{ 'The studio is born.'|tr }}</h3>
+                    <p class="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed max-w-xl">
+                        {{ 'One mixing console, a small room and the belief that great sound should be accessible to everyone.'|tr }}
+                    </p>
+                </div>
+            </li>
+
+            <li class="jt-journey__item card-hover" data-reveal>
+                <span class="jt-journey__year" aria-hidden="true">2020</span>
+                <span class="jt-journey__rail" aria-hidden="true"></span>
+                <div class="jt-journey__body">
+                    <h3 class="text-xl font-semibold text-neutral-900 dark:text-white mb-2">{{ 'Streaming & content.'|tr }}</h3>
+                    <p class="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed max-w-xl">
+                        {{ 'We start producing live streams for churches, schools and events across Canada.'|tr }}
+                    </p>
+                </div>
+            </li>
+
+            <li class="jt-journey__item card-hover" data-reveal>
+                <span class="jt-journey__year" aria-hidden="true">2022</span>
+                <span class="jt-journey__rail" aria-hidden="true"></span>
+                <div class="jt-journey__body">
+                    <h3 class="text-xl font-semibold text-neutral-900 dark:text-white mb-2">{{ 'Custom builds.'|tr }}</h3>
+                    <p class="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed max-w-xl">
+                        {{ 'Custom PCs, installations and system design join the studio lineup.'|tr }}
+                    </p>
+                </div>
+            </li>
+
+            <li class="jt-journey__item card-hover" data-reveal>
+                <span class="jt-journey__year" aria-hidden="true">2024</span>
+                <span class="jt-journey__rail" aria-hidden="true"></span>
+                <div class="jt-journey__body">
+                    <h3 class="text-xl font-semibold text-neutral-900 dark:text-white mb-2">{{ 'Training academy.'|tr }}</h3>
+                    <p class="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed max-w-xl">
+                        {{ 'Hands-on courses in sound engineering, streaming and production.'|tr }}
+                    </p>
+                </div>
+            </li>
+        </ol>
+    </div>
+</section>
+
+<!-- ============================================================
+     PORTFOLIO — selected work (Agbedus-style)
+     ============================================================ -->
+<section class="py-16 md:py-24 border-t border-neutral-200 dark:border-white/5" aria-label="{{ 'Selected work'|tr }}">
+    <div class="container mx-auto px-6 lg:px-8">
+        <div class="flex flex-wrap items-end justify-between gap-6 mb-10 lg:mb-14" data-reveal>
+            <div class="max-w-xl">
+                <p class="eyebrow mb-6">{{ 'Portfolio'|tr }}</p>
+                <h2 class="text-3xl md:text-4xl font-semibold text-neutral-900 dark:text-white">{{ 'Selected work.'|tr }}</h2>
+                <p class="text-neutral-600 dark:text-neutral-400 leading-relaxed mt-4 max-w-md">
+                    {{ 'Rooms, stages and studios we have wired and built — and the people behind them.'|tr }}
+                </p>
+            </div>
+            <a href="{% url 'portfolio' %}" class="btn-secondary text-sm px-7 py-3">{{ 'View all work'|tr }} <i class="fa-solid fa-arrow-right ml-1" aria-hidden="true"></i></a>
+        </div>
+
+        {% if portfolio_items %}
+        <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 jt-stagger">
+            {% for item in portfolio_items %}
+            <article class="jt-wk group rounded-2xl border border-neutral-200 bg-white overflow-hidden dark:border-white/10 dark:bg-white/[0.02]" data-reveal>
+                <a href="{% url 'portfolio' %}" class="block" aria-label="{{ item.title }}">
+                    <div class="relative overflow-hidden aspect-[4/3] bg-neutral-100 dark:bg-neutral-800">
+                        {% if item.image_url %}
+                        <img src="{{ item.image_url }}" alt="{{ item.title }}{% if item.category %}, {{ item.category }}{% endif %}" loading="lazy" decoding="async"
+                             class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.05]">
+                        {% else %}
+                        <div class="w-full h-full flex items-center justify-center text-4xl text-neutral-300 dark:text-neutral-600" aria-hidden="true">
+                            <i class="fa-solid fa-microphone-lines"></i>
+                        </div>
+                        {% endif %}
+                        <span class="jt-wk__arrow" aria-hidden="true"><i class="fa-solid fa-arrow-up-right"></i></span>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-start justify-between gap-4">
+                            <div class="min-w-0">
+                                {% if item.category %}<p class="eyebrow mb-2">{{ item.category }}</p>{% endif %}
+                                <h3 class="text-lg font-semibold text-neutral-900 dark:text-white leading-tight">{{ item.title }}</h3>
+                            </div>
+                            <span class="jt-wk__idx text-sm font-semibold text-neutral-400 mt-1 shrink-0" aria-hidden="true">{{ forloop.counter|stringformat:"02d" }}</span>
+                        </div>
+                    </div>
+                </a>
+            </article>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="rounded-2xl border border-dashed border-neutral-300 dark:border-white/10 p-8 text-sm text-neutral-500 dark:text-neutral-400" data-reveal>
+            {{ 'Selected projects appear here once featured in the admin panel.'|tr }}
+        </div>
+        {% endif %}
+    </div>
+</section>
+
+<!-- ============================================================
+     TESTIMONIALS
+     ============================================================ -->
+{% if about_testimonials %}
+<section class="py-16 md:py-24 border-t border-neutral-200 dark:border-white/5" aria-label="{{ 'Testimonials'|tr }}">
+    <div class="container mx-auto px-6 lg:px-8">
+        <div class="max-w-xl mb-12 lg:mb-16">
+            <p class="eyebrow mb-6">{{ 'Testimonials'|tr }}</p>
+            <h2 class="text-3xl md:text-4xl font-semibold text-neutral-900 dark:text-white">{{ 'What people say'|tr }}</h2>
+        </div>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+            {% for testimonial in about_testimonials|slice:":6" %}
+            <figure class="rounded-2xl border border-neutral-200 bg-white p-8 flex flex-col dark:border-white/10 dark:bg-white/[0.02]">
+                <i class="fa-solid fa-quote-left text-primary text-xl mb-6" aria-hidden="true"></i>
+                <blockquote class="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed mb-8">&ldquo;{{ testimonial.quote }}&rdquo;</blockquote>
+                <figcaption class="mt-auto pt-4 border-t border-neutral-100 dark:border-white/5">
+                    <p class="text-sm font-semibold text-neutral-900 dark:text-white">{{ testimonial.author_name }}</p>
+                    {% if testimonial.author_title %}<p class="text-xs text-neutral-500 dark:text-neutral-500 mt-0.5">{{ testimonial.author_title }}</p>{% endif %}
+                </figcaption>
+            </figure>
             {% endfor %}
         </div>
     </div>
 </section>
+{% else %}
+<section class="py-16 md:py-24 border-t border-neutral-200 dark:border-white/5" aria-label="{{ 'Testimonials'|tr }}">
+    <div class="container mx-auto px-6 lg:px-8">
+        <div class="rounded-2xl border border-dashed border-neutral-300 dark:border-white/10 p-8 text-sm text-neutral-500 dark:text-neutral-400">
+            {{ 'Client testimonials appear here once added in the admin panel.'|tr }}
+        </div>
+    </div>
+</section>
+{% endif %}
 
-<section class="py-20 bg-gray-900">
-    <div class="container mx-auto px-4">
-        <h2 class="text-3xl font-bold mb-12 text-center">By the Numbers</h2>
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
-            <div class="text-center">
-                <div class="text-4xl md:text-5xl font-bold text-red-500 mb-2">{{ site_settings.projects_completed_text|default:'500+' }}</div>
-                <p class="text-gray-400">Projects Completed</p>
-            </div>
-            <div class="text-center">
-                <div class="text-4xl md:text-5xl font-bold text-red-500 mb-2">{{ site_settings.client_satisfaction_text|default:'98%' }}</div>
-                <p class="text-gray-400">Client Satisfaction</p>
-            </div>
-            <div class="text-center">
-                <div class="text-4xl md:text-5xl font-bold text-red-500 mb-2">{{ site_settings.students_trained_text|default:'250+' }}</div>
-                <p class="text-gray-400">Students Trained</p>
-            </div>
-            <div class="text-center">
-                <div class="text-4xl md:text-5xl font-bold text-red-500 mb-2">{{ site_settings.support_availability_text|default:'24/7' }}</div>
-                <p class="text-gray-400">Support Available</p>
+<!-- ============================================================
+     GET IN TOUCH — visit, call or write
+     ============================================================ -->
+<section class="py-16 md:py-24 border-t border-neutral-200 dark:border-white/5" aria-label="{{ 'Get in touch'|tr }}">
+    <div class="container mx-auto px-6 lg:px-8">
+        <div class="rounded-3xl border border-neutral-200 bg-white p-8 md:p-12 dark:border-white/10 dark:bg-white/[0.02]">
+            <div class="grid lg:grid-cols-5 gap-10 items-center">
+                <div class="lg:col-span-2">
+                    <p class="eyebrow mb-6">{{ 'Get in touch'|tr }}</p>
+                    <h2 class="text-3xl md:text-4xl font-semibold text-neutral-900 dark:text-white mb-4">{{ 'Visit us, call us or just say hello.'|tr }}</h2>
+                    <p class="text-neutral-600 dark:text-neutral-400 leading-relaxed mb-8 max-w-md">
+                        {{ 'No project is too small — tell us what you are planning and we will take it from there.'|tr }}
+                    </p>
+                    <div class="flex flex-wrap gap-4">
+                        <a href="{% url 'booking' %}" class="btn-primary text-sm px-8 py-3.5">
+                            <i class="fas fa-calendar-alt mr-2" aria-hidden="true"></i> {{ 'Book now'|tr }}
+                        </a>
+                        <a href="{% url 'contact' %}" class="btn-secondary text-sm px-8 py-3.5">
+                            <i class="fas fa-envelope mr-2" aria-hidden="true"></i> {{ 'Contact Our Team'|tr }}
+                        </a>
+                    </div>
+                </div>
+
+                <dl class="lg:col-span-3 grid sm:grid-cols-2 gap-4">
+                    <div class="rounded-2xl border border-neutral-200 bg-white p-6 dark:border-white/10 dark:bg-white/[0.02]">
+                        <dt class="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.15em] text-neutral-500 dark:text-neutral-400 mb-3">
+                            <i class="fa-solid fa-location-dot text-primary" aria-hidden="true"></i> {{ 'Visit the studio'|tr }}
+                        </dt>
+                        <dd class="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
+                            {{ site_settings.address_line_1|default:'123 Tech Avenue, Suite 400' }}<br>
+                            {{ site_settings.address_line_2|default:'San Francisco, CA 94107' }}
+                        </dd>
+                    </div>
+
+                    <div class="rounded-2xl border border-neutral-200 bg-white p-6 dark:border-white/10 dark:bg-white/[0.02]">
+                        <dt class="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.15em] text-neutral-500 dark:text-neutral-400 mb-3">
+                            <i class="fa-solid fa-phone text-primary" aria-hidden="true"></i> {{ 'Call us'|tr }}
+                        </dt>
+                        <dd class="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
+                            <a href="tel:{{ site_settings.phone|default:'+1 (555) 123-4567'|urlencode }}" class="hover:text-primary transition">{{ site_settings.phone|default:'+1 (555) 123-4567' }}</a>
+                        </dd>
+                    </div>
+
+                    <div class="rounded-2xl border border-neutral-200 bg-white p-6 dark:border-white/10 dark:bg-white/[0.02]">
+                        <dt class="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.15em] text-neutral-500 dark:text-neutral-400 mb-3">
+                            <i class="fa-solid fa-envelope text-primary" aria-hidden="true"></i> {{ 'Email us'|tr }}
+                        </dt>
+                        <dd class="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
+                            <a href="mailto:{{ site_settings.primary_email|default:'info@justtech.com' }}" class="hover:text-primary transition">{{ site_settings.primary_email|default:'info@justtech.com' }}</a>
+                        </dd>
+                    </div>
+
+                    <div class="rounded-2xl border border-neutral-200 bg-white p-6 dark:border-white/10 dark:bg-white/[0.02]">
+                        <dt class="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.15em] text-neutral-500 dark:text-neutral-400 mb-3">
+                            <i class="fa-solid fa-clock text-primary" aria-hidden="true"></i> {{ 'Working hours'|tr }}
+                        </dt>
+                        <dd class="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
+                            <span class="block">{{ 'Mon – Fri: 9:00 – 18:00'|tr }}</span>
+                            <span class="block">{{ 'Sat: 10:00 – 16:00'|tr }}</span>
+                        </dd>
+                    </div>
+                </dl>
             </div>
         </div>
     </div>
 </section>
 
-<section class="py-20 bg-dark-bg">
-    <div class="container mx-auto px-4 text-center">
-        <h2 class="text-3xl font-bold mb-6">Work With Us</h2>
-        <p class="text-gray-400 mb-10 max-w-2xl mx-auto">Ready to bring your audio and visual projects to life with our expert team?</p>
-        <div class="flex flex-wrap justify-center gap-4">
-            <a href="{% url 'booking' %}" class="btn-primary">
-                <i class="fas fa-calendar-alt mr-2"></i> Schedule Consultation
-            </a>
-            <a href="{% url 'contact' %}" class="btn-secondary">
-                <i class="fas fa-envelope mr-2"></i> Contact Our Team
-            </a>
+<!-- ============================================================
+     FINAL CTA
+     ============================================================ -->
+<section class="py-16 md:py-24 border-t border-neutral-200 dark:border-white/5" aria-label="{{ 'Work With Us'|tr }}">
+    <div class="container mx-auto px-6 lg:px-8">
+        <div class="relative overflow-hidden rounded-3xl bg-neutral-950 px-6 py-16 md:px-16 md:py-24 text-center dark:bg-neutral-900">
+            <div class="absolute -top-24 left-1/2 -translate-x-1/2 w-96 h-96 rounded-full bg-primary/15 blur-3xl pointer-events-none" aria-hidden="true"></div>
+            <div class="jt-bubbles" data-jt-bubbles aria-hidden="true"></div>
+            <div class="relative max-w-2xl mx-auto">
+                <h2 class="text-3xl md:text-4xl font-semibold text-white mb-6">{{ 'Work With Us'|tr }}</h2>
+                <p class="text-neutral-400 leading-relaxed mb-10 text-base md:text-lg">
+                    {{ 'Ready to bring your audio and visual projects to life with our expert team?'|tr }}
+                </p>
+                <div class="flex flex-wrap justify-center gap-4">
+                    <a href="{% url 'booking' %}" class="btn-primary text-sm px-8 py-3.5">
+                        <i class="fas fa-calendar-alt mr-2" aria-hidden="true"></i> {{ 'Schedule Consultation'|tr }}
+                    </a>
+                    <a href="{% url 'contact' %}" class="inline-flex items-center justify-center border border-white/20 text-white text-sm font-semibold px-8 py-3.5 rounded-full transition hover:border-white/50 hover:bg-white/5">
+                        <i class="fas fa-envelope mr-2" aria-hidden="true"></i> {{ 'Contact Our Team'|tr }}
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
 </section>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/team-carousel.js' %}?v=5"></script>
+<script>
+(function () {
+    'use strict';
+    var REDUCE = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    /* ============================================================
+       HERO — entrance reveal only
+       ============================================================ */
+    var hero = document.getElementById('abt-hero');
+    if (hero && hero.getAttribute('data-abt-inited') !== '1') {
+        hero.setAttribute('data-abt-inited', '1');
+        requestAnimationFrame(function () {
+            requestAnimationFrame(function () { hero.classList.add('is-in'); });
+        });
+    }
+
+    /* ============================================================
+       SCROLL REVEAL — fade-up the sections as they enter the viewport
+       ============================================================ */
+    var revealEls = document.querySelectorAll('[data-reveal]');
+    function revealAll() {
+        for (var ri = 0; ri < revealEls.length; ri++) { revealEls[ri].classList.add('is-in'); }
+    }
+    if (revealEls.length) {
+        if (!REDUCE && 'IntersectionObserver' in window) {
+            var revealIo = new IntersectionObserver(function (entries) {
+                entries.forEach(function (entry) {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-in');
+                        revealIo.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+            for (var rj = 0; rj < revealEls.length; rj++) { revealIo.observe(revealEls[rj]); }
+        } else {
+            revealAll();
+        }
+    }
+
+    /* ============================================================
+       BY THE NUMBERS — count up the moment the section scrolls in
+       ============================================================ */
+    var numsSection = document.getElementById('abt-numbers');
+    if (numsSection) {
+        var counters = numsSection.querySelectorAll('.js-count');
+
+        function runCounters() {
+            for (var n = 0; n < counters.length; n++) {
+                (function (el) {
+                    if (el.getAttribute('data-counted') === '1') { return; }
+                    el.setAttribute('data-counted', '1');
+                    var text = (el.textContent || '').trim();
+                    var m = text.match(/^(\d+)(.*)$/);
+                    if (!m) { return; }
+                    var target = parseInt(m[1], 10);
+                    var suffix = m[2];
+                    if (REDUCE) { el.textContent = target + suffix; return; }
+                    var dur = 1600;
+                    var start = null;
+                    function frame(ts) {
+                        if (start === null) { start = ts; }
+                        var p = Math.min((ts - start) / dur, 1);
+                        var eased = 1 - Math.pow(1 - p, 3);
+                        el.textContent = Math.round(eased * target) + suffix;
+                        if (p < 1) { requestAnimationFrame(frame); }
+                    }
+                    requestAnimationFrame(frame);
+                })(counters[n]);
+            }
+        }
+
+        if (!REDUCE && 'IntersectionObserver' in window) {
+            var numsIo = new IntersectionObserver(function (entries) {
+                entries.forEach(function (entry) {
+                    if (entry.isIntersecting) {
+                        runCounters();
+                        numsIo.disconnect();
+                    }
+                });
+            }, { threshold: 0.35 });
+            numsIo.observe(numsSection);
+        } else {
+            runCounters();
+        }
+    }
+
+    /* ============================================================
+       WORK WITH US — red bubbles rising in the CTA
+       ============================================================ */
+    var bubblesHost = document.querySelector('[data-jt-bubbles]');
+    if (bubblesHost) {
+        if (REDUCE) {
+            bubblesHost.style.display = 'none';
+        } else {
+            var BW = bubblesHost.clientWidth || 1200;
+            var BH = bubblesHost.clientHeight || 500;
+            var COUNT = 16;
+            var frag = document.createDocumentFragment();
+            for (var b = 0; b < COUNT; b++) {
+                var bubble = document.createElement('span');
+                bubble.className = 'jt-bubble';
+                var size = 10 + Math.random() * 32;
+                bubble.style.width = size + 'px';
+                bubble.style.height = size + 'px';
+                bubble.style.left = (Math.random() * 100) + '%';
+                bubble.style.setProperty('--rise', (BH * (0.45 + Math.random() * 0.5)).toFixed(0) + 'px');
+                bubble.style.setProperty('--drift', (((Math.random() * 2) - 1) * BW * 0.16).toFixed(0) + 'px');
+                bubble.style.setProperty('--dur', (Math.random() * 6 + 7).toFixed(1) + 's');
+                bubble.style.setProperty('--delay', (Math.random() * 7).toFixed(1) + 's');
+                frag.appendChild(bubble);
+            }
+            bubblesHost.appendChild(frag);
+        }
+    }
+
+    /* ============================================================
+       DIFFERENT — a curved highlighter stroke under the "i..t"
+       of "different" that draws itself in as the section scrolls in
+       ============================================================ */
+    var diffWord = document.querySelector('[data-diff-word]');
+    if (diffWord) {
+        var diffHost = diffWord.closest('.jt-diff-title');
+        var SVG_NS = 'http://www.w3.org/2000/svg';
+        var curl = null;
+        var curlPath = null;
+
+        function buildCurl() {
+            if (curl) { return; }
+            curl = document.createElementNS(SVG_NS, 'svg');
+            curl.setAttribute('class', 'jt-diff-curl');
+            curlPath = document.createElementNS(SVG_NS, 'path');
+            curlPath.setAttribute('pathLength', 100);
+            curlPath.setAttribute('fill', 'none');
+            curl.appendChild(curlPath);
+            diffWord.appendChild(curl);
+        }
+        buildCurl();
+
+        /* Draw one smooth curve from the first 'i' to the last letter ('t') */
+        function measureDiffCurl() {
+            var node = diffWord.firstChild;
+            if (!node) { return; }
+            var text = node.textContent || '';
+            try {
+                var range = document.createRange();
+                range.setStart(node, 2);          /* starts at 'i' */
+                range.setEnd(node, text.length);  /* includes the last letter */
+                var rWord = diffWord.getBoundingClientRect();
+                var rSub = range.getBoundingClientRect();
+                var x0 = (rSub.left - rWord.left) - 12;
+                var x1 = (rSub.right - rWord.left) + 12;
+                var width = rWord.width + 24;
+                if (width <= 0) { return; }
+                var height = 72;
+                var yEnd = 26;
+                var yCtrl = 68;
+                var mid = x0 + (x1 - x0) * 0.38;
+                var mid2 = x0 + (x1 - x0) * 0.62;
+                var d = 'M ' + x0.toFixed(1) + ' ' + yEnd +
+                    ' C ' + mid.toFixed(1) + ' ' + yCtrl +
+                    ' ' + mid2.toFixed(1) + ' ' + yCtrl +
+                    ' ' + x1.toFixed(1) + ' ' + yEnd;
+                curl.setAttribute('viewBox', '0 0 ' + width + ' ' + height);
+                curl.setAttribute('width', width);
+                curl.setAttribute('height', height);
+                curlPath.setAttribute('d', d);
+            } catch (e) { /* keep whatever was last drawn */ }
+        }
+        measureDiffCurl();
+        window.addEventListener('resize', measureDiffCurl);
+        if (document.fonts && document.fonts.ready) {
+            document.fonts.ready.then(measureDiffCurl);
+        }
+
+        function drawDiff() {
+            if (diffHost) { diffHost.classList.add('jt-diff-in'); }
+        }
+        if (REDUCE) {
+            drawDiff();
+        } else if ('IntersectionObserver' in window) {
+            var diffIo = new IntersectionObserver(function (entries) {
+                entries.forEach(function (entry) {
+                    if (entry.isIntersecting) {
+                        drawDiff();
+                        diffIo.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.4 });
+            diffIo.observe(diffWord);
+        } else {
+            drawDiff();
+        }
+    }
+})();
+</script>
 {% endblock %}

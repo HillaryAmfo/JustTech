@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <rect width="1200" height="630" fill="#0a0a0a"/>
+  <rect y="565" width="1200" height="65" fill="#141414"/>
+  <g transform="translate(90 110) scale(2.2)">
+    <g transform="translate(4 38) scale(0.2422)">
+      <path d="M296 160H180.6l42.6-129.8C227.2 15 215.7 0 200 0H56C44 0 33.8 8.9 32.2 20.8l-32 240C-1.7 275.2 9.5 288 24 288h118.7L96.6 482.5c-3.6 15.2 8 29.5 23.3 29.5 8.4 0 16.4-4.4 20.8-12l176-304c9.3-15.9-2.2-36-20.7-36z" fill="#ff003c"/>
+    </g>
+    <g fill="none" stroke="#ffffff" stroke-width="12" stroke-linecap="round">
+      <path d="M90 44 L120 44 Q148 42 148 60 L148 80"/>
+      <path d="M148 121 L148 132 Q148 150 135 153 Q122 156 118 147"/>
+    </g>
+    <rect x="139" y="80" width="18" height="18" rx="5" fill="#ffffff"/>
+    <rect x="143.5" y="98" width="3" height="5" rx="1.5" fill="#ffffff"/>
+    <rect x="149.5" y="98" width="3" height="5" rx="1.5" fill="#ffffff"/>
+    <rect x="139" y="103" width="18" height="18" rx="5" fill="#ffffff"/>
+  </g>
+  <text x="510" y="466" font-family="Inter, system-ui, sans-serif" font-size="92" font-weight="700" fill="#ff003c" letter-spacing="-2">ust</text>
+  <text x="660" y="466" font-family="Inter, system-ui, sans-serif" font-size="92" font-weight="700" fill="#ffffff" letter-spacing="-2">Tech</text>
+  <text x="514" y="514" font-family="Inter, system-ui, sans-serif" font-size="28" fill="#8a8a8a" letter-spacing="8">CUSTOM-ENGINEERED TECHNOLOGY</text>
+</svg>

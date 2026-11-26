@@ -1,0 +1,263 @@
+{% extends 'main_app/base.html' %}
+{% load i18n_tags %}
+
+{% block title %}{{ 'Hire the band'|tr }} | {{ site_settings.company_name|default:'Just Tech' }}{% endblock %}
+
+{% block robots %}index, follow{% endblock %}
+
+{% block meta_description %}{{ 'Session keyboards and guitar for the song you are about to produce — played, recorded and honed in your studio.'|tr }}{% endblock %}
+
+{% block content %}
+<div id="hire-the-band-page" data-accent="band">
+
+    <!-- ============================================================
+         HERO — red accent
+         ============================================================ -->
+    <section class="relative overflow-hidden pt-28 md:pt-36 pb-14 md:pb-18" aria-label="Introduction">
+        <div class="absolute inset-0 pointer-events-none" aria-hidden="true">
+            <div class="absolute inset-0 bg-[radial-gradient(ellipse_90%_60%_at_50%_-20%,rgba(255,0,60,0.08),transparent)]"></div>
+            <div class="absolute -left-40 top-10 w-[420px] h-[420px] rounded-full bg-[#ff003c]/10 blur-3xl"></div>
+        </div>
+
+        <div class="container mx-auto px-6 lg:px-8">
+            <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center max-w-6xl">
+                <div>
+                    <p class="eyebrow mb-6" style="color: var(--accent)">{{ 'HIRE THE BAND'|tr }}</p>
+                    <h1 class="text-4xl sm:text-5xl font-semibold text-neutral-900 dark:text-white leading-[1.08] mb-6">
+                        {{ 'Session players for your record.'|tr }}
+                    </h1>
+                    <p class="text-lg text-neutral-600 dark:text-neutral-400 leading-relaxed mb-10 max-w-xl">
+                        {{ 'Session keyboard & guitar for the song you are about to produce — played, recorded and honed in your studio.'|tr }}
+                    </p>
+
+                    <div class="flex flex-wrap items-center gap-4">
+                        <a href="#band-form" class="jt-acc-btn text-sm px-7 py-3">
+                            <i class="fas fa-user-plus" aria-hidden="true"></i>
+                            {{ 'Book the players'|tr }}
+                        </a>
+                        <a href="{% url 'services' %}" class="btn-secondary text-sm px-7 py-3">{{ 'See all services'|tr }}</a>
+                    </div>
+                </div>
+
+                <div class="relative flex justify-center" data-reveal>
+                    <div class="jt-acc-card w-full max-w-sm p-8" data-reveal data-reveal-delay="100">
+                        <span class="jt-acc-line" aria-hidden="true"></span>
+                        <div class="flex items-center justify-between mb-6">
+                            <span class="jt-acc-icon jt-acc-icon-lg" aria-hidden="true"><i class="fas fa-music"></i></span>
+                            <span class="jt-acc-dot" aria-hidden="true"></span>
+                        </div>
+                        <h2 class="text-xl font-semibold text-neutral-900 dark:text-white mb-2">{{ 'Track-ready in one session.'|tr }}</h2>
+                        <p class="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
+                            {{ 'Real performance, real gear, real takes — arranged around your song before the red light goes on.'|tr }}
+                        </p>
+                        <div class="mt-6 pt-5 border-t border-neutral-200 dark:border-white/5 grid grid-cols-2 divide-x divide-neutral-200 dark:divide-white/5">
+                            <span class="pr-4"><span class="block text-[11px] uppercase tracking-widest text-neutral-400">{{ 'setup'|tr }}</span><span class="block jt-acc-text font-semibold mt-1">{{ 'Studio-ready'|tr }}</span></span>
+                            <span class="pl-4"><span class="block text-[11px] uppercase tracking-widest text-neutral-400">{{ 'gear'|tr }}</span><span class="block jt-acc-text font-semibold mt-1">{{ 'Real keys & amps'|tr }}</span></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+         THE PLAYERS — red accent
+         ============================================================ -->
+    <section class="py-16 md:py-24 border-t border-neutral-200 dark:border-white/5" aria-label="{{ 'The players'|tr }}">
+        <div class="container mx-auto px-6 lg:px-8">
+            <div class="max-w-2xl text-center mx-auto mb-16">
+                <p class="eyebrow justify-center mb-6" style="color: var(--accent)">{{ 'THE LINE-UP'|tr }}</p>
+                <h2 class="text-3xl md:text-4xl font-semibold text-neutral-900 dark:text-white">{{ 'Two players, one pass.'|tr }}</h2>
+                <p class="mt-4 text-neutral-600 dark:text-neutral-400 leading-relaxed">{{ 'Keys and guitar — tracked separately or together, whichever your song needs.'|tr }}</p>
+            </div>
+
+            <div class="grid sm:grid-cols-2 gap-6 max-w-4xl mx-auto">
+                <div class="jt-acc-card jt-pick p-8" role="button" tabindex="0"
+                     aria-pressed="false" data-subject="{{ 'Session keyboard'|tr }}" data-reveal>
+                    <span class="jt-acc-line" aria-hidden="true"></span>
+                    <span class="jt-acc-check" aria-hidden="true"><i class="fas fa-check"></i></span>
+                    <div class="flex items-center justify-between mb-6">
+                        <span class="jt-acc-icon jt-acc-icon-lg" aria-hidden="true"><i class="fas fa-keyboard"></i></span>
+                        <span class="jt-acc-dot" aria-hidden="true"></span>
+                    </div>
+                    <h3 class="text-xl font-semibold text-neutral-900 dark:text-white mb-2">{{ 'Session keyboard'|tr }}</h3>
+                    <p class="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed mb-6">{{ 'Piano, Rhodes, synths and organs — played to the arrangement, recorded into your session.'|tr }}</p>
+                    <ul class="space-y-2.5 text-sm text-neutral-700 dark:text-neutral-300">
+                        <li class="flex items-center gap-3"><i class="fas fa-check jt-acc-text text-xs" aria-hidden="true"></i>{{ 'Live improvisation'|tr }}</li>
+                        <li class="flex items-center gap-3"><i class="fas fa-check jt-acc-text text-xs" aria-hidden="true"></i>{{ 'Charts prepared in advance'|tr }}</li>
+                        <li class="flex items-center gap-3"><i class="fas fa-check jt-acc-text text-xs" aria-hidden="true"></i>{{ 'MIDI + audio take both'|tr }}</li>
+                    </ul>
+                </div>
+
+                <div class="jt-acc-card jt-pick p-8" role="button" tabindex="0"
+                     aria-pressed="false" data-subject="{{ 'Session guitar'|tr }}" data-reveal data-reveal-delay="80">
+                    <span class="jt-acc-line" aria-hidden="true"></span>
+                    <span class="jt-acc-check" aria-hidden="true"><i class="fas fa-check"></i></span>
+                    <div class="flex items-center justify-between mb-6">
+                        <span class="jt-acc-icon jt-acc-icon-lg" aria-hidden="true"><i class="fas fa-guitar"></i></span>
+                        <span class="jt-acc-dot" aria-hidden="true"></span>
+                    </div>
+                    <h3 class="text-xl font-semibold text-neutral-900 dark:text-white mb-2">{{ 'Session guitar'|tr }}</h3>
+                    <p class="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed mb-6">{{ 'Electric, acoustic and clean amps — parts that sit in the mix and serve the song.'|tr }}</p>
+                    <ul class="space-y-2.5 text-sm text-neutral-700 dark:text-neutral-300">
+                        <li class="flex items-center gap-3"><i class="fas fa-check jt-acc-text text-xs" aria-hidden="true"></i>{{ 'Original parts'|tr }}</li>
+                        <li class="flex items-center gap-3"><i class="fas fa-check jt-acc-text text-xs" aria-hidden="true"></i>{{ 'Layered takes'|tr }}</li>
+                        <li class="flex items-center gap-3"><i class="fas fa-check jt-acc-text text-xs" aria-hidden="true"></i>{{ 'DI + amp capture'|tr }}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+         HOW IT WORKS — red accent
+         ============================================================ -->
+    <section class="py-16 md:py-20 border-t border-neutral-200 dark:border-white/5" aria-label="{{ 'How it works'|tr }}">
+        <div class="container mx-auto px-6 lg:px-8">
+            <div class="max-w-2xl text-center mx-auto mb-16">
+                <p class="eyebrow justify-center mb-6" style="color: var(--accent)">{{ 'THE PROCESS'|tr }}</p>
+                <h2 class="text-3xl md:text-4xl font-semibold text-neutral-900 dark:text-white">{{ 'Three steps to a played record.'|tr }}</h2>
+            </div>
+            <div class="grid sm:grid-cols-3 gap-6 max-w-5xl mx-auto">
+                <div class="jt-acc-card p-7" data-reveal>
+                    <span class="jt-acc-line" aria-hidden="true"></span>
+                    <div class="flex items-center justify-between mb-6">
+                        <span class="jt-acc-icon" aria-hidden="true"><i class="fas fa-headphones"></i></span>
+                        <span class="text-sm font-bold jt-acc-text" aria-hidden="true">01</span>
+                    </div>
+                    <h3 class="font-semibold text-neutral-900 dark:text-white mb-2">{{ 'We listen'|tr }}</h3>
+                    <p class="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">{{ 'Send the demo. We listen and prepare the parts and charts.'|tr }}</p>
+                </div>
+                <div class="jt-acc-card p-7" data-reveal data-reveal-delay="80">
+                    <span class="jt-acc-line" aria-hidden="true"></span>
+                    <div class="flex items-center justify-between mb-6">
+                        <span class="jt-acc-icon" aria-hidden="true"><i class="fas fa-record-vinyl"></i></span>
+                        <span class="text-sm font-bold jt-acc-text" aria-hidden="true">02</span>
+                    </div>
+                    <h3 class="font-semibold text-neutral-900 dark:text-white mb-2">{{ 'We play'|tr }}</h3>
+                    <p class="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">{{ 'Live takes over your song, until the feel is exactly right.'|tr }}</p>
+                </div>
+                <div class="jt-acc-card p-7" data-reveal data-reveal-delay="160">
+                    <span class="jt-acc-line" aria-hidden="true"></span>
+                    <div class="flex items-center justify-between mb-6">
+                        <span class="jt-acc-icon" aria-hidden="true"><i class="fas fa-file-waveform"></i></span>
+                        <span class="text-sm font-bold jt-acc-text" aria-hidden="true">03</span>
+                    </div>
+                    <h3 class="font-semibold text-neutral-900 dark:text-white mb-2">{{ 'We hand it over'|tr }}</h3>
+                    <p class="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">{{ 'Clean session files, ready to mix into your record.'|tr }}</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+         BOOKING FORM — red accent
+         ============================================================ -->
+    <section id="band-form" class="py-16 md:py-20 border-t border-neutral-200 dark:border-white/5 scroll-mt-28" aria-label="{{ 'Book the players'|tr }}">
+        <div class="container mx-auto px-6 lg:px-8">
+            <div class="grid lg:grid-cols-5 gap-12 lg:gap-16 items-start max-w-6xl mx-auto">
+                <div class="lg:col-span-3">
+                    <div class="rounded-3xl border border-neutral-200 bg-white p-8 md:p-12 dark:border-white/10 dark:bg-white/[0.02]">
+                        <div class="mb-8">
+                            <p class="eyebrow mb-4" style="color: var(--accent)">{{ 'HIRE THE BAND'|tr }}</p>
+                            <h2 class="text-2xl md:text-3xl font-semibold text-neutral-900 dark:text-white">{{ 'Start a session'|tr }}</h2>
+                        </div>
+
+                        {% if submitted %}
+                        <div class="mb-8 p-4 rounded-xl border border-green-500/40 bg-green-500/5" role="status">
+                            <p class="text-green-600 dark:text-green-400 text-sm">{{ 'Your message has been received.'|tr }}</p>
+                        </div>
+                        {% endif %}
+
+                        <form method="POST" action="{% url 'hire_the_band' %}" novalidate>
+                            {% csrf_token %}
+                            <div class="grid md:grid-cols-2 gap-x-4">
+                                <div class="mb-6">
+                                    <label for="{{ form.name.id_for_label }}" class="form-label form-required">{{ 'Your name'|tr }}<span class="sr-only"> (required)</span></label>
+                                    {{ form.name }}
+                                    {% if form.name.errors %}<p class="form-error">{{ form.name.errors.0 }}</p>{% endif %}
+                                </div>
+                                <div class="mb-6">
+                                    <label for="{{ form.email.id_for_label }}" class="form-label form-required">{{ 'Email address'|tr }}<span class="sr-only"> (required)</span></label>
+                                    {{ form.email }}
+                                    {% if form.email.errors %}<p class="form-error">{{ form.email.errors.0 }}</p>{% endif %}
+                                </div>
+                            </div>
+
+                            <div class="mb-6">
+                                <label for="{{ form.subject.id_for_label }}" class="form-label form-required">{{ 'Subject'|tr }}<span class="sr-only"> (required)</span></label>
+                                {{ form.subject }}
+                                {% if form.subject.errors %}<p class="form-error">{{ form.subject.errors.0 }}</p>{% endif %}
+                            </div>
+
+                            <div class="mb-8">
+                                <label for="{{ form.message.id_for_label }}" class="form-label form-required">{{ 'Message'|tr }}<span class="sr-only"> (required)</span></label>
+                                {{ form.message }}
+                                <p id="{{ form.message.id_for_label }}-help" class="mt-1 text-xs text-neutral-500 dark:text-neutral-500">{{ 'Paste a link to the demo or upload details — file links welcome.'|tr }}</p>
+                                {% if form.message.errors %}<p class="form-error">{{ form.message.errors.0 }}</p>{% endif %}
+                            </div>
+
+                            <button type="submit" class="jt-acc-btn w-full text-sm px-8 py-3.5">
+                                <i class="fas fa-drum" aria-hidden="true"></i>
+                                {{ 'Request the players'|tr }}
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-2">
+                    <div class="lg:sticky lg:top-28">
+                        <div class="jt-acc-card p-8" data-reveal>
+                            <span class="jt-acc-line" aria-hidden="true"></span>
+                            <h3 class="text-lg font-semibold text-neutral-900 dark:text-white mb-5">{{ 'Good to know'|tr }}</h3>
+                            <ul class="space-y-4 text-sm text-neutral-600 dark:text-neutral-400">
+                                <li class="flex gap-3"><i class="fas fa-clock jt-acc-text mt-0.5" aria-hidden="true"></i>{{ 'Sessions run from 2 hours — same day usually possible.'|tr }}</li>
+                                <li class="flex gap-3"><i class="fas fa-location-dot jt-acc-text mt-0.5" aria-hidden="true"></i>{{ 'Played in studio or remote, at your place or ours.'|tr }}</li>
+                                <li class="flex gap-3"><i class="fas fa-file-audio jt-acc-text mt-0.5" aria-hidden="true"></i>{{ 'You keep every take, DI and capture — no rights hassle.'|tr }}</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    (function () {
+        var picks = document.querySelectorAll('.jt-pick[data-subject]');
+        var subject = document.getElementById('id_subject');
+        var form = document.getElementById('band-form');
+        if (!picks.length || !subject) return;
+
+        function activate(pick, active) {
+            picks.forEach(function (p) { p.classList.remove('is-active'); p.setAttribute('aria-pressed', 'false'); });
+            if (active) {
+                pick.classList.add('is-active');
+                pick.setAttribute('aria-pressed', 'true');
+                subject.value = pick.getAttribute('data-subject');
+            }
+        }
+
+        picks.forEach(function (pick) {
+            pick.addEventListener('click', function () {
+                var wasActive = pick.classList.contains('is-active');
+                activate(pick, !wasActive);
+                if (!wasActive && form) {
+                    form.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    subject.focus({ preventScroll: true });
+                }
+            });
+            pick.addEventListener('keydown', function (e) {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    pick.click();
+                }
+            });
+        });
+    })();
+</script>
+{% endblock %}

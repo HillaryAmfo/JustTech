@@ -1,0 +1,282 @@
+{% extends 'main_app/base.html' %}
+{% load i18n_tags %}
+
+{% block title %}{{ 'Create your account'|tr }} | {{ site_settings.company_name|default:'Just Tech' }}{% endblock %}
+
+{% block robots %}noindex, nofollow{% endblock %}
+
+{% block meta_description %}Create a JustTech account to book studio sessions, lessons and events.{% endblock %}
+
+{% block content %}
+<div id="register-page">
+
+    <section class="relative min-h-screen py-24 lg:py-28 overflow-hidden" aria-label="{{ 'Create your account'|tr }}">
+        <div class="absolute inset-0 pointer-events-none" aria-hidden="true">
+            <div class="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,rgba(255,0,60,0.06),transparent)] dark:bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,rgba(255,255,255,0.06),transparent)]"></div>
+            <div class="absolute -right-40 bottom-1/4 w-[440px] h-[440px] rounded-full bg-[#ff003c]/5 blur-3xl dark:bg-[#ff003c]/10"></div>
+        </div>
+
+        <div class="container mx-auto px-6 lg:px-8">
+            <div class="grid lg:grid-cols-2 rounded-3xl overflow-hidden border border-neutral-200 bg-white shadow-xl shadow-neutral-900/5 dark:border-white/10 dark:bg-white/[0.02] dark:shadow-black/20">
+
+                <!-- Left: studio image panel (azubi-style, hidden on mobile) -->
+                <div class="relative min-h-[560px] overflow-hidden hidden lg:flex jt-sig-visual">
+                    <img class="jt-sig-img" loading="lazy" decoding="async"
+                         src="https://images.unsplash.com/photo-1510915361894-db8b60106cb1?auto=format&fit=crop&w=1400&q=80"
+                         alt="Microphone in the JustTech studio"
+                         onerror="this.style.display='none'">
+                    <div class="jt-sig-overlay" aria-hidden="true"></div>
+                    <div class="relative z-10 flex h-full w-full items-end p-8">
+                        <div class="max-w-md text-white">
+                            <div class="flex flex-wrap items-center gap-2.5 mb-4">
+                                <span class="inline-flex items-center rounded-full border border-white/15 bg-white/10 px-3 py-1.5 backdrop-blur-sm">
+                                    <span class="inline-flex items-baseline gap-[0.1rem]">
+                                        <span class="jt-signin-logo-mark">
+                                            {% include 'main_app/components/logo_mark.html' %}
+                                        </span>
+                                        <span class="jt-signin-wordmark jt-signin-wordmark--light"><span class="jt-signin-wordmark__ust">ust</span> Tech</span>
+                                    </span>
+                                </span>
+                            </div>
+                            <p class="text-[10px] sm:text-[11px] font-semibold uppercase tracking-[0.2em] text-white/75">{{ 'Client access'|tr }}</p>
+                            <h2 class="mt-2 text-2xl sm:text-3xl font-semibold leading-tight text-white">{{ 'One account for everything.'|tr }}</h2>
+                            <p class="mt-2 max-w-md text-[13px] sm:text-sm leading-6 text-white/80">{{ 'Register for lessons, book studio sessions and keep your projects moving — all from your JustTech space.'|tr }}</p>
+                        </div>
+                    </div>
+                    <div class="jt-sig-chip jt-sig-chip--tl jt-float">
+                        <span class="jt-rec-dot" aria-hidden="true"></span>
+                        <span>
+                            <span class="jt-sig-chip__label">{{ 'JOIN THE CLUB'|tr }}</span>
+                            <span class="jt-sig-chip__value">{{ 'COLLABORATE & GROW'|tr }}</span>
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Right: register card -->
+                <div class="bg-white dark:bg-white/[0.02] px-4 py-6 sm:px-6 sm:py-8 lg:px-10 lg:py-10">
+                    <div class="mx-auto max-w-md w-full">
+
+                        <!-- Logo (navbar style) -->
+                        <div class="mb-6 text-center" data-reveal>
+                            <span class="inline-flex items-center rounded-full border border-neutral-200 bg-neutral-50 px-3 py-1.5 dark:border-white/10 dark:bg-white/5">
+                                <span class="inline-flex items-baseline gap-[0.1rem]">
+                                    <span class="jt-signin-logo-mark">
+                                        {% include 'main_app/components/logo_mark.html' %}
+                                    </span>
+                                    <span class="jt-signin-wordmark"><span class="jt-signin-wordmark__ust">ust</span> Tech</span>
+                                </span>
+                            </span>
+                        </div>
+
+                        <h1 class="text-2xl sm:text-[1.9rem] font-semibold tracking-tight text-neutral-900 dark:text-white text-center" data-reveal data-reveal-delay="60">{{ 'Create your account'|tr }}</h1>
+                        <p class="mt-1 text-[13px] sm:text-sm leading-5 text-neutral-500 dark:text-neutral-400 text-center" data-reveal data-reveal-delay="120">{{ 'Tell us who you are and what you want to do.'|tr }}</p>
+
+                        {% if form.errors %}
+                        <div class="mt-6 p-4 rounded-xl border border-[#ff003c]/40 bg-[#ff003c]/5" role="alert" data-reveal data-reveal-delay="160">
+                            {% for field, errors in form.errors.items %}
+                                {% for error in errors %}<p class="text-[#ff003c] text-sm">{{ error|tr }}</p>{% endfor %}
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+
+                        <!-- Provider sign-up buttons (UI demo) -->
+                        <div class="mt-6 space-y-3" data-reveal data-reveal-delay="180">
+                            <button type="button" class="provider-btn" data-provider="Microsoft">
+                                <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="1" y="1" width="10.5" height="10.5" fill="#F25022"/><rect x="12.5" y="1" width="10.5" height="10.5" fill="#7FBA00"/><rect x="1" y="12.5" width="10.5" height="10.5" fill="#00A4EF"/><rect x="12.5" y="12.5" width="10.5" height="10.5" fill="#FFB900"/></svg>
+                                <span>{{ 'Sign up with Microsoft'|tr }}</span>
+                            </button>
+                            <button type="button" class="provider-btn" data-provider="Google">
+                                <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#EA4335" d="M12 5.1c1.7 0 3.2.6 4.4 1.7l3.3-3.3C17.4 1.5 14.9.7 12 .7 7.6.7 3.8 3.3 2 7.2l3.9 3C6.9 7.5 9.2 5.1 12 5.1z"/><path fill="#4285F4" d="M23.4 12.3c0-.9-.1-1.6-.2-2.3H12v4.4h6.4c-.3 1.5-1.2 2.9-2.5 3.7l3.8 3c2.3-2.1 3.7-5.2 3.7-8.8z"/><path fill="#FBBC05" d="M5.9 14.1c-.3-.8-.4-1.6-.4-2.4s.2-1.6.4-2.4L1.9 6.3C1 8.1.6 10 .6 11.9s.4 3.8 1.3 5.5l4-3.3z"/><path fill="#34A853" d="M12 23.2c3.2 0 6-1.1 8-2.9l-3.8-3c-1.1.7-2.5 1.2-4.1 1.2-2.8 0-5.1-1.9-6-4.4l-4 3.1c1.9 3.9 5.6 6 10.1 6z"/></svg>
+                                <span>{{ 'Sign up with Google'|tr }}</span>
+                            </button>
+                            <button type="button" class="provider-btn" data-provider="Apple ID">
+                                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.4 12.7c0-2.2 1.6-3.2 1.7-3.3-.9-1.3-2.4-1.5-2.9-1.6-1.2-.1-2.4.7-3 .7-.6 0-1.6-.7-2.6-.7-1.3 0-2.6.8-3.3 2-1.4 2.5-.4 6.2 1 8.2.7 1 1.5 2.1 2.5 2.1 1 0 1.4-.7 2.6-.7 1.2 0 1.5.7 2.6.7 1.1 0 1.8-1 2.4-2 .8-1.1 1-2.2 1.1-2.3-.1 0-2.1-.8-2.1-3.1zM14.2 6.1c.6-.7 1-1.7.9-2.7-.8 0-1.9.5-2.5 1.2-.5.6-1 1.6-.9 2.6.9.1 1.9-.4 2.5-1.1z"/></svg>
+                                <span>{{ 'Sign up with Apple ID'|tr }}</span>
+                            </button>
+                        </div>
+
+                        <div id="jt-provider-note" class="jt-provider-note" role="status" aria-live="polite" hidden
+                             data-template="{{ 'Continue with __PROVIDER__? Not yet — but your email works today.'|tr }}"></div>
+
+                        <div class="flex items-center my-5" data-reveal data-reveal-delay="220" aria-hidden="true">
+                            <span class="h-px flex-1 bg-neutral-200 dark:bg-white/10"></span>
+                            <span class="px-3 text-[11px] font-semibold uppercase tracking-[0.18em] text-neutral-400">{{ 'or sign up with email'|tr }}</span>
+                            <span class="h-px flex-1 bg-neutral-200 dark:bg-white/10"></span>
+                        </div>
+
+                        <form method="POST" action="{% url 'register' %}" novalidate class="mt-4" data-reveal data-reveal-delay="260">
+                            {% csrf_token %}
+                            {% if request.GET.next %}<input type="hidden" name="next" value="{{ request.GET.next }}">{% endif %}
+
+                            <!-- Intent selector -->
+                            <fieldset class="mb-6">
+                                <legend class="jt-signin-label">{{ 'I am here for'|tr }}</legend>
+                                <div class="grid grid-cols-2 gap-2.5" id="jt-intent-grid">
+                                    <label class="jt-intent">
+                                        <input type="radio" name="intent" value="learning" class="sr-only intent-radio" {% if form.intent.value == 'learning' or not form.intent.value %}checked{% endif %}>
+                                        <span class="jt-intent__card">
+                                            <i class="fas fa-graduation-cap" aria-hidden="true"></i>
+                                            <span>{{ 'Learning'|tr }}</span>
+                                        </span>
+                                    </label>
+                                    <label class="jt-intent">
+                                        <input type="radio" name="intent" value="studio" class="sr-only intent-radio" {% if form.intent.value == 'studio' %}checked{% endif %}>
+                                        <span class="jt-intent__card">
+                                            <i class="fas fa-drum" aria-hidden="true"></i>
+                                            <span>{{ 'Book a studio session'|tr }}</span>
+                                        </span>
+                                    </label>
+                                    <label class="jt-intent">
+                                        <input type="radio" name="intent" value="event" class="sr-only intent-radio" {% if form.intent.value == 'event' %}checked{% endif %}>
+                                        <span class="jt-intent__card">
+                                            <i class="fas fa-calendar-check" aria-hidden="true"></i>
+                                            <span>{{ 'Events & production'|tr }}</span>
+                                        </span>
+                                    </label>
+                                    <label class="jt-intent">
+                                        <input type="radio" name="intent" value="other" class="sr-only intent-radio" {% if form.intent.value == 'other' %}checked{% endif %}>
+                                        <span class="jt-intent__card">
+                                            <i class="fas fa-ellipsis-h" aria-hidden="true"></i>
+                                            <span>{{ 'Something else'|tr }}</span>
+                                        </span>
+                                    </label>
+                                </div>
+                            </fieldset>
+
+                            <!-- Contextual question, changes with the selected intent -->
+                            <div class="mb-4" id="jt-intent-detail-wrap" data-reveal data-reveal-delay="300">
+                                <label for="id_intent_detail" class="jt-signin-label" id="jt-intent-detail-label">{{ 'What would you like to learn?'|tr }}</label>
+                                <div class="relative">
+                                    <i class="fas fa-lightbulb jt-signin-ic" aria-hidden="true"></i>
+                                    <input type="text" name="intent_detail" id="id_intent_detail" placeholder="{{ 'What would you like to learn?'|tr }}" autocomplete="off" class="jt-signin-input" value="{{ form.intent_detail.value|default:'' }}">
+                                </div>
+                            </div>
+
+                            <div class="mb-4">
+                                <label for="jt-full-name" class="jt-signin-label">{{ 'Full name'|tr }}</label>
+                                <div class="relative">
+                                    <i class="fas fa-user jt-signin-ic" aria-hidden="true"></i>
+                                    <input type="text" name="full_name" id="jt-full-name" placeholder="{{ 'Full name'|tr }}" required autocomplete="name" class="jt-signin-input" aria-required="true" value="{{ form.full_name.value|default:'' }}">
+                                </div>
+                            </div>
+
+                            <div class="mb-4">
+                                <label for="jt-email" class="jt-signin-label">{{ 'Email address'|tr }}</label>
+                                <div class="relative">
+                                    <i class="fas fa-envelope jt-signin-ic" aria-hidden="true"></i>
+                                    <input type="email" name="email" id="jt-email" placeholder="{{ 'Email address'|tr }}" required autocomplete="email" class="jt-signin-input" aria-required="true" value="{{ form.email.value|default:'' }}">
+                                </div>
+                            </div>
+
+                            <div class="grid sm:grid-cols-2 gap-x-3">
+                                <div class="mb-6">
+                                    <label for="id_password" class="jt-signin-label">{{ 'Password'|tr }}</label>
+                                    <div class="relative">
+                                        <i class="fas fa-lock jt-signin-ic" aria-hidden="true"></i>
+                                        <input type="password" name="password" id="id_password" placeholder="••••••••" required autocomplete="new-password" class="jt-signin-input jt-signin-input--pw" aria-required="true">
+                                        <button type="button" data-pw-toggle="id_password" class="jt-signin-eye" aria-label="{{ 'Show password'|tr }}" aria-pressed="false">
+                                            <i class="fa-solid fa-eye" aria-hidden="true"></i>
+                                            <i class="fa-solid fa-eye-slash hidden" aria-hidden="true"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="mb-6">
+                                    <label for="id_confirm_password" class="jt-signin-label">{{ 'Confirm password'|tr }}</label>
+                                    <div class="relative">
+                                        <i class="fas fa-lock jt-signin-ic" aria-hidden="true"></i>
+                                        <input type="password" name="confirm_password" id="id_confirm_password" placeholder="••••••••" required autocomplete="new-password" class="jt-signin-input jt-signin-input--pw" aria-required="true">
+                                        <button type="button" data-pw-toggle="id_confirm_password" class="jt-signin-eye" aria-label="{{ 'Show password'|tr }}" aria-pressed="false">
+                                            <i class="fa-solid fa-eye" aria-hidden="true"></i>
+                                            <i class="fa-solid fa-eye-slash hidden" aria-hidden="true"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Terms & privacy consent -->
+                            <div class="mb-6">
+                                <label class="flex items-start gap-3 cursor-pointer select-none jt-terms" for="id_agree_terms">
+                                    <input type="checkbox" name="agree_terms" id="id_agree_terms" class="sr-only" {% if form.agree_terms.value %}checked{% endif %}>
+                                    <span class="jt-terms__box" aria-hidden="true"><i class="fas fa-check"></i></span>
+                                    <span class="text-[13px] leading-5 text-neutral-600 dark:text-neutral-400">
+                                        {{ 'I agree to the JustTech'|tr }} 
+                                        <a href="{{ site_settings.terms_url|default:'#' }}" target="_blank" rel="noopener" class="font-semibold text-primary hover:underline">{{ 'Terms'|tr }}</a>
+                                        {{ 'and'|tr }}
+                                        <a href="{{ site_settings.privacy_policy_url|default:'#' }}" target="_blank" rel="noopener" class="font-semibold text-primary hover:underline">{{ 'Privacy Policy'|tr }}</a>.
+                                    </span>
+                                </label>
+                            </div>
+
+                            <button type="submit" class="btn-primary w-full text-sm px-8 py-3.5">
+                                <i class="fas fa-user-plus" aria-hidden="true"></i>
+                                {{ 'Create account'|tr }}
+                            </button>
+                        </form>
+
+                        <p class="mt-4 text-center text-sm" data-reveal data-reveal-delay="340">
+                            <span class="text-neutral-600 dark:text-neutral-400">{{ 'Already have an account?'|tr }}</span>
+                            <a href="{% url 'login' %}" class="font-semibold text-primary hover:underline">{{ 'Log in'|tr }}</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    (function () {
+        document.querySelectorAll('[data-pw-toggle]').forEach(function (button) {
+            var inputId = button.getAttribute('data-pw-toggle');
+            var input = document.getElementById(inputId);
+            if (!input) return;
+            button.addEventListener('click', function () {
+                var isPassword = input.type === 'password';
+                input.type = isPassword ? 'text' : 'password';
+                button.setAttribute('aria-label', isPassword ? 'Hide password' : 'Show password');
+                button.setAttribute('aria-pressed', isPassword ? 'true' : 'false');
+                var eye = button.querySelector('.fa-eye');
+                var eyeSlash = button.querySelector('.fa-eye-slash');
+                if (eye) eye.classList.toggle('hidden', isPassword);
+                if (eyeSlash) eyeSlash.classList.toggle('hidden', !isPassword);
+            });
+        });
+
+        var INTENT_PROMPTS = {
+            learning: { icon: 'fa-lightbulb', label: 'What would you like to learn?', placeholder: 'What would you like to learn?' },
+            studio: { icon: 'fa-headphones', label: 'What type of session?', placeholder: 'Recording, mixing or rehearsal?' },
+            event: { icon: 'fa-calendar-day', label: 'What are you planning?', placeholder: 'Worship, concert, live stream...' },
+            other: { icon: 'fa-comment-dots', label: 'Anything we should know (optional)', placeholder: 'Tell us a little more' }
+        };
+
+        function applyIntentPrompt() {
+            var checked = document.querySelector('.intent-radio:checked');
+            if (!checked) return;
+            var intent = checked.value;
+            var prompt = INTENT_PROMPTS[intent] || INTENT_PROMPTS.other;
+            var label = document.getElementById('jt-intent-detail-label');
+            var input = document.getElementById('id_intent_detail');
+            var icon = document.querySelector('#jt-intent-detail-wrap .jt-signin-ic');
+            if (label) label.textContent = prompt.label;
+            if (input) {
+                input.placeholder = prompt.placeholder;
+                if (!input.dataset.touched) input.value = '';
+            }
+            if (icon) icon.className = 'jt-signin-ic fas ' + prompt.icon;
+        }
+
+        document.querySelectorAll('.intent-radio').forEach(function (radio) {
+            radio.addEventListener('change', applyIntentPrompt);
+        });
+        var detailInput = document.getElementById('id_intent_detail');
+        if (detailInput) {
+            detailInput.addEventListener('input', function () { detailInput.dataset.touched = '1'; });
+            detailInput.addEventListener('change', function () { detailInput.dataset.touched = '1'; });
+        }
+        applyIntentPrompt();
+    })();
+</script>
+{% endblock %}

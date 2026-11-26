@@ -1,0 +1,221 @@
+{% extends 'main_app/base.html' %}
+{% load i18n_tags %}
+
+{% block title %}{{ 'Book a lesson'|tr }} | {{ site_settings.company_name|default:'Just Tech' }}{% endblock %}
+
+{% block robots %}index, follow{% endblock %}
+
+{% block meta_description %}{{ 'Piano, guitar and audio lessons — hands-on, at your pace, on studio gear.'|tr }}{% endblock %}
+
+{% block content %}
+<div id="book-a-lesson-page" data-accent="lessons">
+
+    <!-- ============================================================
+         HERO — violet accent
+         ============================================================ -->
+    <section class="relative overflow-hidden pt-28 md:pt-36 pb-14 md:pb-18" aria-label="Introduction">
+        <div class="absolute inset-0 pointer-events-none" aria-hidden="true">
+            <div class="absolute inset-0 bg-[radial-gradient(ellipse_90%_60%_at_50%_-20%,rgba(139,92,246,0.08),transparent)]"></div>
+            <div class="absolute -left-40 top-10 w-[420px] h-[420px] rounded-full bg-[#8b5cf6]/10 blur-3xl"></div>
+        </div>
+
+        <div class="container mx-auto px-6 lg:px-8">
+            <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center max-w-6xl">
+                <div>
+                    <p class="eyebrow mb-6" style="color: var(--accent)">{{ 'BOOK A LESSON'|tr }}</p>
+                    <h1 class="text-4xl sm:text-5xl font-semibold text-neutral-900 dark:text-white leading-[1.08] mb-6">
+                        {{ 'Play it for real.'|tr }}
+                    </h1>
+                    <p class="text-lg text-neutral-600 dark:text-neutral-400 leading-relaxed mb-10 max-w-xl">
+                        {{ 'Piano, guitar and audio lessons — hands-on, at your pace, on studio gear.'|tr }}
+                    </p>
+
+                    <div class="flex flex-wrap items-center gap-4">
+                        <a href="#lesson-form" class="jt-acc-btn text-sm px-7 py-3">
+                            <i class="fas fa-graduation-cap" aria-hidden="true"></i>
+                            {{ 'Book a lesson'|tr }}
+                        </a>
+                        <a href="{% url 'learning' %}" class="btn-secondary text-sm px-7 py-3">{{ 'Explore all lessons'|tr }}</a>
+                    </div>
+                </div>
+
+                <div class="relative flex justify-center" data-reveal>
+                    <div class="jt-acc-card w-full max-w-sm p-8" data-reveal data-reveal-delay="100">
+                        <span class="jt-acc-line" aria-hidden="true"></span>
+                        <div class="flex items-center justify-between mb-6">
+                            <span class="jt-acc-icon jt-acc-icon-lg" aria-hidden="true"><i class="fas fa-graduation-cap"></i></span>
+                            <span class="jt-acc-dot" aria-hidden="true"></span>
+                        </div>
+                        <h2 class="text-xl font-semibold text-neutral-900 dark:text-white mb-2">{{ 'At your pace, on studio gear.'|tr }}</h2>
+                        <p class="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
+                            {{ 'Private, one-on-one lessons that start where you are — and push you somewhere musical.'|tr }}
+                        </p>
+                        <div class="mt-6 pt-5 border-t border-neutral-200 dark:border-white/5 grid grid-cols-2 divide-x divide-neutral-200 dark:divide-white/5">
+                            <span class="pr-4"><span class="block text-[11px] uppercase tracking-widest text-neutral-400">{{ 'hands-on'|tr }}</span><span class="block jt-acc-text font-semibold mt-1">{{ 'Real gear'|tr }}</span></span>
+                            <span class="pl-4"><span class="block text-[11px] uppercase tracking-widest text-neutral-400">{{ 'level'|tr }}</span><span class="block jt-acc-text font-semibold mt-1">{{ 'All levels'|tr }}</span></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+         SUBJECTS — violet accent
+         ============================================================ -->
+    <section class="py-16 md:py-24 border-t border-neutral-200 dark:border-white/5" aria-label="{{ 'Subjects'|tr }}">
+        <div class="container mx-auto px-6 lg:px-8">
+            <div class="max-w-2xl text-center mx-auto mb-16">
+                <p class="eyebrow justify-center mb-6" style="color: var(--accent)">{{ 'WHAT TO LEARN'|tr }}</p>
+                <h2 class="text-3xl md:text-4xl font-semibold text-neutral-900 dark:text-white">{{ 'Pick a path.'|tr }}</h2>
+            </div>
+
+            <div class="grid sm:grid-cols-3 gap-6 max-w-5xl mx-auto">
+                <div class="jt-acc-card jt-pick p-8" role="button" tabindex="0"
+                     aria-pressed="false" data-subject="{{ 'Piano & keys'|tr }}" data-reveal>
+                    <span class="jt-acc-line" aria-hidden="true"></span>
+                    <span class="jt-acc-check" aria-hidden="true"><i class="fas fa-check"></i></span>
+                    <div class="flex items-center justify-between mb-6">
+                        <span class="jt-acc-icon" aria-hidden="true"><i class="fas fa-keyboard"></i></span>
+                        <span class="jt-acc-dot" aria-hidden="true"></span>
+                    </div>
+                    <h3 class="text-lg font-semibold text-neutral-900 dark:text-white mb-2">{{ 'Piano & keys'|tr }}</h3>
+                    <p class="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">{{ 'Chords, voicings and playing that fits songs — from first notes to gig-ready.'|tr }}</p>
+                </div>
+                <div class="jt-acc-card jt-pick p-8" role="button" tabindex="0"
+                     aria-pressed="false" data-subject="{{ 'Guitar'|tr }}" data-reveal data-reveal-delay="80">
+                    <span class="jt-acc-line" aria-hidden="true"></span>
+                    <span class="jt-acc-check" aria-hidden="true"><i class="fas fa-check"></i></span>
+                    <div class="flex items-center justify-between mb-6">
+                        <span class="jt-acc-icon" aria-hidden="true"><i class="fas fa-guitar"></i></span>
+                        <span class="jt-acc-dot" aria-hidden="true"></span>
+                    </div>
+                    <h3 class="text-lg font-semibold text-neutral-900 dark:text-white mb-2">{{ 'Guitar'|tr }}</h3>
+                    <p class="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">{{ 'Rhythm, leads and the parts that make a song move. On real amps.'|tr }}</p>
+                </div>
+                <div class="jt-acc-card jt-pick p-8" role="button" tabindex="0"
+                     aria-pressed="false" data-subject="{{ 'Audio production'|tr }}" data-reveal data-reveal-delay="160">
+                    <span class="jt-acc-line" aria-hidden="true"></span>
+                    <span class="jt-acc-check" aria-hidden="true"><i class="fas fa-check"></i></span>
+                    <div class="flex items-center justify-between mb-6">
+                        <span class="jt-acc-icon" aria-hidden="true"><i class="fas fa-headphones"></i></span>
+                        <span class="jt-acc-dot" aria-hidden="true"></span>
+                    </div>
+                    <h3 class="text-lg font-semibold text-neutral-900 dark:text-white mb-2">{{ 'Audio production'|tr }}</h3>
+                    <p class="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">{{ 'Recording, editing and mixing your own tracks — in the room it happens in.'|tr }}</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+         BOOKING FORM — violet accent
+         ============================================================ -->
+    <section id="lesson-form" class="py-16 md:py-20 border-t border-neutral-200 dark:border-white/5 scroll-mt-28" aria-label="{{ 'Book a lesson'|tr }}">
+        <div class="container mx-auto px-6 lg:px-8">
+            <div class="grid lg:grid-cols-5 gap-12 lg:gap-16 items-start max-w-6xl mx-auto">
+                <div class="lg:col-span-3">
+                    <div class="rounded-3xl border border-neutral-200 bg-white p-8 md:p-12 dark:border-white/10 dark:bg-white/[0.02]">
+                        <div class="mb-8">
+                            <p class="eyebrow mb-4" style="color: var(--accent)">{{ 'BOOK A LESSON'|tr }}</p>
+                            <h2 class="text-2xl md:text-3xl font-semibold text-neutral-900 dark:text-white">{{ 'Your first lesson'|tr }}</h2>
+                        </div>
+
+                        {% if submitted %}
+                        <div class="mb-8 p-4 rounded-xl border border-green-500/40 bg-green-500/5" role="status">
+                            <p class="text-green-600 dark:text-green-400 text-sm">{{ 'Your message has been received.'|tr }}</p>
+                        </div>
+                        {% endif %}
+
+                        <form method="POST" action="{% url 'book_a_lesson' %}" novalidate>
+                            {% csrf_token %}
+                            <div class="grid md:grid-cols-2 gap-x-4">
+                                <div class="mb-6">
+                                    <label for="{{ form.name.id_for_label }}" class="form-label form-required">{{ 'Your name'|tr }}<span class="sr-only"> (required)</span></label>
+                                    {{ form.name }}
+                                    {% if form.name.errors %}<p class="form-error">{{ form.name.errors.0 }}</p>{% endif %}
+                                </div>
+                                <div class="mb-6">
+                                    <label for="{{ form.email.id_for_label }}" class="form-label form-required">{{ 'Email address'|tr }}<span class="sr-only"> (required)</span></label>
+                                    {{ form.email }}
+                                    {% if form.email.errors %}<p class="form-error">{{ form.email.errors.0 }}</p>{% endif %}
+                                </div>
+                            </div>
+
+                            <div class="mb-6">
+                                <label for="{{ form.subject.id_for_label }}" class="form-label form-required">{{ 'Subject'|tr }}<span class="sr-only"> (required)</span></label>
+                                {{ form.subject }}
+                                {% if form.subject.errors %}<p class="form-error">{{ form.subject.errors.0 }}</p>{% endif %}
+                            </div>
+
+                            <div class="mb-8">
+                                <label for="{{ form.message.id_for_label }}" class="form-label form-required">{{ 'Message'|tr }}<span class="sr-only"> (required)</span></label>
+                                {{ form.message }}
+                                <p id="{{ form.message.id_for_label }}-help" class="mt-1 text-xs text-neutral-500 dark:text-neutral-500">{{ 'Instrument, current level and preferred days — we will shape the lesson around it.'|tr }}</p>
+                                {% if form.message.errors %}<p class="form-error">{{ form.message.errors.0 }}</p>{% endif %}
+                            </div>
+
+                            <button type="submit" class="jt-acc-btn w-full text-sm px-8 py-3.5">
+                                <i class="fas fa-graduation-cap" aria-hidden="true"></i>
+                                {{ 'Request the lesson'|tr }}
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-2">
+                    <div class="lg:sticky lg:top-28">
+                        <div class="jt-acc-card p-8" data-reveal>
+                            <span class="jt-acc-line" aria-hidden="true"></span>
+                            <h3 class="text-lg font-semibold text-neutral-900 dark:text-white mb-5">{{ 'How lessons work'|tr }}</h3>
+                            <ul class="space-y-4 text-sm text-neutral-600 dark:text-neutral-400">
+                                <li class="flex gap-3"><i class="fas fa-user-check jt-acc-text mt-0.5" aria-hidden="true"></i>{{ 'Private one-on-one — no shared classes.'|tr }}</li>
+                                <li class="flex gap-3"><i class="fas fa-calendar-week jt-acc-text mt-0.5" aria-hidden="true"></i>{{ 'Weekly or by the month, at your pace.'|tr }}</li>
+                                <li class="flex gap-3"><i class="fas fa-drum jt-acc-text mt-0.5" aria-hidden="true"></i>{{ 'Studio gear provided — just bring your hands.'|tr }}</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    (function () {
+        var picks = document.querySelectorAll('.jt-pick[data-subject]');
+        var subject = document.getElementById('id_subject');
+        var form = document.getElementById('lesson-form');
+        if (!picks.length || !subject) return;
+
+        function activate(pick, active) {
+            picks.forEach(function (p) { p.classList.remove('is-active'); p.setAttribute('aria-pressed', 'false'); });
+            if (active) {
+                pick.classList.add('is-active');
+                pick.setAttribute('aria-pressed', 'true');
+                subject.value = pick.getAttribute('data-subject');
+            }
+        }
+
+        picks.forEach(function (pick) {
+            pick.addEventListener('click', function () {
+                var wasActive = pick.classList.contains('is-active');
+                activate(pick, !wasActive);
+                if (!wasActive && form) {
+                    form.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    subject.focus({ preventScroll: true });
+                }
+            });
+            pick.addEventListener('keydown', function (e) {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    pick.click();
+                }
+            });
+        });
+    })();
+</script>
+{% endblock %}

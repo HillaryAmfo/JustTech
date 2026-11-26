@@ -1,13 +1,14 @@
-<div id="workshop-form-{{ workshop.id }}" class="mt-4 p-4 bg-gray-800 rounded-lg border border-gray-700">
-    <h4 class="font-bold mb-3">Register for {{ workshop.title }}</h4>
+{% load i18n_tags %}
+<div id="workshop-form-{{ workshop.id }}" class="mt-4 p-5 rounded-2xl border border-[#ff003c]/30 bg-[#ff003c]/5">
+    <h4 class="font-semibold text-neutral-900 dark:text-white mb-3">{{ 'Register for'|tr }} {{ workshop.title }}</h4>
     <form hx-post="{% url 'register_workshop' workshop.id %}" hx-target="#workshop-form-{{ workshop.id }}" hx-swap="outerHTML" method="POST">
         {% csrf_token %}
-        <input type="text" name="name" placeholder="Full Name" required class="form-input text-sm mb-2">
-        <input type="email" name="email" placeholder="Email Address" required class="form-input text-sm mb-2">
-        <input type="tel" name="phone" placeholder="Phone Number" required class="form-input text-sm mb-2">
-        <div class="flex gap-2">
-            <button type="submit" class="btn-primary text-sm py-2 px-4 flex-1">Confirm Registration</button>
-            <button type="button" class="btn-secondary text-sm py-2 px-4" onclick="this.closest('[id^=workshop-form-]').remove()">Cancel</button>
+        <input type="text" name="name" placeholder="{{ 'Full name'|tr }}" required class="form-input text-sm">
+        <input type="email" name="email" placeholder="{{ 'Email address'|tr }}" required class="form-input text-sm">
+        <input type="tel" name="phone" placeholder="{{ 'Phone number'|tr }}" required class="form-input text-sm">
+        <div class="flex gap-2 mt-1">
+            <button type="submit" class="inline-flex items-center justify-center bg-[#ff003c] text-white text-sm font-medium px-5 py-2.5 rounded-full transition hover:bg-[#cc002f] flex-1 dark:bg-white dark:text-neutral-900 dark:hover:bg-white/90">{{ 'Confirm Registration'|tr }}</button>
+            <button type="button" class="inline-flex items-center justify-center border border-neutral-300 text-neutral-500 text-sm font-medium px-5 py-2.5 rounded-full transition hover:border-[#ff003c] hover:text-[#ff003c] dark:border-white/15 dark:text-white/70" onclick="this.closest('[id^=workshop-form-]').remove()">{{ 'Cancel'|tr }}</button>
         </div>
     </form>
 </div>

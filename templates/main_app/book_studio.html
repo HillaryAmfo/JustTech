@@ -1,0 +1,222 @@
+{% extends 'main_app/base.html' %}
+{% load i18n_tags %}
+
+{% block title %}{{ 'Book studio time'|tr }} | {{ site_settings.company_name|default:'Just Tech' }}{% endblock %}
+
+{% block robots %}index, follow{% endblock %}
+
+{% block meta_description %}{{ 'Track, mix and master in a room tuned for real results — by the hour or by the day.'|tr }}{% endblock %}
+
+{% block content %}
+<div id="book-studio-page" data-accent="studio">
+
+    <!-- ============================================================
+         HERO — amber accent
+         ============================================================ -->
+    <section class="relative overflow-hidden pt-28 md:pt-36 pb-14 md:pb-18" aria-label="Introduction">
+        <div class="absolute inset-0 pointer-events-none" aria-hidden="true">
+            <div class="absolute inset-0 bg-[radial-gradient(ellipse_90%_60%_at_50%_-20%,rgba(245,158,11,0.08),transparent)]"></div>
+            <div class="absolute -right-40 top-10 w-[420px] h-[420px] rounded-full bg-[#f59e0b]/10 blur-3xl"></div>
+        </div>
+
+        <div class="container mx-auto px-6 lg:px-8">
+            <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center max-w-6xl">
+                <div>
+                    <p class="eyebrow mb-6" style="color: var(--accent)">{{ 'STUDIO TIME'|tr }}</p>
+                    <h1 class="text-4xl sm:text-5xl font-semibold text-neutral-900 dark:text-white leading-[1.08] mb-6">
+                        {{ 'A room tuned for real results.'|tr }}
+                    </h1>
+                    <p class="text-lg text-neutral-600 dark:text-neutral-400 leading-relaxed mb-10 max-w-xl">
+                        {{ 'Track, mix and master by the hour or by the day — with the gear and the room to back it up.'|tr }}
+                    </p>
+
+                    <div class="flex flex-wrap items-center gap-4">
+                        <a href="#studio-form" class="jt-acc-btn text-sm px-7 py-3">
+                            <i class="fas fa-calendar-check" aria-hidden="true"></i>
+                            {{ 'Check availability'|tr }}
+                        </a>
+                        <a href="{% url 'pricing' %}" class="btn-secondary text-sm px-7 py-3">{{ 'Pricing'|tr }}</a>
+                    </div>
+                </div>
+
+                <div class="relative flex justify-center" data-reveal>
+                    <div class="jt-acc-card w-full max-w-sm p-8" data-reveal data-reveal-delay="100">
+                        <span class="jt-acc-line" aria-hidden="true"></span>
+                        <div class="flex items-center justify-between mb-6">
+                            <span class="jt-acc-icon jt-acc-icon-lg" aria-hidden="true"><i class="fas fa-sliders"></i></span>
+                            <span class="jt-acc-dot" aria-hidden="true"></span>
+                        </div>
+                        <h2 class="text-xl font-semibold text-neutral-900 dark:text-white mb-2">{{ 'By the hour or the day.'|tr }}</h2>
+                        <p class="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
+                            {{ 'Walk in with a session, walk out with a record-ready mix. Engineer support on hand the whole time.'|tr }}
+                        </p>
+                        <div class="mt-6 pt-5 border-t border-neutral-200 dark:border-white/5 grid grid-cols-2 divide-x divide-neutral-200 dark:divide-white/5">
+                            <span class="pr-4"><span class="block text-[11px] uppercase tracking-widest text-neutral-400">{{ 'tuning'|tr }}</span><span class="block jt-acc-text font-semibold mt-1">{{ 'Acoustic-room'|tr }}</span></span>
+                            <span class="pl-4"><span class="block text-[11px] uppercase tracking-widest text-neutral-400">{{ 'engineer'|tr }}</span><span class="block jt-acc-text font-semibold mt-1">{{ 'On hand'|tr }}</span></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+         RATE BLOCKS — amber accent (selectable)
+         ============================================================ -->
+    <section class="py-16 md:py-24 border-t border-neutral-200 dark:border-white/5" aria-label="{{ 'Rates'|tr }}">
+        <div class="container mx-auto px-6 lg:px-8">
+            <div class="max-w-2xl text-center mx-auto mb-16">
+                <p class="eyebrow justify-center mb-6" style="color: var(--accent)">{{ 'RATES'|tr }}</p>
+                <h2 class="text-3xl md:text-4xl font-semibold text-neutral-900 dark:text-white">{{ 'Pick your block.'|tr }}</h2>
+                <p class="mt-4 text-neutral-600 dark:text-neutral-400 leading-relaxed">{{ 'Tap a block to jump straight to the availability form.'|tr }}</p>
+            </div>
+
+            <div id="jt-rate-blocks" class="grid sm:grid-cols-3 gap-6 max-w-5xl mx-auto">
+                <button type="button" class="jt-acc-card p-8 text-left" data-rate="{{ 'Half day'|tr }}" data-reveal>
+                    <span class="jt-acc-line" aria-hidden="true"></span>
+                    <span class="jt-acc-check" aria-hidden="true"><i class="fas fa-check"></i></span>
+                    <span class="flex items-center justify-between mb-6">
+                        <span class="jt-acc-icon" aria-hidden="true"><i class="fas fa-sun"></i></span>
+                        <span class="text-sm font-bold jt-acc-text" aria-hidden="true">{{ 'FOCUSED'|tr }}</span>
+                    </span>
+                    <span class="block text-sm uppercase tracking-widest text-neutral-400">{{ 'half day'|tr }}</span>
+                    <span class="block text-2xl font-semibold text-neutral-900 dark:text-white mt-2">{{ '4 hours'|tr }}</span>
+                    <span class="block text-sm text-neutral-500 dark:text-neutral-400 mt-3">{{ 'One focused tracking or mix block.'|tr }}</span>
+                </button>
+
+                <button type="button" class="jt-acc-card p-8 text-left" data-rate="{{ 'Full day'|tr }}" data-reveal data-reveal-delay="80">
+                    <span class="jt-acc-line" aria-hidden="true"></span>
+                    <span class="jt-acc-check" aria-hidden="true"><i class="fas fa-check"></i></span>
+                    <span class="flex items-center justify-between mb-6">
+                        <span class="jt-acc-icon" aria-hidden="true"><i class="fas fa-bolt"></i></span>
+                        <span class="jt-acc-dot" aria-hidden="true"></span>
+                    </span>
+                    <span class="block text-sm uppercase tracking-widest text-neutral-400">{{ 'full day'|tr }}</span>
+                    <span class="block text-2xl font-semibold text-neutral-900 dark:text-white mt-2">{{ '8 hours'|tr }}</span>
+                    <span class="block text-sm text-neutral-500 dark:text-neutral-400 mt-3">{{ 'Track the band, then start the mix.'|tr }}</span>
+                </button>
+
+                <button type="button" class="jt-acc-card p-8 text-left" data-rate="{{ 'Session'|tr }}" data-reveal data-reveal-delay="160">
+                    <span class="jt-acc-line" aria-hidden="true"></span>
+                    <span class="jt-acc-check" aria-hidden="true"><i class="fas fa-check"></i></span>
+                    <span class="flex items-center justify-between mb-6">
+                        <span class="jt-acc-icon" aria-hidden="true"><i class="fas fa-house"></i></span>
+                        <span class="text-sm font-bold jt-acc-text" aria-hidden="true">{{ 'FLEX'|tr }}</span>
+                    </span>
+                    <span class="block text-sm uppercase tracking-widest text-neutral-400">{{ 'session pass'|tr }}</span>
+                    <span class="block text-2xl font-semibold text-neutral-900 dark:text-white mt-2">{{ '10 hours'|tr }}</span>
+                    <span class="block text-sm text-neutral-500 dark:text-neutral-400 mt-3">{{ 'Split across days — use as you go.'|tr }}</span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+         BOOKING FORM — amber accent (BookingForm)
+         ============================================================ -->
+    <section id="studio-form" class="py-16 md:py-20 border-t border-neutral-200 dark:border-white/5 scroll-mt-28" aria-label="{{ 'Check availability'|tr }}">
+        <div class="container mx-auto px-6 lg:px-8">
+            <div class="max-w-3xl mx-auto">
+                <div class="rounded-3xl border border-neutral-200 bg-white p-8 md:p-12 dark:border-white/10 dark:bg-white/[0.02]">
+                    <div class="mb-8">
+                        <p class="eyebrow mb-4" style="color: var(--accent)">{{ 'CHECK AVAILABILITY'|tr }}</p>
+                        <h2 class="text-2xl md:text-3xl font-semibold text-neutral-900 dark:text-white">{{ 'Reserve your slot'|tr }}</h2>
+                    </div>
+
+                    {% if submitted %}
+                    <div class="mb-8 p-4 rounded-xl border border-green-500/40 bg-green-500/5" role="status">
+                        <p class="text-green-600 dark:text-green-400 text-sm">{{ 'Your booking request has been received.'|tr }}</p>
+                    </div>
+                    {% endif %}
+
+                    {% if form.non_field_errors %}
+                    <div class="mb-8 p-4 rounded-xl border border-[#f59e0b]/40 bg-[#f59e0b]/5" role="alert">
+                        {% for error in form.non_field_errors %}<p class="text-[#b45309] text-sm">{{ error }}</p>{% endfor %}
+                    </div>
+                    {% endif %}
+
+                    <form method="POST" action="{% url 'book_studio' %}" novalidate>
+                        {% csrf_token %}
+                        <div class="grid md:grid-cols-2 gap-x-4">
+                            <div class="mb-6">
+                                <label for="{{ form.service.id_for_label }}" class="form-label form-required">{{ 'Which studio service?'|tr }}<span class="sr-only"> (required)</span></label>
+                                {{ form.service }}
+                                {% if form.service.errors %}<p class="form-error">{{ form.service.errors.0 }}</p>{% endif %}
+                            </div>
+                            <div class="mb-6">
+                                <label for="{{ form.preferred_date.id_for_label }}" class="form-label form-required">{{ 'Preferred date'|tr }}<span class="sr-only"> (required)</span></label>
+                                {{ form.preferred_date }}
+                                {% if form.preferred_date.errors %}<p class="form-error">{{ form.preferred_date.errors.0 }}</p>{% endif %}
+                            </div>
+                        </div>
+
+                        <div class="grid md:grid-cols-2 gap-x-4">
+                            <div class="mb-6">
+                                <label for="{{ form.name.id_for_label }}" class="form-label form-required">{{ 'Full name'|tr }}<span class="sr-only"> (required)</span></label>
+                                {{ form.name }}
+                                {% if form.name.errors %}<p class="form-error">{{ form.name.errors.0 }}</p>{% endif %}
+                            </div>
+                            <div class="mb-6">
+                                <label for="{{ form.email.id_for_label }}" class="form-label form-required">{{ 'Email address'|tr }}<span class="sr-only"> (required)</span></label>
+                                {{ form.email }}
+                                {% if form.email.errors %}<p class="form-error">{{ form.email.errors.0 }}</p>{% endif %}
+                            </div>
+                        </div>
+
+                        <div class="grid md:grid-cols-2 gap-x-4">
+                            <div class="mb-6">
+                                <label for="{{ form.phone.id_for_label }}" class="form-label form-required">{{ 'Phone number'|tr }}<span class="sr-only"> (required)</span></label>
+                                {{ form.phone }}
+                                {% if form.phone.errors %}<p class="form-error">{{ form.phone.errors.0 }}</p>{% endif %}
+                            </div>
+                            <div class="mb-6">
+                                <label for="{{ form.preferred_time.id_for_label }}" class="form-label form-required">{{ 'Preferred time'|tr }}<span class="sr-only"> (required)</span></label>
+                                {{ form.preferred_time }}
+                                {% if form.preferred_time.errors %}<p class="form-error">{{ form.preferred_time.errors.0 }}</p>{% endif %}
+                            </div>
+                        </div>
+
+                        <div class="mb-8">
+                            <label for="{{ form.notes.id_for_label }}" class="form-label">{{ 'Additional notes'|tr }}</label>
+                            {{ form.notes }}
+                            <p class="mt-1 text-xs text-neutral-500 dark:text-neutral-500">{{ 'Block size, session type, stems — anything that helps us prep the room.'|tr }}</p>
+                            {% if form.notes.errors %}<p class="form-error">{{ form.notes.errors.0 }}</p>{% endif %}
+                        </div>
+
+                        <button type="submit" class="jt-acc-btn w-full text-sm px-8 py-3.5">
+                            <i class="fas fa-calendar-check" aria-hidden="true"></i>
+                            {{ 'Request this slot'|tr }}
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    (function () {
+        var blocks = document.querySelectorAll('#jt-rate-blocks .jt-acc-card');
+        var notes = document.getElementById('id_notes');
+        if (!blocks.length) return;
+        blocks.forEach(function (block) {
+            block.addEventListener('click', function () {
+                blocks.forEach(function (b) {
+                    b.classList.remove('is-active');
+                    b.setAttribute('aria-pressed', 'false');
+                });
+                block.classList.add('is-active');
+                block.setAttribute('aria-pressed', 'true');
+                if (notes && block.getAttribute('data-rate')) {
+                    var rate = block.getAttribute('data-rate');
+                    notes.value = ('I am looking at the ' + rate + ' studio block.').trim();
+                }
+                document.getElementById('studio-form').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+        });
+    })();
+</script>
+{% endblock %}
