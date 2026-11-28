@@ -7745,7 +7745,6 @@ div.jt-acc-card:focus-visible {
     width: 100%;
     height: 100%;
 }
-<<<<<<< HEAD
 
 /* Cookie consent ------------------------------------------------------------ */
 .jt-cookie-consent {
@@ -7828,7 +7827,9 @@ html.dark .jt-cookie-consent__button--ghost {
     .jt-cookie-consent__actions {
         display: grid;
         grid-template-columns: 1fr 1fr;
-=======
+    }
+}
+
 .jt-stream-section {
     overflow: hidden;
 }
@@ -8893,6 +8894,5 @@ html.dark .jt-cookie-consent__button--ghost {
     .jt-inst-link span,
     .jt-inst-btn {
         transition: none;
->>>>>>> 5e06c81 (Updated JustTech website design and functionality)
     }
 }

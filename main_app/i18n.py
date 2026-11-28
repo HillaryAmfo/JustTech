@@ -1063,7 +1063,6 @@ FR = {
         'Nos ingénieurs font tourner le spectacle pour que votre équipe puisse l’accueillir.',
     'Fast fixes on site — and standby when you need it.':
         'Dépannage rapide sur place — et disponibilité quand vous en avez besoin.',
-<<<<<<< HEAD
 
     # Error pages
     'Access denied': 'Accès refusé',
@@ -1167,8 +1166,6 @@ FR = {
         'Nous utilisons des cookies essentiels pour la sécurité, les sessions et les préférences de langue. Aucun suivi facultatif n’est utilisé.',
     'Decline': 'Refuser',
     'Accept essential only': 'Accepter les essentiels',
-=======
     'Choose a look': 'Choisir un style',
     'Visual preview': 'Aperçu du visuel',
->>>>>>> 5e06c81 (Updated JustTech website design and functionality)
 }

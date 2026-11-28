@@ -7,17 +7,12 @@ from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.utils.encoding import force_bytes, force_str
-<<<<<<< HEAD
 from django.utils.http import (
     url_has_allowed_host_and_scheme,
     urlsafe_base64_decode,
     urlsafe_base64_encode,
 )
-=======
-from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 from django.views.decorators.cache import never_cache
->>>>>>> 5e06c81 (Updated JustTech website design and functionality)
-
 from .forms import (
     BookingForm,
     ContactForm,
@@ -68,7 +63,8 @@ def services(request):
     featured = [s for s in all_services if s.slug in priority]
     details = sorted(
         featured + [s for s in all_services if s.slug not in priority],
-        key=lambda s: (priority.index(s.slug) if s.slug in priority else 99, s.display_order, s.name),
+        key=lambda s: (priority.index(s.slug)
+                       if s.slug in priority else 99, s.display_order, s.name),
     )[:6]
     context = {
         'service_details': details,
@@ -297,7 +293,8 @@ def register_view(request):
                 first_name=data['full_name'],
                 password=data['password'],
             )
-            UserProfile.objects.create(user=user, intent=data['intent'], intent_detail=data.get('intent_detail', '') or '')
+            UserProfile.objects.create(
+                user=user, intent=data['intent'], intent_detail=data.get('intent_detail', '') or '')
             login(request, user)
             return redirect(_safe_next_url(request) or intent_landing(data['intent']))
     else:
@@ -354,7 +351,8 @@ def forgot_password(request):
             if user is not None:
                 token = PasswordResetTokenGenerator().make_token(user)
                 uidb64 = urlsafe_base64_encode(force_bytes(user.pk))
-                path = reverse('password_reset_confirm', kwargs={'uidb64': uidb64, 'token': token})
+                path = reverse('password_reset_confirm', kwargs={
+                               'uidb64': uidb64, 'token': token})
                 reset_link = request.build_absolute_uri(path)
                 send_mail(
                     'JustTech password reset',
@@ -371,7 +369,8 @@ def forgot_password(request):
 
 
 def password_reset_done(request):
-    reset_link = request.session.pop('reset_link', None) if settings.DEBUG else None
+    reset_link = request.session.pop(
+        'reset_link', None) if settings.DEBUG else None
     return render(request, 'main_app/password_reset_done.html', {'reset_link': reset_link})
 
 
