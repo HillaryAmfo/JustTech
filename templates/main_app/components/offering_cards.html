@@ -1,10 +1,14 @@
 {% load i18n_tags %}
 {% if learning_offerings %}
-<p class="text-sm text-neutral-500 dark:text-neutral-400 mb-6">
+<p class="mb-6 inline-flex items-center gap-2 rounded-full border border-neutral-200 bg-white px-3 py-1.5 text-xs font-medium text-neutral-600 dark:border-white/10 dark:bg-white/[0.02] dark:text-neutral-400">
+    <span class="h-1.5 w-1.5 rounded-full bg-primary" aria-hidden="true"></span>
     {{ learning_offerings|length }} {% if learning_offerings|length != 1 %}{{ 'lessons available.'|tr }}{% else %}{{ 'lesson available.'|tr }}{% endif %}
 </p>
 {% else %}
-<p class="text-sm text-neutral-500 dark:text-neutral-400 mb-6">{{ 'No lessons added yet.'|tr }}</p>
+<p class="mb-6 inline-flex items-center gap-2 rounded-full border border-neutral-200 bg-white px-3 py-1.5 text-xs font-medium text-neutral-600 dark:border-white/10 dark:bg-white/[0.02] dark:text-neutral-400">
+    <span class="h-1.5 w-1.5 rounded-full bg-primary" aria-hidden="true"></span>
+    {{ 'No lessons added yet.'|tr }}
+</p>
 {% endif %}
 <div id="offerings-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 {% for offering in learning_offerings %}
@@ -40,11 +44,11 @@
         </ul>
     </div>
     {% endif %}
-    <div class="flex items-center justify-between mt-auto pt-5 border-t border-neutral-200 dark:border-white/10">
+    <div class="flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:justify-between mt-auto pt-5 border-t border-neutral-200 dark:border-white/10">
         {% if offering.starting_price %}
         <span class="text-lg font-semibold text-primary">{{ offering.starting_price }}</span>
         {% endif %}
-        <a href="{% url 'booking' %}" class="inline-flex items-center gap-2 bg-primary text-white text-sm font-medium px-5 py-2.5 rounded-full transition hover:bg-primary/90 dark:bg-white dark:text-neutral-900 dark:hover:bg-white/90">
+        <a href="{% url 'booking' %}" class="inline-flex items-center justify-center gap-2 w-full sm:w-auto bg-primary text-white text-sm font-medium px-5 py-2.5 rounded-full transition hover:bg-primary/90 dark:bg-white dark:text-neutral-900 dark:hover:bg-white/90">
             {{ offering.cta_label }}
             <span aria-hidden="true">&rarr;</span>
         </a>
@@ -52,11 +56,31 @@
 </div>
 {% empty %}
 <div class="col-span-full">
-    <div class="rounded-2xl border border-dashed border-neutral-300 dark:border-white/10 p-10 md:p-14 text-center">
-        <i class="fa-solid fa-music text-2xl text-neutral-300 dark:text-neutral-600 mb-4" aria-hidden="true"></i>
-        <p class="font-medium text-neutral-500 dark:text-neutral-400">
-            {{ 'New lessons and workshops will appear here when available.'|tr }}
-        </p>
+    <div class="relative overflow-hidden rounded-3xl border border-primary/25 bg-gradient-to-br from-white via-white to-primary/[0.05] px-6 py-12 text-center sm:px-10 sm:py-14 dark:from-white/[0.03] dark:via-white/[0.02] dark:to-primary/[0.08]">
+        <div class="pointer-events-none absolute -right-16 -top-16 h-48 w-48 rounded-full bg-primary/10 blur-3xl" aria-hidden="true"></div>
+        <div class="pointer-events-none absolute -bottom-20 -left-12 h-40 w-40 rounded-full bg-primary/5 blur-3xl" aria-hidden="true"></div>
+        <div class="relative">
+            <span class="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-primary/10 text-primary ring-1 ring-primary/20">
+                <i class="fa-solid fa-music text-2xl" aria-hidden="true"></i>
+            </span>
+            <span class="mb-4 inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.16em] text-primary">
+                <span class="h-1.5 w-1.5 rounded-full bg-primary" aria-hidden="true"></span>
+                {{ 'Coming soon'|tr }}
+            </span>
+            <h3 class="text-xl sm:text-2xl font-semibold text-neutral-900 dark:text-white mb-3">{{ 'Something new is on the way'|tr }}</h3>
+            <p class="mx-auto max-w-md text-sm sm:text-base leading-relaxed text-neutral-600 dark:text-neutral-400">
+                {{ 'New lessons and workshops will appear here when available.'|tr }}
+            </p>
+            <div class="mt-7 flex flex-col items-center justify-center gap-3 sm:flex-row">
+                <a href="{% url 'booking' %}" class="inline-flex w-full items-center justify-center gap-2 rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-primary/90 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 sm:w-auto">
+                    {{ 'Book a lesson'|tr }}
+                    <span aria-hidden="true">&rarr;</span>
+                </a>
+                <a href="#workshops" class="inline-flex w-full items-center justify-center gap-2 rounded-full border border-neutral-300 px-5 py-2.5 text-sm font-semibold text-neutral-700 transition hover:border-primary hover:text-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 dark:border-white/15 dark:text-neutral-300 sm:w-auto">
+                    {{ 'See workshops'|tr }}
+                </a>
+            </div>
+        </div>
     </div>
 </div>
 {% endfor %}

@@ -7,7 +7,7 @@
                 <div>
                     <p class="text-xs font-semibold uppercase tracking-[0.25em] text-neutral-500 mb-4">{{ 'Sound. Systems. Skills.'|tr }}</p>
                     <h2 class="text-3xl md:text-5xl font-bold text-neutral-900 dark:text-white leading-tight">{{ "Let's work together."|tr }}</h2>
-                    <a href="mailto:{{ site_settings.primary_email|default:'info@justtech.com' }}" class="inline-block mt-4 text-lg md:text-2xl text-primary font-semibold hover:text-neutral-900 dark:hover:text-white transition">{{ site_settings.primary_email|default:'info@justtech.com' }}</a>
+                    <a href="mailto:{{ site_settings.primary_email|default:'info@justtech.com' }}" class="inline-block break-all mt-4 text-lg md:text-2xl text-primary font-semibold hover:text-neutral-900 dark:hover:text-white transition">{{ site_settings.primary_email|default:'info@justtech.com' }}</a>
                 </div>
                 <a href="{% url 'booking' %}" class="btn-primary text-sm px-8 py-3.5">{{ 'Start a project'|tr }}</a>
             </div>
@@ -73,7 +73,7 @@
                     <h3 class="text-xs font-semibold uppercase tracking-[0.2em] text-neutral-700 dark:text-neutral-500 mb-5">{{ 'Reach Us'|tr }}</h3>
                     <ul class="flex flex-col gap-2.5 text-sm text-neutral-500 dark:text-neutral-400">
                         <li>
-                            <a href="mailto:{{ site_settings.primary_email|default:'info@justtech.com' }}" class="footer-link">{{ site_settings.primary_email|default:'info@justtech.com' }}</a>
+                            <a href="mailto:{{ site_settings.primary_email|default:'info@justtech.com' }}" class="footer-link break-all">{{ site_settings.primary_email|default:'info@justtech.com' }}</a>
                         </li>
                         <li>
                             <a href="tel:{{ site_settings.phone|default:'+1 (555) 123-4567' }}" class="footer-link">{{ site_settings.phone|default:'+1 (555) 123-4567' }}</a>

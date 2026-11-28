@@ -15,9 +15,9 @@
     <!-- ============================================================
          HERO
          ============================================================ -->
-    <section id="jt-orb-stage" class="jt-orb-stage relative overflow-hidden min-h-[88vh] flex items-center pt-28 md:pt-36 pb-16 md:pb-20" aria-label="{{ 'Introduction'|tr }}">
+    <section id="jt-orb-stage" class="jt-orb-stage relative isolate overflow-hidden" aria-label="{{ 'Introduction'|tr }}">
         <canvas id="orb" aria-hidden="true"></canvas>
-        <div id="presets" aria-hidden="true"></div>
+        <div class="jt-orb-grid" aria-hidden="true"></div>
 
         <div class="jt-orb-tag jt-orb-tag-a hidden md:block" aria-hidden="true">
             <span class="jt-orb-tag-word">{{ 'Sound systems'|tr }}</span>
@@ -40,37 +40,63 @@
         <span class="jt-orb-tag-chip jt-orb-tag-chip-g hidden md:flex" aria-hidden="true"><i class="fas fa-drum"></i></span>
         <span class="jt-orb-tag-chip jt-orb-tag-chip-h hidden md:flex" aria-hidden="true"><i class="fas fa-video"></i></span>
 
-        <div class="container relative z-[5] mx-auto px-6 lg:px-8 lg:pl-36">
-            <div class="max-w-lg">
-                <p class="eyebrow jt-stage-eyebrow mb-8">{{ 'Services'|tr }}</p>
-                <h1 id="heroRotator" class="jt-stage-text text-4xl sm:text-5xl xl:text-6xl font-semibold leading-[1.08] mb-8">
-                    <span class="hero-headline-phrases">
-                        {% if LANG == 'fr' %}
-                        <span class="hero-headline-phrase is-active" data-index="0"><span class="text-primary">Une technologie</span> qui fonctionne quand ça compte.</span>
-                        <span class="hero-headline-phrase" data-index="1" aria-hidden="true"><span class="text-primary">Systèmes audio</span> conçus pour les vrais événements.</span>
-                        <span class="hero-headline-phrase" data-index="2" aria-hidden="true"><span class="text-primary">Streaming &amp; son</span> réglés de bout en bout.</span>
-                        <span class="hero-headline-phrase" data-index="3" aria-hidden="true"><span class="text-primary">Conçus,</span> construits, réglés et accompagnés.</span>
-                        <span class="hero-headline-phrase" data-index="4" aria-hidden="true"><span class="text-primary">Un streaming</span> qui ne coupe jamais.</span>
-                        <span class="hero-headline-phrase" data-index="5" aria-hidden="true"><span class="text-primary">Un son</span> façonné pour chaque salle.</span>
-                        <span class="hero-headline-phrase" data-index="6" aria-hidden="true"><span class="text-primary">Conçu</span> pour vous.</span>
-                        {% else %}
-                        <span class="hero-headline-phrase is-active" data-index="0"><span class="text-primary">Technology</span> that works when it matters.</span>
-                        <span class="hero-headline-phrase" data-index="1" aria-hidden="true"><span class="text-primary">Sound systems</span> built for real events.</span>
-                        <span class="hero-headline-phrase" data-index="2" aria-hidden="true"><span class="text-primary">Streaming &amp; sound</span> tuned end to end.</span>
-                        <span class="hero-headline-phrase" data-index="3" aria-hidden="true"><span class="text-primary">Designed,</span> built, tuned and supported.</span>
-                        <span class="hero-headline-phrase" data-index="4" aria-hidden="true"><span class="text-primary">Streaming</span> that never drops out.</span>
-                        <span class="hero-headline-phrase" data-index="5" aria-hidden="true"><span class="text-primary">Sound</span> engineered for every room.</span>
-                        <span class="hero-headline-phrase" data-index="6" aria-hidden="true"><span class="text-primary">Built</span> for you.</span>
-                        {% endif %}
-                    </span>
-                </h1>
-                <p class="jt-stage-sub text-lg leading-relaxed mb-12 max-w-lg">
-                    {{ 'JustTech provides audio, streaming, sound systems and custom computing for real-world use — designed, built, tuned and supported by people who stay until it is right.'|tr }}
-                </p>
-                <div class="flex flex-wrap items-center gap-4">
-                    <a href="{% url 'booking' %}" class="btn-primary text-sm px-7 py-3">{{ 'Book Now'|tr }}</a>
-                    <a href="{% url 'contact' %}" class="btn-secondary text-sm px-7 py-3">{{ 'Contact Us'|tr }}</a>
+        <div class="container jt-hero-inner relative z-[5] mx-auto px-6 md:px-8">
+            <div class="jt-hero-layout">
+                <div class="jt-hero-copy">
+                    <div class="jt-hero-kicker">
+                        <span class="jt-hero-kicker__rule" aria-hidden="true"></span>
+                        <p class="eyebrow jt-stage-eyebrow mb-0">{{ 'Services'|tr }}</p>
+                    </div>
+                    <h1 id="heroRotator" class="jt-stage-text text-4xl sm:text-5xl xl:text-6xl font-semibold leading-[1.08] mb-8">
+                        <span class="hero-headline-phrases">
+                            {% if LANG == 'fr' %}
+                            <span class="hero-headline-phrase is-active" data-index="0"><span class="text-primary">Une technologie</span> qui fonctionne quand ça compte.</span>
+                            <span class="hero-headline-phrase" data-index="1" aria-hidden="true"><span class="text-primary">Systèmes audio</span> conçus pour les vrais événements.</span>
+                            <span class="hero-headline-phrase" data-index="2" aria-hidden="true"><span class="text-primary">Streaming &amp; son</span> réglés de bout en bout.</span>
+                            <span class="hero-headline-phrase" data-index="3" aria-hidden="true"><span class="text-primary">Conçus,</span> construits, réglés et accompagnés.</span>
+                            <span class="hero-headline-phrase" data-index="4" aria-hidden="true"><span class="text-primary">Un streaming</span> qui ne coupe jamais.</span>
+                            <span class="hero-headline-phrase" data-index="5" aria-hidden="true"><span class="text-primary">Un son</span> façonné pour chaque salle.</span>
+                            <span class="hero-headline-phrase" data-index="6" aria-hidden="true"><span class="text-primary">Conçu</span> pour vous.</span>
+                            {% else %}
+                            <span class="hero-headline-phrase is-active" data-index="0"><span class="text-primary">Technology</span> that works when it matters.</span>
+                            <span class="hero-headline-phrase" data-index="1" aria-hidden="true"><span class="text-primary">Sound systems</span> built for real events.</span>
+                            <span class="hero-headline-phrase" data-index="2" aria-hidden="true"><span class="text-primary">Streaming &amp; sound</span> tuned end to end.</span>
+                            <span class="hero-headline-phrase" data-index="3" aria-hidden="true"><span class="text-primary">Designed,</span> built, tuned and supported.</span>
+                            <span class="hero-headline-phrase" data-index="4" aria-hidden="true"><span class="text-primary">Streaming</span> that never drops out.</span>
+                            <span class="hero-headline-phrase" data-index="5" aria-hidden="true"><span class="text-primary">Sound</span> engineered for every room.</span>
+                            <span class="hero-headline-phrase" data-index="6" aria-hidden="true"><span class="text-primary">Built</span> for you.</span>
+                            {% endif %}
+                        </span>
+                    </h1>
+                    <p class="jt-stage-sub text-lg leading-relaxed mb-10 max-w-xl">
+                        {{ 'JustTech provides audio, streaming, sound systems and custom computing for real-world use — designed, built, tuned and supported by people who stay until it is right.'|tr }}
+                    </p>
+                    <div class="jt-hero-actions flex flex-wrap items-center gap-4">
+                        <a href="{% url 'booking' %}" class="btn-primary text-sm px-7 py-3">{{ 'Book Now'|tr }}</a>
+                        <a href="{% url 'contact' %}" class="btn-secondary text-sm px-7 py-3">{{ 'Contact Us'|tr }}</a>
+                    </div>
                 </div>
+
+                <div class="jt-hero-visual">
+                    <div id="jt-orb-window" class="jt-orb-window" aria-hidden="true">
+                        <div class="jt-orb-window__head">
+                            <span class="jt-orb-window__pulse"></span>
+                            <span>{{ 'Visual preview'|tr }}</span>
+                        </div>
+                        <div class="jt-orb-window__foot">
+                            <span class="jt-orb-window__rule"></span>
+                            <span id="jt-orb-current-name">Aurora</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="jt-hero-dock">
+                <div class="jt-hero-dock__meta">
+                    <span>{{ 'Choose a look'|tr }}</span>
+                    <span id="jt-orb-counter">01 / 07</span>
+                </div>
+                <div id="presets" class="jt-hero-presets" role="group" data-label="{{ 'Choose a look'|tr }}"></div>
             </div>
         </div>
     </section>
@@ -175,77 +201,90 @@
             </div>
 
             {% elif forloop.counter == 2 %}
-            <!-- FEATURED — Streaming & production -->
-            <div id="service-{{ service.slug }}" class="scroll-mt-28 py-16 md:py-24 border-t border-neutral-200 dark:border-white/5">
-                <div class="grid lg:grid-cols-2 lg:gap-16 items-center">
-
-                    <div class="order-2 lg:order-1">
-                        <p class="eyebrow mb-6">{{ forloop.counter|stringformat:"02d" }} &middot; {{ 'Streaming & production'|tr }}</p>
-                        <h2 class="text-3xl md:text-4xl font-semibold text-neutral-900 dark:text-white leading-tight mb-6">
+            <div id="service-{{ service.slug }}" class="jt-stream-section scroll-mt-28 py-16 md:py-24 border-t border-neutral-200 dark:border-white/5">
+                <div class="jt-stream-shell">
+                    <div class="jt-stream-copy order-2 lg:order-1">
+                        <div class="jt-stream-kicker">
+                            <span class="jt-stream-index" aria-hidden="true">{{ forloop.counter|stringformat:"02d" }}</span>
+                            <p class="eyebrow mb-0">{{ 'Streaming & production'|tr }}</p>
+                        </div>
+                        <h2 class="jt-stream-title text-3xl md:text-4xl font-semibold text-neutral-900 dark:text-white leading-tight mb-6">
                             {{ 'Streaming you can rely on, live.'|tr }}
                         </h2>
-                        <p class="text-neutral-600 dark:text-neutral-400 leading-relaxed mb-6 max-w-xl">
+                        <p class="jt-stream-text text-neutral-600 dark:text-neutral-400 leading-relaxed mb-6 max-w-xl">
                             {{ 'We design and configure streaming and production systems that hold up on air — cameras, capture, audio into the stream, encoding and monitoring. Then we test it, rehearse it and stay on standby while you are live.'|tr }}
                         </p>
-                        <p class="text-neutral-600 dark:text-neutral-400 leading-relaxed mb-10 max-w-xl">
+                        <p class="jt-stream-text text-neutral-600 dark:text-neutral-400 leading-relaxed mb-10 max-w-xl">
                             {{ 'What you get is a clean, stable stream and a setup your own team can operate — not a mystery rig that needs emergency support every time you go live.'|tr }}
                         </p>
 
                         {% if service.feature_1 or service.feature_2 or service.feature_3 %}
-                        <ul class="space-y-3 mb-10" role="list">
-                            {% if service.feature_1 %}<li class="flex items-start gap-3 text-sm text-neutral-600 dark:text-neutral-400"><i class="fa-solid fa-check text-primary mt-1" aria-hidden="true"></i> {{ service.feature_1 }}</li>{% endif %}
-                            {% if service.feature_2 %}<li class="flex items-start gap-3 text-sm text-neutral-600 dark:text-neutral-400"><i class="fa-solid fa-check text-primary mt-1" aria-hidden="true"></i> {{ service.feature_2 }}</li>{% endif %}
-                            {% if service.feature_3 %}<li class="flex items-start gap-3 text-sm text-neutral-600 dark:text-neutral-400"><i class="fa-solid fa-check text-primary mt-1" aria-hidden="true"></i> {{ service.feature_3 }}</li>{% endif %}
+                        <ul class="jt-stream-features space-y-3 mb-10" role="list">
+                            {% if service.feature_1 %}<li class="jt-stream-feature"><span class="jt-stream-check"><i class="fa-solid fa-check" aria-hidden="true"></i></span><span>{{ service.feature_1 }}</span></li>{% endif %}
+                            {% if service.feature_2 %}<li class="jt-stream-feature"><span class="jt-stream-check"><i class="fa-solid fa-check" aria-hidden="true"></i></span><span>{{ service.feature_2 }}</span></li>{% endif %}
+                            {% if service.feature_3 %}<li class="jt-stream-feature"><span class="jt-stream-check"><i class="fa-solid fa-check" aria-hidden="true"></i></span><span>{{ service.feature_3 }}</span></li>{% endif %}
                         </ul>
                         {% endif %}
 
-                        <div class="flex flex-wrap items-center gap-4">
+                        <div class="jt-stream-actions flex flex-wrap items-center gap-4">
                             <a href="{% url 'booking' %}?service={{ service.slug }}" class="btn-primary text-sm px-7 py-3">
                                 {{ 'Book this service'|tr }}
                             </a>
                             {% if service.starting_price %}
-                            <span class="text-sm text-neutral-500 dark:text-neutral-400">{{ service.starting_price }}</span>
+                            <span class="jt-stream-price text-sm text-neutral-500 dark:text-neutral-400">{{ service.starting_price }}</span>
                             {% endif %}
                         </div>
                     </div>
 
-                    <div class="order-1 lg:order-2 mb-12 lg:mb-0 lg:pl-4">
-                        <img src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?auto=format&fit=crop&w=2070&q=80"
-                             alt="{{ 'Streaming studio setup with camera and lighting'|tr }}" loading="lazy"
-                             class="w-full aspect-[4/5] object-cover rounded-2xl lg:aspect-[3/4]">
+                    <div class="jt-stream-media order-1 lg:order-2 mb-12 lg:mb-0">
+                        <div class="jt-stream-frame">
+                            <img src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?auto=format&fit=crop&w=2070&q=80"
+                                 alt="{{ 'Streaming studio setup with camera and lighting'|tr }}" loading="lazy"
+                                 class="jt-stream-img w-full object-cover">
+                            <div class="jt-stream-overlay" aria-hidden="true">
+                                <span class="jt-stream-pill">
+                                    <span class="jt-stream-dot"></span>
+                                    {{ 'Streaming & production'|tr }}
+                                </span>
+                                <span class="jt-stream-bars"><i></i><i></i><i></i><i></i></span>
+                            </div>
+                            <div class="jt-stream-caption" aria-hidden="true">
+                                <span>{{ 'Services'|tr }}</span>
+                                <span>{{ forloop.counter|stringformat:"02d" }}</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
 
             {% else %}
             <!-- Editorial row -->
-            <div id="service-{{ service.slug }}" class="scroll-mt-28 py-10 md:py-14 border-t border-neutral-200 dark:border-white/5">
-                <div class="grid lg:grid-cols-12 lg:gap-12 items-start">
-                    <div class="lg:col-span-3 mb-4 lg:mb-0">
-                        <div class="flex items-center gap-4">
-                            <span class="text-sm font-semibold text-primary" aria-hidden="true">{{ forloop.counter|stringformat:"02d" }}</span>
-                            <i class="{{ service.icon_class }} text-xl text-primary lg:ml-8" aria-hidden="true"></i>
-                        </div>
+            <div id="service-{{ service.slug }}" class="jt-service-row scroll-mt-28 py-10 md:py-14 border-t border-neutral-200 dark:border-white/5">
+                <div class="jt-service-row__shell">
+                    <div class="jt-service-row__rail">
+                        <span class="jt-service-row__num" aria-hidden="true">{{ forloop.counter|stringformat:"02d" }}</span>
+                        <span class="jt-service-row__icon"><i class="{{ service.icon_class }}" aria-hidden="true"></i></span>
+                        <span class="jt-service-row__line" aria-hidden="true"></span>
                     </div>
-                    <div class="lg:col-span-5 mb-8 lg:mb-0">
-                        <h2 class="text-2xl md:text-3xl font-semibold text-neutral-900 dark:text-white mb-3">{{ service.name }}</h2>
-                        <p class="text-neutral-600 dark:text-neutral-400 leading-relaxed max-w-md">{{ service.short_description }}</p>
+                    <div class="jt-service-row__main">
+                        <h2 class="jt-service-row__title text-2xl md:text-3xl font-semibold text-neutral-900 dark:text-white mb-3">{{ service.name }}</h2>
+                        <p class="jt-service-row__text text-neutral-600 dark:text-neutral-400 leading-relaxed max-w-md">{{ service.short_description }}</p>
                     </div>
-                    <div class="lg:col-span-4">
+                    <div class="jt-service-row__side">
                         {% if service.feature_1 or service.feature_2 or service.feature_3 %}
-                        <ul class="space-y-3 mb-8" role="list">
-                            {% if service.feature_1 %}<li class="flex items-start gap-3 text-sm text-neutral-600 dark:text-neutral-400"><span class="w-1.5 h-1.5 mt-2 rounded-full bg-primary shrink-0" aria-hidden="true"></span> {{ service.feature_1 }}</li>{% endif %}
-                            {% if service.feature_2 %}<li class="flex items-start gap-3 text-sm text-neutral-600 dark:text-neutral-400"><span class="w-1.5 h-1.5 mt-2 rounded-full bg-primary shrink-0" aria-hidden="true"></span> {{ service.feature_2 }}</li>{% endif %}
-                            {% if service.feature_3 %}<li class="flex items-start gap-3 text-sm text-neutral-600 dark:text-neutral-400"><span class="w-1.5 h-1.5 mt-2 rounded-full bg-primary shrink-0" aria-hidden="true"></span> {{ service.feature_3 }}</li>{% endif %}
+                        <ul class="jt-service-row__features space-y-2 mb-6" role="list">
+                            {% if service.feature_1 %}<li class="jt-service-row__feature"><span class="jt-service-row__dot" aria-hidden="true"></span><span>{{ service.feature_1 }}</span></li>{% endif %}
+                            {% if service.feature_2 %}<li class="jt-service-row__feature"><span class="jt-service-row__dot" aria-hidden="true"></span><span>{{ service.feature_2 }}</span></li>{% endif %}
+                            {% if service.feature_3 %}<li class="jt-service-row__feature"><span class="jt-service-row__dot" aria-hidden="true"></span><span>{{ service.feature_3 }}</span></li>{% endif %}
                         </ul>
                         {% endif %}
-                        <div class="flex flex-wrap items-center gap-x-4 gap-y-3">
-                            <a href="{% url 'booking' %}?service={{ service.slug }}" class="inline-flex items-center gap-2 text-sm font-medium text-primary transition group">
+                        <div class="jt-service-row__actions flex flex-wrap items-center gap-x-4 gap-y-3">
+                            <a href="{% url 'booking' %}?service={{ service.slug }}" class="jt-service-row__cta inline-flex items-center gap-2 text-sm font-medium text-primary transition group">
                                 {{ 'Book this service'|tr }}
                                 <span aria-hidden="true" class="transition-transform group-hover:translate-x-1">&rarr;</span>
                             </a>
                             {% if service.starting_price %}
-                            <span class="text-sm text-neutral-500 dark:text-neutral-400">{{ service.starting_price }}</span>
+                            <span class="jt-service-row__price text-sm text-neutral-500 dark:text-neutral-400">{{ service.starting_price }}</span>
                             {% endif %}
                         </div>
                     </div>
@@ -260,9 +299,9 @@
     <!-- ============================================================
          WHO WE WORK WITH
          ============================================================ -->
-    <section class="py-16 md:py-24 border-t border-neutral-200 dark:border-white/5" aria-label="{{ 'Who JustTech is built for'|tr }}">
+    <section class="jt-audience-section py-16 md:py-24 border-t border-neutral-200 dark:border-white/5" aria-label="{{ 'Who JustTech is built for'|tr }}">
         <div class="container mx-auto px-6 lg:px-8">
-            <div class="max-w-xl mb-12 lg:mb-16">
+            <div class="jt-audience-head max-w-2xl mb-12 lg:mb-16">
                 <p class="eyebrow mb-6">{{ "Who it's for"|tr }}</p>
                 <h2 class="text-3xl md:text-4xl font-semibold text-neutral-900 dark:text-white mb-6">
                     {{ 'Built for the people who use it'|tr }}
@@ -272,39 +311,54 @@
                 </p>
             </div>
 
-            <div class="grid sm:grid-cols-2 border-y border-neutral-200 dark:border-white/5">
-                <div class="py-10 sm:pr-10 md:py-14 border-b sm:border-r border-neutral-200 dark:border-white/5">
-                    <div class="max-w-sm">
-                        <h3 class="text-xs font-semibold uppercase tracking-[0.2em] text-neutral-500 dark:text-neutral-400 mb-4">{{ 'The room'|tr }}</h3>
-                        <p class="text-neutral-600 dark:text-neutral-400 leading-relaxed">
-                            {{ 'Churches, schools, auditoriums and venues that need dependable sound, week after week.'|tr }}
-                        </p>
+            <div class="jt-audience-grid grid sm:grid-cols-2">
+                <article class="jt-audience-card">
+                    <div class="jt-audience-card__top">
+                        <span class="jt-audience-card__num">01</span>
+                        <span class="jt-audience-card__icon"><i class="fa-solid fa-building" aria-hidden="true"></i></span>
                     </div>
-                </div>
-                <div class="py-10 sm:pl-10 md:py-14 border-b border-neutral-200 dark:border-white/5">
-                    <div class="max-w-sm">
-                        <h3 class="text-xs font-semibold uppercase tracking-[0.2em] text-neutral-500 dark:text-neutral-400 mb-4">{{ 'The event'|tr }}</h3>
-                        <p class="text-neutral-600 dark:text-neutral-400 leading-relaxed">
-                            {{ 'Concerts, conferences, corporate and private events that need sound and support on the day.'|tr }}
-                        </p>
+                    <h3 class="jt-audience-card__title">{{ 'The room'|tr }}</h3>
+                    <p class="jt-audience-card__text">
+                        {{ 'Churches, schools, auditoriums and venues that need dependable sound, week after week.'|tr }}
+                    </p>
+                    <span class="jt-audience-card__line" aria-hidden="true"></span>
+                </article>
+
+                <article class="jt-audience-card">
+                    <div class="jt-audience-card__top">
+                        <span class="jt-audience-card__num">02</span>
+                        <span class="jt-audience-card__icon"><i class="fa-solid fa-microphone" aria-hidden="true"></i></span>
                     </div>
-                </div>
-                <div class="py-10 sm:pr-10 md:py-14 sm:border-r border-neutral-200 dark:border-white/5">
-                    <div class="max-w-sm">
-                        <h3 class="text-xs font-semibold uppercase tracking-[0.2em] text-neutral-500 dark:text-neutral-400 mb-4">{{ 'The stream'|tr }}</h3>
-                        <p class="text-neutral-600 dark:text-neutral-400 leading-relaxed">
-                            {{ 'Creators, channels and businesses producing regular live content that needs to look and sound right.'|tr }}
-                        </p>
+                    <h3 class="jt-audience-card__title">{{ 'The event'|tr }}</h3>
+                    <p class="jt-audience-card__text">
+                        {{ 'Concerts, conferences, corporate and private events that need sound and support on the day.'|tr }}
+                    </p>
+                    <span class="jt-audience-card__line" aria-hidden="true"></span>
+                </article>
+
+                <article class="jt-audience-card">
+                    <div class="jt-audience-card__top">
+                        <span class="jt-audience-card__num">03</span>
+                        <span class="jt-audience-card__icon"><i class="fa-solid fa-satellite-dish" aria-hidden="true"></i></span>
                     </div>
-                </div>
-                <div class="py-10 sm:pl-10 md:py-14">
-                    <div class="max-w-sm">
-                        <h3 class="text-xs font-semibold uppercase tracking-[0.2em] text-neutral-500 dark:text-neutral-400 mb-4">{{ 'The desk'|tr }}</h3>
-                        <p class="text-neutral-600 dark:text-neutral-400 leading-relaxed">
-                            {{ 'Editors, producers, musicians and streamers who need a computer that keeps up with the work.'|tr }}
-                        </p>
+                    <h3 class="jt-audience-card__title">{{ 'The stream'|tr }}</h3>
+                    <p class="jt-audience-card__text">
+                        {{ 'Creators, channels and businesses producing regular live content that needs to look and sound right.'|tr }}
+                    </p>
+                    <span class="jt-audience-card__line" aria-hidden="true"></span>
+                </article>
+
+                <article class="jt-audience-card">
+                    <div class="jt-audience-card__top">
+                        <span class="jt-audience-card__num">04</span>
+                        <span class="jt-audience-card__icon"><i class="fa-solid fa-desktop" aria-hidden="true"></i></span>
                     </div>
-                </div>
+                    <h3 class="jt-audience-card__title">{{ 'The desk'|tr }}</h3>
+                    <p class="jt-audience-card__text">
+                        {{ 'Editors, producers, musicians and streamers who need a computer that keeps up with the work.'|tr }}
+                    </p>
+                    <span class="jt-audience-card__line" aria-hidden="true"></span>
+                </article>
             </div>
         </div>
     </section>
@@ -312,10 +366,10 @@
     <!-- ============================================================
          PROCESS — how we work
          ============================================================ -->
-    <section class="py-16 md:py-24 border-t border-neutral-200 dark:border-white/5" aria-label="{{ 'How a project works'|tr }}">
+    <section class="jt-process-section py-16 md:py-24 border-t border-neutral-200 dark:border-white/5" aria-label="{{ 'How a project works'|tr }}">
         <div class="container mx-auto px-6 lg:px-8">
-            <div class="grid lg:grid-cols-2 lg:gap-16 items-start">
-                <div class="mb-12 lg:mb-0 lg:sticky lg:top-32">
+            <div class="jt-process-layout grid lg:grid-cols-2 lg:gap-16 items-start">
+                <div class="jt-process-intro mb-12 lg:mb-0 lg:sticky lg:top-32">
                     <p class="eyebrow mb-6">{{ 'How we work'|tr }}</p>
                     <h2 class="text-3xl md:text-4xl font-semibold text-neutral-900 dark:text-white mb-6 max-w-md">
                         {{ 'From first call to final soundcheck.'|tr }}
@@ -326,41 +380,41 @@
                     <a href="{% url 'booking' %}" class="btn-secondary text-sm px-7 py-3">{{ 'Start a project'|tr }}</a>
                 </div>
 
-                <ol class="lg:border-l lg:border-neutral-200 lg:dark:border-white/5 lg:pl-12" aria-label="{{ 'Project process'|tr }}">
-                    <li class="py-4 lg:py-5 border-b border-neutral-200 dark:border-white/5">
-                        <div class="flex items-baseline gap-5">
-                            <span class="text-sm font-semibold text-primary w-8 shrink-0" aria-hidden="true">01</span>
-                            <h3 class="font-medium text-neutral-900 dark:text-white">{{ 'Tell us what you need'|tr }}</h3>
+                <ol class="jt-process-list" aria-label="{{ 'Project process'|tr }}">
+                    <li class="jt-process-step">
+                        <span class="jt-process-step__marker" aria-hidden="true">01</span>
+                        <div class="jt-process-step__body">
+                            <h3 class="jt-process-step__title">{{ 'Tell us what you need'|tr }}</h3>
+                            <p class="jt-process-step__text">{{ 'A short call about your space, event or setup. We ask the right questions.'|tr }}</p>
                         </div>
-                        <p class="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed mt-2 ml-[52px]">{{ 'A short call about your space, event or setup. We ask the right questions.'|tr }}</p>
                     </li>
-                    <li class="py-4 lg:py-5 border-b border-neutral-200 dark:border-white/5">
-                        <div class="flex items-baseline gap-5">
-                            <span class="text-sm font-semibold text-primary w-8 shrink-0" aria-hidden="true">02</span>
-                            <h3 class="font-medium text-neutral-900 dark:text-white">{{ 'We assess the requirement'|tr }}</h3>
+                    <li class="jt-process-step">
+                        <span class="jt-process-step__marker" aria-hidden="true">02</span>
+                        <div class="jt-process-step__body">
+                            <h3 class="jt-process-step__title">{{ 'We assess the requirement'|tr }}</h3>
+                            <p class="jt-process-step__text">{{ 'We check the space, the load, the budget and the people who will run it.'|tr }}</p>
                         </div>
-                        <p class="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed mt-2 lg:ml-[52px]">{{ 'We check the space, the load, the budget and the people who will run it.'|tr }}</p>
                     </li>
-                    <li class="py-4 lg:py-5 border-b border-neutral-200 dark:border-white/5">
-                        <div class="flex items-baseline gap-5">
-                            <span class="text-sm font-semibold text-primary w-8 shrink-0" aria-hidden="true">03</span>
-                            <h3 class="font-medium text-neutral-900 dark:text-white">{{ 'We design the right setup'|tr }}</h3>
+                    <li class="jt-process-step">
+                        <span class="jt-process-step__marker" aria-hidden="true">03</span>
+                        <div class="jt-process-step__body">
+                            <h3 class="jt-process-step__title">{{ 'We design the right setup'|tr }}</h3>
+                            <p class="jt-process-step__text">{{ 'A clear plan and an honest quote — no vague lists, no surprises.'|tr }}</p>
                         </div>
-                        <p class="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed mt-2 lg:ml-[52px]">{{ 'A clear plan and an honest quote — no vague lists, no surprises.'|tr }}</p>
                     </li>
-                    <li class="py-4 lg:py-5 border-b border-neutral-200 dark:border-white/5">
-                        <div class="flex items-baseline gap-5">
-                            <span class="text-sm font-semibold text-primary w-8 shrink-0" aria-hidden="true">04</span>
-                            <h3 class="font-medium text-neutral-900 dark:text-white">{{ 'We build, configure or install'|tr }}</h3>
+                    <li class="jt-process-step">
+                        <span class="jt-process-step__marker" aria-hidden="true">04</span>
+                        <div class="jt-process-step__body">
+                            <h3 class="jt-process-step__title">{{ 'We build, configure or install'|tr }}</h3>
+                            <p class="jt-process-step__text">{{ 'Installation, configuration and tuning until it sounds and behaves right.'|tr }}</p>
                         </div>
-                        <p class="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed mt-2 lg:ml-[52px]">{{ 'Installation, configuration and tuning until it sounds and behaves right.'|tr }}</p>
                     </li>
-                    <li class="py-4 lg:py-5">
-                        <div class="flex items-baseline gap-5">
-                            <span class="text-sm font-semibold text-primary w-8 shrink-0" aria-hidden="true">05</span>
-                            <h3 class="font-medium text-neutral-900 dark:text-white">{{ 'We test and support'|tr }}</h3>
+                    <li class="jt-process-step">
+                        <span class="jt-process-step__marker" aria-hidden="true">05</span>
+                        <div class="jt-process-step__body">
+                            <h3 class="jt-process-step__title">{{ 'We test and support'|tr }}</h3>
+                            <p class="jt-process-step__text">{{ 'Soundcheck, run-through and practical support long after the job is done.'|tr }}</p>
                         </div>
-                        <p class="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed mt-2 lg:ml-[52px]">{{ 'Soundcheck, run-through and practical support long after the job is done.'|tr }}</p>
                     </li>
                 </ol>
             </div>
@@ -420,5 +474,5 @@
 {% endblock %}
 
 {% block extra_js %}
-<script src="{% static 'js/orb.js' %}?v=83" defer></script>
+<script src="{% static 'js/orb.js' %}?v=84" defer></script>
 {% endblock %}

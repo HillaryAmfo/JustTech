@@ -124,6 +124,8 @@ class TeamMember(models.Model):
     role = models.CharField(max_length=120)
     bio = models.CharField(max_length=255)
     image_url = models.URLField(blank=True)
+    specialisation = models.CharField(max_length=120, blank=True)
+    profile_url = models.URLField(blank=True)
     is_instructor = models.BooleanField(default=False)
     display_order = models.PositiveIntegerField(default=0)
 

@@ -16,7 +16,7 @@
     <section class="relative overflow-hidden pt-28 md:pt-36 pb-14 md:pb-18" aria-label="Introduction">
         <div class="absolute inset-0 pointer-events-none" aria-hidden="true">
             <div class="absolute inset-0 bg-[radial-gradient(ellipse_90%_60%_at_50%_-20%,rgba(14,165,233,0.08),transparent)]"></div>
-            <div class="absolute -right-40 top-10 w-[420px] h-[420px] rounded-full bg-[#0ea5e9]/10 blur-3xl"></div>
+            <div class="absolute hidden sm:block -right-40 top-10 w-[420px] h-[420px] rounded-full bg-[#0ea5e9]/10 blur-3xl"></div>
         </div>
 
         <div class="container mx-auto px-6 lg:px-8">
@@ -40,7 +40,7 @@
                 </div>
 
                 <div class="relative flex justify-center" data-reveal>
-                    <div class="jt-acc-card w-full max-w-sm p-8" data-reveal data-reveal-delay="100">
+                    <div class="jt-acc-card w-full max-w-sm p-6 sm:p-8" data-reveal data-reveal-delay="100">
                         <span class="jt-acc-line" aria-hidden="true"></span>
                         <div class="flex items-center justify-between mb-6">
                             <span class="jt-acc-icon jt-acc-icon-lg" aria-hidden="true"><i class="fas fa-paper-plane"></i></span>
@@ -51,7 +51,7 @@
                             {{ 'Tell us about the track, the session or the room — not the technical solution. We will read it properly and suggest a practical next step.'|tr }}
                         </p>
                         <div class="mt-6 pt-5 border-t border-neutral-200 dark:border-white/5">
-                            <span class="inline-flex items-center gap-2 jt-acc-text text-sm font-semibold">
+                            <span class="inline-flex items-center gap-2 break-all jt-acc-text text-sm font-semibold">
                                 <i class="fas fa-arrow-right" aria-hidden="true"></i>{{ site_settings.primary_email|default:'info@justtech.com' }}
                             </span>
                         </div>
@@ -136,7 +136,7 @@
                 <h2 class="text-3xl md:text-4xl font-semibold text-neutral-900 dark:text-white">{{ 'What happens next?'|tr }}</h2>
             </div>
 
-            <div class="grid sm:grid-cols-3 gap-6 max-w-5xl mx-auto">
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
                 <div class="jt-acc-card p-7" data-reveal>
                     <span class="jt-acc-line" aria-hidden="true"></span>
                     <div class="flex items-center justify-between mb-6">

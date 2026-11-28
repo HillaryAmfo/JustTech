@@ -16,7 +16,7 @@
     <section class="relative overflow-hidden pt-28 md:pt-36 pb-14 md:pb-18" aria-label="Introduction">
         <div class="absolute inset-0 pointer-events-none" aria-hidden="true">
             <div class="absolute inset-0 bg-[radial-gradient(ellipse_90%_60%_at_50%_-20%,rgba(245,158,11,0.08),transparent)]"></div>
-            <div class="absolute -right-40 top-10 w-[420px] h-[420px] rounded-full bg-[#f59e0b]/10 blur-3xl"></div>
+            <div class="absolute hidden sm:block -right-40 top-10 w-[420px] h-[420px] rounded-full bg-[#f59e0b]/10 blur-3xl"></div>
         </div>
 
         <div class="container mx-auto px-6 lg:px-8">
@@ -40,7 +40,7 @@
                 </div>
 
                 <div class="relative flex justify-center" data-reveal>
-                    <div class="jt-acc-card w-full max-w-sm p-8" data-reveal data-reveal-delay="100">
+                    <div class="jt-acc-card w-full max-w-sm p-6 sm:p-8" data-reveal data-reveal-delay="100">
                         <span class="jt-acc-line" aria-hidden="true"></span>
                         <div class="flex items-center justify-between mb-6">
                             <span class="jt-acc-icon jt-acc-icon-lg" aria-hidden="true"><i class="fas fa-sliders"></i></span>
@@ -50,9 +50,9 @@
                         <p class="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
                             {{ 'Walk in with a session, walk out with a record-ready mix. Engineer support on hand the whole time.'|tr }}
                         </p>
-                        <div class="mt-6 pt-5 border-t border-neutral-200 dark:border-white/5 grid grid-cols-2 divide-x divide-neutral-200 dark:divide-white/5">
-                            <span class="pr-4"><span class="block text-[11px] uppercase tracking-widest text-neutral-400">{{ 'tuning'|tr }}</span><span class="block jt-acc-text font-semibold mt-1">{{ 'Acoustic-room'|tr }}</span></span>
-                            <span class="pl-4"><span class="block text-[11px] uppercase tracking-widest text-neutral-400">{{ 'engineer'|tr }}</span><span class="block jt-acc-text font-semibold mt-1">{{ 'On hand'|tr }}</span></span>
+                        <div class="mt-6 pt-5 border-t border-neutral-200 dark:border-white/5 grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-0 divide-y sm:divide-y-0 sm:divide-x divide-neutral-200 dark:divide-white/5">
+                            <span class="sm:pr-4"><span class="block text-[11px] uppercase tracking-widest text-neutral-400">{{ 'tuning'|tr }}</span><span class="block jt-acc-text font-semibold mt-1">{{ 'Acoustic-room'|tr }}</span></span>
+                            <span class="sm:pl-4"><span class="block text-[11px] uppercase tracking-widest text-neutral-400">{{ 'engineer'|tr }}</span><span class="block jt-acc-text font-semibold mt-1">{{ 'On hand'|tr }}</span></span>
                         </div>
                     </div>
                 </div>
@@ -71,7 +71,7 @@
                 <p class="mt-4 text-neutral-600 dark:text-neutral-400 leading-relaxed">{{ 'Tap a block to jump straight to the availability form.'|tr }}</p>
             </div>
 
-            <div id="jt-rate-blocks" class="grid sm:grid-cols-3 gap-6 max-w-5xl mx-auto">
+            <div id="jt-rate-blocks" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
                 <button type="button" class="jt-acc-card p-8 text-left" data-rate="{{ 'Half day'|tr }}" data-reveal>
                     <span class="jt-acc-line" aria-hidden="true"></span>
                     <span class="jt-acc-check" aria-hidden="true"><i class="fas fa-check"></i></span>

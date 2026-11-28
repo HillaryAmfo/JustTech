@@ -11,6 +11,37 @@
     var stage = document.getElementById('jt-orb-stage');
     if (!stage) { return; }
 
+    const PRESETS = [
+        { name: "Aurora", values: { radius: 0.30, deform: 0.36, frequency: 2.0, morphSpeed: 1.30, rotSpeed: 0.12, specular: 1.0, shininess: 140, glowStrength: 0.70, colorBlue: "#4099FF", colorMagenta: "#E633BF", glowA: "#33B5FF", glowB: "#E24DD0", liquidSpeed: 0.50, liquidScale: 2.20, liquidBright: 1.00, filament: 1.40, core: 0.30, background: "#070A18" } },
+        { name: "Ember", values: { radius: 0.32, deform: 0.30, frequency: 2.1, morphSpeed: 1.40, rotSpeed: 0.10, specular: 1.2, shininess: 120, glowStrength: 0.85, colorBlue: "#FFC24D", colorMagenta: "#FF3B2F", glowA: "#FF7A18", glowB: "#FF2D55", liquidSpeed: 0.75, liquidScale: 2.40, liquidBright: 1.10, filament: 1.90, core: 0.40, background: "#160806" } },
+        { name: "Toxic", values: { radius: 0.28, deform: 0.44, frequency: 2.3, morphSpeed: 1.50, rotSpeed: 0.18, specular: 1.0, shininess: 160, glowStrength: 0.75, colorBlue: "#9CFF4D", colorMagenta: "#00E5A0", glowA: "#57FF3C", glowB: "#00FFC8", liquidSpeed: 0.85, liquidScale: 2.60, liquidBright: 1.00, filament: 1.70, core: 0.25, background: "#04120C" } },
+        { name: "Ice", values: { radius: 0.34, deform: 0.20, frequency: 1.8, morphSpeed: 1.18, rotSpeed: 0.08, specular: 1.5, shininess: 210, glowStrength: 0.60, colorBlue: "#9CE3FF", colorMagenta: "#E6F7FF", glowA: "#6FD2FF", glowB: "#BFEFFF", liquidSpeed: 0.32, liquidScale: 2.00, liquidBright: 0.90, filament: 1.00, core: 0.35, background: "#0A1424" } },
+        { name: "Plasma", values: { radius: 0.28, deform: 0.40, frequency: 2.4, morphSpeed: 1.60, rotSpeed: 0.20, specular: 1.0, shininess: 130, glowStrength: 0.95, colorBlue: "#B14DFF", colorMagenta: "#FF2DA0", glowA: "#9B5CFF", glowB: "#FF3DBE", liquidSpeed: 1.00, liquidScale: 2.80, liquidBright: 1.20, filament: 2.10, core: 0.30, background: "#10061C" } },
+        { name: "Ghost", values: { radius: 0.32, deform: 0.30, frequency: 2.0, morphSpeed: 1.25, rotSpeed: 0.10, specular: 1.6, shininess: 220, glowStrength: 0.55, colorBlue: "#C2CBE6", colorMagenta: "#8893B5", glowA: "#AEB8D8", glowB: "#6E7799", liquidSpeed: 0.45, liquidScale: 2.20, liquidBright: 0.85, filament: 1.20, core: 0.20, background: "#070709" } },
+        { name: "Daylight", values: { radius: 0.30, deform: 0.34, frequency: 2.0, morphSpeed: 1.30, rotSpeed: 0.12, specular: 1.0, shininess: 150, glowStrength: 0.80, colorBlue: "#2D6CFF", colorMagenta: "#B43CF0", glowA: "#3A82FF", glowB: "#A84DFF", liquidSpeed: 0.50, liquidScale: 2.20, liquidBright: 1.05, filament: 1.50, core: 0.30, background: "#EEF2F8" } },
+    ];
+
+    function twoDigits(n) {
+        return n < 10 ? "0" + n : String(n);
+    }
+
+    function updateReadout(i) {
+        var nameEl = document.getElementById("jt-orb-current-name");
+        if (nameEl) { nameEl.textContent = PRESETS[i].name; }
+        var counter = document.getElementById("jt-orb-counter");
+        if (counter) {
+            counter.textContent = twoDigits(i + 1) + " / " + twoDigits(PRESETS.length);
+        }
+    }
+
+    function preparePresetContainer() {
+        var container = document.getElementById("presets");
+        if (!container) { return null; }
+        container.removeAttribute("aria-hidden");
+        container.setAttribute("aria-label", container.getAttribute("data-label") || "Choose a look");
+        return container;
+    }
+
     var canvas = document.getElementById('orb');
     if (!canvas) { gooeyFallback(); return; }
 
@@ -42,8 +73,7 @@
     function gooeyFallback() {
         if (canvas && canvas.parentNode) { canvas.parentNode.removeChild(canvas); }
         stage.classList.add('jt-orb-fallback');
-        var es = document.getElementById('presets');
-        if (es) { es.parentNode.removeChild(es); }
+        var activePreset = 0;
 
         var NS = 'http://www.w3.org/2000/svg';
         var root = document.documentElement;
@@ -145,21 +175,57 @@
         hi.setAttribute('filter', 'url(#jt-goo-soft)');
         svg.appendChild(hi);
 
-        stage.appendChild(svg);
+        var orbWindow = document.getElementById('jt-orb-window');
+        if (orbWindow) { orbWindow.appendChild(svg); } else { stage.appendChild(svg); }
 
         function syncTheme() {
-            if (typeof document.documentElement.classList.contains === 'function' && document.documentElement.classList.contains('dark')) {
-                root.style.setProperty('--jt-goo-hi', '#ff6b81');
-                root.style.setProperty('--jt-goo-a', '#ff003c');
-                root.style.setProperty('--jt-goo-dark', '#8b0021');
-                root.style.setProperty('--jt-goo-b', '#ff9fb0');
-            } else {
-                root.style.setProperty('--jt-goo-hi', '#ff9fb0');
-                root.style.setProperty('--jt-goo-a', '#e60036');
-                root.style.setProperty('--jt-goo-dark', '#a10027');
-                root.style.setProperty('--jt-goo-b', '#ff5a6e');
-            }
+            var values = PRESETS[activePreset].values;
+            root.style.setProperty('--jt-goo-hi', values.colorMagenta);
+            root.style.setProperty('--jt-goo-a', values.colorBlue);
+            root.style.setProperty('--jt-goo-dark', values.glowB);
+            root.style.setProperty('--jt-goo-b', values.glowA);
         }
+
+        function setupFallbackPresets() {
+            var container = preparePresetContainer();
+            if (!container) { return; }
+            while (container.firstChild) { container.removeChild(container.firstChild); }
+
+            PRESETS.forEach(function (preset, i) {
+                var button = document.createElement('button');
+                button.type = 'button';
+                button.className = i === activePreset ? 'preset is-active' : 'preset';
+                button.title = preset.name;
+                button.setAttribute('aria-pressed', i === activePreset ? 'true' : 'false');
+
+                var thumb = document.createElement('span');
+                thumb.className = 'preset__thumb';
+                thumb.style.setProperty('--thumb-hi', preset.values.colorMagenta);
+                thumb.style.setProperty('--thumb-a', preset.values.colorBlue);
+                thumb.style.setProperty('--thumb-b', preset.values.glowB);
+
+                var name = document.createElement('span');
+                name.className = 'preset__name';
+                name.textContent = preset.name;
+
+                button.append(thumb, name);
+                button.addEventListener('click', function () {
+                    activePreset = i;
+                    syncTheme();
+                    updateReadout(i);
+                    Array.prototype.forEach.call(container.querySelectorAll('.preset'), function (el, idx) {
+                        el.classList.toggle('is-active', idx === i);
+                        el.setAttribute('aria-pressed', idx === i ? 'true' : 'false');
+                    });
+                });
+
+                container.appendChild(button);
+            });
+
+            updateReadout(activePreset);
+        }
+
+        setupFallbackPresets();
         syncTheme();
         if (typeof MutationObserver !== 'undefined') {
             new MutationObserver(syncTheme).observe(root, { attributes: true, attributeFilter: ['class'] });
@@ -224,16 +290,6 @@
             background: "#070A18",
             blend: "Auto",
         };
-
-        const PRESETS = [
-            { name: "Aurora", values: { radius: 0.30, deform: 0.36, frequency: 2.0, morphSpeed: 1.30, rotSpeed: 0.12, specular: 1.0, shininess: 140, glowStrength: 0.70, colorBlue: "#4099FF", colorMagenta: "#E633BF", glowA: "#33B5FF", glowB: "#E24DD0", liquidSpeed: 0.50, liquidScale: 2.20, liquidBright: 1.00, filament: 1.40, core: 0.30, background: "#070A18" } },
-            { name: "Ember", values: { radius: 0.32, deform: 0.30, frequency: 2.1, morphSpeed: 1.40, rotSpeed: 0.10, specular: 1.2, shininess: 120, glowStrength: 0.85, colorBlue: "#FFC24D", colorMagenta: "#FF3B2F", glowA: "#FF7A18", glowB: "#FF2D55", liquidSpeed: 0.75, liquidScale: 2.40, liquidBright: 1.10, filament: 1.90, core: 0.40, background: "#160806" } },
-            { name: "Toxic", values: { radius: 0.28, deform: 0.44, frequency: 2.3, morphSpeed: 1.50, rotSpeed: 0.18, specular: 1.0, shininess: 160, glowStrength: 0.75, colorBlue: "#9CFF4D", colorMagenta: "#00E5A0", glowA: "#57FF3C", glowB: "#00FFC8", liquidSpeed: 0.85, liquidScale: 2.60, liquidBright: 1.00, filament: 1.70, core: 0.25, background: "#04120C" } },
-            { name: "Ice", values: { radius: 0.34, deform: 0.20, frequency: 1.8, morphSpeed: 1.18, rotSpeed: 0.08, specular: 1.5, shininess: 210, glowStrength: 0.60, colorBlue: "#9CE3FF", colorMagenta: "#E6F7FF", glowA: "#6FD2FF", glowB: "#BFEFFF", liquidSpeed: 0.32, liquidScale: 2.00, liquidBright: 0.90, filament: 1.00, core: 0.35, background: "#0A1424" } },
-            { name: "Plasma", values: { radius: 0.28, deform: 0.40, frequency: 2.4, morphSpeed: 1.60, rotSpeed: 0.20, specular: 1.0, shininess: 130, glowStrength: 0.95, colorBlue: "#B14DFF", colorMagenta: "#FF2DA0", glowA: "#9B5CFF", glowB: "#FF3DBE", liquidSpeed: 1.00, liquidScale: 2.80, liquidBright: 1.20, filament: 2.10, core: 0.30, background: "#10061C" } },
-            { name: "Ghost", values: { radius: 0.32, deform: 0.30, frequency: 2.0, morphSpeed: 1.25, rotSpeed: 0.10, specular: 1.6, shininess: 220, glowStrength: 0.55, colorBlue: "#C2CBE6", colorMagenta: "#8893B5", glowA: "#AEB8D8", glowB: "#6E7799", liquidSpeed: 0.45, liquidScale: 2.20, liquidBright: 0.85, filament: 1.20, core: 0.20, background: "#070709" } },
-            { name: "Daylight", values: { radius: 0.30, deform: 0.34, frequency: 2.0, morphSpeed: 1.30, rotSpeed: 0.12, specular: 1.0, shininess: 150, glowStrength: 0.80, colorBlue: "#2D6CFF", colorMagenta: "#B43CF0", glowA: "#3A82FF", glowB: "#A84DFF", liquidSpeed: 0.50, liquidScale: 2.20, liquidBright: 1.05, filament: 1.50, core: 0.30, background: "#EEF2F8" } },
-        ];
 
         // -------------------------------------------------------------------
         // Shaders
@@ -500,40 +556,42 @@ void main(){
             gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
         }
 
-        // -------------------------------------------------------------------
-        // Preset thumbnails (left column)
-        // -------------------------------------------------------------------
-        const presetsContainer = document.getElementById("presets");
+        const presetsContainer = preparePresetContainer();
         const presetEls = [];
         const previews = [];
 
         function applyPreset(i) {
             Object.assign(params, PRESETS[i].values);
             syncChrome();
-            presetEls.forEach((el, idx) => el.classList.toggle("is-active", idx === i));
+            updateReadout(i);
+            presetEls.forEach((el, idx) => {
+                const active = idx === i;
+                el.classList.toggle("is-active", active);
+                el.setAttribute("aria-pressed", active ? "true" : "false");
+            });
         }
 
-        PRESETS.forEach((preset, i) => {
-            const wrap = document.createElement("div");
-            wrap.className = "preset";
-            wrap.title = preset.name;
-            const thumb = document.createElement("div");
-            thumb.className = "preset__thumb";
-            const name = document.createElement("div");
-            name.className = "preset__name";
-            name.textContent = preset.name;
-            wrap.append(thumb, name);
-            wrap.addEventListener("click", () => applyPreset(i));
-            presetsContainer.append(wrap);
-            presetEls.push(wrap);
-            previews.push({ el: thumb, values: preset.values });
-        });
+        if (presetsContainer) {
+            PRESETS.forEach((preset, i) => {
+                const wrap = document.createElement("button");
+                wrap.type = "button";
+                wrap.className = "preset";
+                wrap.title = preset.name;
+                wrap.setAttribute("aria-pressed", "false");
+                const thumb = document.createElement("span");
+                thumb.className = "preset__thumb";
+                const name = document.createElement("span");
+                name.className = "preset__name";
+                name.textContent = preset.name;
+                wrap.append(thumb, name);
+                wrap.addEventListener("click", () => applyPreset(i));
+                presetsContainer.append(wrap);
+                presetEls.push(wrap);
+                previews.push({ el: thumb, values: preset.values });
+            });
+        }
         applyPreset(0);
 
-        // -------------------------------------------------------------------
-        // Resize + render loop (scoped to the stage)
-        // -------------------------------------------------------------------
-        const MAX_MAIN = 1000;
         let dpr = 1;
 
         function resize() {
@@ -548,6 +606,20 @@ void main(){
         window.addEventListener("resize", resize);
         resize();
 
+        function canvasRect(el, stageRect) {
+            const r = el.getBoundingClientRect();
+            return {
+                x: Math.floor((r.left - stageRect.left) * dpr),
+                y: Math.floor((stageRect.bottom - r.bottom) * dpr),
+                w: Math.ceil(r.width * dpr),
+                h: Math.ceil(r.height * dpr),
+                bottom: r.bottom,
+                top: r.top,
+            };
+        }
+
+        const orbWindow = document.getElementById("jt-orb-window") || stage;
+
         function frame(now) {
             resize();
             const time = now * 0.001;
@@ -558,19 +630,16 @@ void main(){
             gl.clear(gl.COLOR_BUFFER_BIT);
             gl.enable(gl.SCISSOR_TEST);
 
-            const side = Math.min(Math.min(canvas.width, canvas.height), MAX_MAIN);
-            const shift = stage.clientWidth < 992 ? 0.22 : 0.42;
-            drawOrb(Math.floor(canvas.width - side), Math.floor((canvas.height - side) / 2), side, side, params, time, shift, themeHex);
-
             const stageRect = stage.getBoundingClientRect();
+            const mainRect = canvasRect(orbWindow, stageRect);
+            if (mainRect.w > 0 && mainRect.h > 0) {
+                drawOrb(mainRect.x, mainRect.y, mainRect.w, mainRect.h, params, time, 0, themeHex);
+            }
+
             for (const pv of previews) {
-                const r = pv.el.getBoundingClientRect();
-                if (r.width <= 0 || r.bottom <= stageRect.top || r.top >= stageRect.bottom) { continue; }
-                const x = Math.floor((r.left - stageRect.left) * dpr);
-                const y = Math.floor((stageRect.bottom - r.bottom) * dpr);
-                const w = Math.ceil(r.width * dpr);
-                const h = Math.ceil(r.height * dpr);
-                drawOrb(x, y, w, h, pv.values, time, 0);
+                const r = canvasRect(pv.el, stageRect);
+                if (r.w <= 0 || r.h <= 0 || r.bottom <= stageRect.top || r.top >= stageRect.bottom) { continue; }
+                drawOrb(r.x, r.y, r.w, r.h, pv.values, time, 0);
             }
             requestAnimationFrame(frame);
         }

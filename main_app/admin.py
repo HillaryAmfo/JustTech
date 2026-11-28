@@ -55,7 +55,7 @@ class FAQAdmin(admin.ModelAdmin):
 
 @admin.register(TeamMember)
 class TeamMemberAdmin(admin.ModelAdmin):
-    list_display = ('name', 'role', 'is_instructor', 'display_order')
+    list_display = ('name', 'role', 'specialisation', 'is_instructor', 'display_order')
     list_filter = ('is_instructor',)
 
 

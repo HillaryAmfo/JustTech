@@ -26,7 +26,7 @@
                         </span>
                     </p>
 
-                    <h1 id="heroRotator" class="hero-headline text-5xl sm:text-6xl xl:text-7xl font-bold text-neutral-900 dark:text-white leading-[1.08] mb-12">
+                    <h1 id="heroRotator" class="hero-headline text-4xl sm:text-5xl xl:text-7xl font-bold text-neutral-900 dark:text-white leading-[1.08] mb-12">
                         <span class="hero-headline-phrases">
                             {% if LANG == 'fr' %}
                             <span class="hero-headline-phrase is-active" data-index="0">
@@ -448,9 +448,9 @@
                             <h3 class="text-lg font-semibold text-neutral-900 dark:text-white mb-1.5">{{ service.name }}</h3>
                             <p class="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">{{ service.short_description }}</p>
                         </div>
-                        <span class="inline-flex items-center gap-1.5 text-sm font-medium text-neutral-400 mt-1 shrink-0 transition-all group-hover:text-primary group-hover:gap-2.5" aria-hidden="true">
+                        <span class="inline-flex items-center gap-1.5 rounded-full bg-primary px-4 py-2 mt-1 shrink-0 text-sm font-semibold text-white transition-all group-hover:gap-2.5 group-hover:bg-[#cc002f] group-hover:shadow-lg group-hover:shadow-primary/30">
                             {{ 'Book'|tr }}
-                            <i class="fa-solid fa-arrow-right text-xs"></i>
+                            <i class="fa-solid fa-arrow-right text-xs" aria-hidden="true"></i>
                         </span>
                     </a>
                     {% empty %}
@@ -726,208 +726,257 @@
         </div>
     </section>
 
-    <!-- ============================================================
-         TESTIMONIALS — autonomous carousel (autoplay + arrows)
-         ============================================================ -->
-    <section class="py-16 md:py-24 border-t border-neutral-200 dark:border-white/5 overflow-hidden" aria-label="Testimonials">
-        <div class="container mx-auto px-6 lg:px-8">
-            <div class="max-w-xl mb-12 lg:mb-16">
-                <p class="eyebrow mb-6">{{ 'Testimonials'|tr }}</p>
-                <h2 class="text-3xl md:text-4xl font-semibold text-neutral-900 dark:text-white mb-4">{{ 'What people say'|tr }}</h2>
+    <section id="testimonials" class="jt-testimonials border-t border-neutral-200 dark:border-white/5" data-jt-testimonials aria-label="Testimonials">
+        <div class="container mx-auto px-6 lg:px-8 jt-testimonial-stage" data-jt-stage>
+            <header class="jt-testimonial-head">
+                <p class="eyebrow">{{ 'Testimonials'|tr }}</p>
+                <h2 class="text-3xl md:text-4xl font-semibold text-neutral-900 dark:text-white">{{ 'What people say'|tr }}</h2>
+            </header>
+
+            <div class="jt-testimonial-viewport" data-jt-viewport tabindex="0" aria-label="{{ 'Client testimonials. Scroll to explore all testimonials.'|tr }}">
+                <div class="jt-testimonial-canvas" data-jt-canvas>
+                    <svg class="jt-testimonial-route" data-jt-route aria-hidden="true" focusable="false">
+                        <defs>
+                            <mask id="jt-testimonial-route-reveal" maskUnits="userSpaceOnUse" x="0" y="0" width="100%" height="100%">
+                                <path data-jt-route-mask fill="none" stroke="white" stroke-width="8" stroke-linecap="round" />
+                            </mask>
+                        </defs>
+                        <path class="jt-testimonial-route-base" data-jt-route-base fill="none" />
+                        <path class="jt-testimonial-route-progress" data-jt-route-progress fill="none" mask="url(#jt-testimonial-route-reveal)" />
+                    </svg>
+
+                    <ol class="jt-testimonial-track" data-jt-track>
+                        <li class="jt-testimonial-step" data-jt-step>
+                            <span class="jt-testimonial-node" data-jt-node aria-hidden="true"><span>01</span></span>
+                            <figure class="jt-testimonial-card" data-jt-card>
+                                <div class="jt-testimonial-card-head" aria-hidden="true"><span>{{ 'Client voice'|tr }}</span><span data-jt-card-count>01 / 15</span></div>
+                                <img class="jt-testimonial-avatar" src="https://randomuser.me/api/portraits/women/44.jpg" alt="Jacqueline Kwafo" loading="lazy" />
+                                <i class="fa-solid fa-quote-right jt-testimonial-quote" aria-hidden="true"></i>
+                                <blockquote class="jt-testimonial-quote-text">&ldquo;JustTech designed and installed the full sound system for our church. The room sounds incredible and they trained our volunteers to run it.&rdquo;</blockquote>
+                                <figcaption class="jt-testimonial-who">
+                                    <span class="jt-testimonial-name">Jacqueline Kwafo</span>
+                                    <span class="jt-testimonial-title">Worship &amp; Audio Director</span>
+                                </figcaption>
+                                <div class="jt-testimonial-card-foot" aria-hidden="true"><span></span><small>{{ 'Trusted feedback'|tr }}</small></div>
+                            </figure>
+                        </li>
+
+                        <li class="jt-testimonial-step" data-jt-step>
+                            <span class="jt-testimonial-node" data-jt-node aria-hidden="true"><span>02</span></span>
+                            <figure class="jt-testimonial-card" data-jt-card>
+                                <div class="jt-testimonial-card-head" aria-hidden="true"><span>{{ 'Client voice'|tr }}</span><span data-jt-card-count>02 / 15</span></div>
+                                <img class="jt-testimonial-avatar" src="https://randomuser.me/api/portraits/men/32.jpg" alt="Jason Kwafo" loading="lazy" />
+                                <i class="fa-solid fa-quote-right jt-testimonial-quote" aria-hidden="true"></i>
+                                <blockquote class="jt-testimonial-quote-text">&ldquo;From a single live event to our streaming setup, Jason and the team handled everything. Professional from the first call to the last song.&rdquo;</blockquote>
+                                <figcaption class="jt-testimonial-who">
+                                    <span class="jt-testimonial-name">Jason Kwafo</span>
+                                    <span class="jt-testimonial-title">Event Producer, Toronto</span>
+                                </figcaption>
+                                <div class="jt-testimonial-card-foot" aria-hidden="true"><span></span><small>{{ 'Trusted feedback'|tr }}</small></div>
+                            </figure>
+                        </li>
+
+                        <li class="jt-testimonial-step" data-jt-step>
+                            <span class="jt-testimonial-node" data-jt-node aria-hidden="true"><span>03</span></span>
+                            <figure class="jt-testimonial-card" data-jt-card>
+                                <div class="jt-testimonial-card-head" aria-hidden="true"><span>{{ 'Client voice'|tr }}</span><span data-jt-card-count>03 / 15</span></div>
+                                <img class="jt-testimonial-avatar" src="https://randomuser.me/api/portraits/women/68.jpg" alt="Sarah Tremblay" loading="lazy" />
+                                <i class="fa-solid fa-quote-right jt-testimonial-quote" aria-hidden="true"></i>
+                                <blockquote class="jt-testimonial-quote-text">&ldquo;Our conference sound used to be a gamble. Now it just works — clear, consistent and loud enough for four hundred people.&rdquo;</blockquote>
+                                <figcaption class="jt-testimonial-who">
+                                    <span class="jt-testimonial-name">Sarah Tremblay</span>
+                                    <span class="jt-testimonial-title">Events Manager, Ottawa</span>
+                                </figcaption>
+                                <div class="jt-testimonial-card-foot" aria-hidden="true"><span></span><small>{{ 'Trusted feedback'|tr }}</small></div>
+                            </figure>
+                        </li>
+
+                        <li class="jt-testimonial-step" data-jt-step>
+                            <span class="jt-testimonial-node" data-jt-node aria-hidden="true"><span>04</span></span>
+                            <figure class="jt-testimonial-card" data-jt-card>
+                                <div class="jt-testimonial-card-head" aria-hidden="true"><span>{{ 'Client voice'|tr }}</span><span data-jt-card-count>04 / 15</span></div>
+                                <img class="jt-testimonial-avatar" src="https://randomuser.me/api/portraits/men/22.jpg" alt="Marcus Chen" loading="lazy" />
+                                <i class="fa-solid fa-quote-right jt-testimonial-quote" aria-hidden="true"></i>
+                                <blockquote class="jt-testimonial-quote-text">&ldquo;They built our streaming studio from an empty room — acoustic treatment, cameras, audio and the call flows. We went live on schedule.&rdquo;</blockquote>
+                                <figcaption class="jt-testimonial-who">
+                                    <span class="jt-testimonial-name">Marcus Chen</span>
+                                    <span class="jt-testimonial-title">Content Lead, Vancouver</span>
+                                </figcaption>
+                                <div class="jt-testimonial-card-foot" aria-hidden="true"><span></span><small>{{ 'Trusted feedback'|tr }}</small></div>
+                            </figure>
+                        </li>
+
+                        <li class="jt-testimonial-step" data-jt-step>
+                            <span class="jt-testimonial-node" data-jt-node aria-hidden="true"><span>05</span></span>
+                            <figure class="jt-testimonial-card" data-jt-card>
+                                <div class="jt-testimonial-card-head" aria-hidden="true"><span>{{ 'Client voice'|tr }}</span><span data-jt-card-count>05 / 15</span></div>
+                                <img class="jt-testimonial-avatar" src="https://randomuser.me/api/portraits/women/33.jpg" alt="Emily Thompson" loading="lazy" />
+                                <i class="fa-solid fa-quote-right jt-testimonial-quote" aria-hidden="true"></i>
+                                <blockquote class="jt-testimonial-quote-text">&ldquo;The lessons are hands-on and practical. I went from zero to running sound on Sundays with real confidence in a few months.&rdquo;</blockquote>
+                                <figcaption class="jt-testimonial-who">
+                                    <span class="jt-testimonial-name">Emily Thompson</span>
+                                    <span class="jt-testimonial-title">Volunteer Sound Engineer</span>
+                                </figcaption>
+                                <div class="jt-testimonial-card-foot" aria-hidden="true"><span></span><small>{{ 'Trusted feedback'|tr }}</small></div>
+                            </figure>
+                        </li>
+
+                        <li class="jt-testimonial-step" data-jt-step>
+                            <span class="jt-testimonial-node" data-jt-node aria-hidden="true"><span>06</span></span>
+                            <figure class="jt-testimonial-card" data-jt-card>
+                                <div class="jt-testimonial-card-head" aria-hidden="true"><span>{{ 'Client voice'|tr }}</span><span data-jt-card-count>06 / 15</span></div>
+                                <img class="jt-testimonial-avatar" src="https://randomuser.me/api/portraits/men/76.jpg" alt="Ryan MacDonald" loading="lazy" />
+                                <i class="fa-solid fa-quote-right jt-testimonial-quote" aria-hidden="true"></i>
+                                <blockquote class="jt-testimonial-quote-text">&ldquo;We upgraded our sanctuary audio and recorded the difference. The clarity is night and day and the system is simple for our team to operate.&rdquo;</blockquote>
+                                <figcaption class="jt-testimonial-who">
+                                    <span class="jt-testimonial-name">Ryan MacDonald</span>
+                                    <span class="jt-testimonial-title">Pastor, Presbyterian Church</span>
+                                </figcaption>
+                                <div class="jt-testimonial-card-foot" aria-hidden="true"><span></span><small>{{ 'Trusted feedback'|tr }}</small></div>
+                            </figure>
+                        </li>
+
+                        <li class="jt-testimonial-step" data-jt-step>
+                            <span class="jt-testimonial-node" data-jt-node aria-hidden="true"><span>07</span></span>
+                            <figure class="jt-testimonial-card" data-jt-card>
+                                <div class="jt-testimonial-card-head" aria-hidden="true"><span>{{ 'Client voice'|tr }}</span><span data-jt-card-count>07 / 15</span></div>
+                                <img class="jt-testimonial-avatar" src="https://randomuser.me/api/portraits/women/90.jpg" alt="Priya Sharma" loading="lazy" />
+                                <i class="fa-solid fa-quote-right jt-testimonial-quote" aria-hidden="true"></i>
+                                <blockquote class="jt-testimonial-quote-text">&ldquo;Our hybrid services needed reliable audio and streaming for hundreds of viewers each week. JustTech delivered — and keeps it running.&rdquo;</blockquote>
+                                <figcaption class="jt-testimonial-who">
+                                    <span class="jt-testimonial-name">Priya Sharma</span>
+                                    <span class="jt-testimonial-title">Media Producer, Calgary</span>
+                                </figcaption>
+                                <div class="jt-testimonial-card-foot" aria-hidden="true"><span></span><small>{{ 'Trusted feedback'|tr }}</small></div>
+                            </figure>
+                        </li>
+
+                        <li class="jt-testimonial-step" data-jt-step>
+                            <span class="jt-testimonial-node" data-jt-node aria-hidden="true"><span>08</span></span>
+                            <figure class="jt-testimonial-card" data-jt-card>
+                                <div class="jt-testimonial-card-head" aria-hidden="true"><span>{{ 'Client voice'|tr }}</span><span data-jt-card-count>08 / 15</span></div>
+                                <img class="jt-testimonial-avatar" src="https://randomuser.me/api/portraits/women/26.jpg" alt="Hélène Bouchard" loading="lazy" />
+                                <i class="fa-solid fa-quote-right jt-testimonial-quote" aria-hidden="true"></i>
+                                <blockquote class="jt-testimonial-quote-text">&ldquo;The conference room systems they installed are effortless. One button and the call is live, with sound that actually carries the room.&rdquo;</blockquote>
+                                <figcaption class="jt-testimonial-who">
+                                    <span class="jt-testimonial-name">Hélène Bouchard</span>
+                                    <span class="jt-testimonial-title">Office Manager, Montreal</span>
+                                </figcaption>
+                                <div class="jt-testimonial-card-foot" aria-hidden="true"><span></span><small>{{ 'Trusted feedback'|tr }}</small></div>
+                            </figure>
+                        </li>
+
+                        <li class="jt-testimonial-step" data-jt-step>
+                            <span class="jt-testimonial-node" data-jt-node aria-hidden="true"><span>09</span></span>
+                            <figure class="jt-testimonial-card" data-jt-card>
+                                <div class="jt-testimonial-card-head" aria-hidden="true"><span>{{ 'Client voice'|tr }}</span><span data-jt-card-count>09 / 15</span></div>
+                                <img class="jt-testimonial-avatar" src="https://randomuser.me/api/portraits/men/85.jpg" alt="David Okafor" loading="lazy" />
+                                <i class="fa-solid fa-quote-right jt-testimonial-quote" aria-hidden="true"></i>
+                                <blockquote class="jt-testimonial-quote-text">&ldquo;Paging, background music and emergency announcements across our campus — one clean system, tuned and supported. Exactly what we needed.&rdquo;</blockquote>
+                                <figcaption class="jt-testimonial-who">
+                                    <span class="jt-testimonial-name">David Okafor</span>
+                                    <span class="jt-testimonial-title">Facilities Manager, Vanguard Hospital</span>
+                                </figcaption>
+                                <div class="jt-testimonial-card-foot" aria-hidden="true"><span></span><small>{{ 'Trusted feedback'|tr }}</small></div>
+                            </figure>
+                        </li>
+
+                        <li class="jt-testimonial-step" data-jt-step>
+                            <span class="jt-testimonial-node" data-jt-node aria-hidden="true"><span>10</span></span>
+                            <figure class="jt-testimonial-card" data-jt-card>
+                                <div class="jt-testimonial-card-head" aria-hidden="true"><span>{{ 'Client voice'|tr }}</span><span data-jt-card-count>10 / 15</span></div>
+                                <img class="jt-testimonial-avatar" src="https://randomuser.me/api/portraits/women/1.jpg" alt="Chloe Dubois" loading="lazy" />
+                                <i class="fa-solid fa-quote-right jt-testimonial-quote" aria-hidden="true"></i>
+                                <blockquote class="jt-testimonial-quote-text">&ldquo;Their sound engineering course gave me the practical foundation I was missing. I now mix confidently for bands and events.&rdquo;</blockquote>
+                                <figcaption class="jt-testimonial-who">
+                                    <span class="jt-testimonial-name">Chloe Dubois</span>
+                                    <span class="jt-testimonial-title">Sound Engineering Student</span>
+                                </figcaption>
+                                <div class="jt-testimonial-card-foot" aria-hidden="true"><span></span><small>{{ 'Trusted feedback'|tr }}</small></div>
+                            </figure>
+                        </li>
+
+                        <li class="jt-testimonial-step" data-jt-step>
+                            <span class="jt-testimonial-node" data-jt-node aria-hidden="true"><span>11</span></span>
+                            <figure class="jt-testimonial-card" data-jt-card>
+                                <div class="jt-testimonial-card-head" aria-hidden="true"><span>{{ 'Client voice'|tr }}</span><span data-jt-card-count>11 / 15</span></div>
+                                <img class="jt-testimonial-avatar" src="https://randomuser.me/api/portraits/men/47.jpg" alt="Ethan Miller" loading="lazy" />
+                                <i class="fa-solid fa-quote-right jt-testimonial-quote" aria-hidden="true"></i>
+                                <blockquote class="jt-testimonial-quote-text">&ldquo;They built my custom streaming PC and tuned my whole setup. Latency-free calls and clean captures from day one.&rdquo;</blockquote>
+                                <figcaption class="jt-testimonial-who">
+                                    <span class="jt-testimonial-name">Ethan Miller</span>
+                                    <span class="jt-testimonial-title">Streamer &amp; Creator, Winnipeg</span>
+                                </figcaption>
+                                <div class="jt-testimonial-card-foot" aria-hidden="true"><span></span><small>{{ 'Trusted feedback'|tr }}</small></div>
+                            </figure>
+                        </li>
+
+                        <li class="jt-testimonial-step" data-jt-step>
+                            <span class="jt-testimonial-node" data-jt-node aria-hidden="true"><span>12</span></span>
+                            <figure class="jt-testimonial-card" data-jt-card>
+                                <div class="jt-testimonial-card-head" aria-hidden="true"><span>{{ 'Client voice'|tr }}</span><span data-jt-card-count>12 / 15</span></div>
+                                <img class="jt-testimonial-avatar" src="https://randomuser.me/api/portraits/women/75.jpg" alt="Aminata Diallo" loading="lazy" />
+                                <i class="fa-solid fa-quote-right jt-testimonial-quote" aria-hidden="true"></i>
+                                <blockquote class="jt-testimonial-quote-text">&ldquo;Our weekend services were transformed. The congregation hears every word clearly and our livestream finally matches it.&rdquo;</blockquote>
+                                <figcaption class="jt-testimonial-who">
+                                    <span class="jt-testimonial-name">Aminata Diallo</span>
+                                    <span class="jt-testimonial-title">Pentecost Church, Media Team</span>
+                                </figcaption>
+                                <div class="jt-testimonial-card-foot" aria-hidden="true"><span></span><small>{{ 'Trusted feedback'|tr }}</small></div>
+                            </figure>
+                        </li>
+
+                        <li class="jt-testimonial-step" data-jt-step>
+                            <span class="jt-testimonial-node" data-jt-node aria-hidden="true"><span>13</span></span>
+                            <figure class="jt-testimonial-card" data-jt-card>
+                                <div class="jt-testimonial-card-head" aria-hidden="true"><span>{{ 'Client voice'|tr }}</span><span data-jt-card-count>13 / 15</span></div>
+                                <img class="jt-testimonial-avatar" src="https://randomuser.me/api/portraits/men/60.jpg" alt="James Anderson" loading="lazy" />
+                                <i class="fa-solid fa-quote-right jt-testimonial-quote" aria-hidden="true"></i>
+                                <blockquote class="jt-testimonial-quote-text">&ldquo;Methodist district gatherings rely on clean, reliable audio. JustTech has run ours for years without a single miss.&rdquo;</blockquote>
+                                <figcaption class="jt-testimonial-who">
+                                    <span class="jt-testimonial-name">James Anderson</span>
+                                    <span class="jt-testimonial-title">Methodist Church, Events</span>
+                                </figcaption>
+                                <div class="jt-testimonial-card-foot" aria-hidden="true"><span></span><small>{{ 'Trusted feedback'|tr }}</small></div>
+                            </figure>
+                        </li>
+
+                        <li class="jt-testimonial-step" data-jt-step>
+                            <span class="jt-testimonial-node" data-jt-node aria-hidden="true"><span>14</span></span>
+                            <figure class="jt-testimonial-card" data-jt-card>
+                                <div class="jt-testimonial-card-head" aria-hidden="true"><span>{{ 'Client voice'|tr }}</span><span data-jt-card-count>14 / 15</span></div>
+                                <img class="jt-testimonial-avatar" src="https://randomuser.me/api/portraits/women/57.jpg" alt="Grace Osei" loading="lazy" />
+                                <i class="fa-solid fa-quote-right jt-testimonial-quote" aria-hidden="true"></i>
+                                <blockquote class="jt-testimonial-quote-text">&ldquo;They installed our sanctuary system and taught our whole team to use it in one weekend. Kind, patient and incredibly thorough.&rdquo;</blockquote>
+                                <figcaption class="jt-testimonial-who">
+                                    <span class="jt-testimonial-name">Grace Osei</span>
+                                    <span class="jt-testimonial-title">Worship Director, Toronto</span>
+                                </figcaption>
+                                <div class="jt-testimonial-card-foot" aria-hidden="true"><span></span><small>{{ 'Trusted feedback'|tr }}</small></div>
+                            </figure>
+                        </li>
+
+                        <li class="jt-testimonial-step" data-jt-step>
+                            <span class="jt-testimonial-node" data-jt-node aria-hidden="true"><span>15</span></span>
+                            <figure class="jt-testimonial-card" data-jt-card>
+                                <div class="jt-testimonial-card-head" aria-hidden="true"><span>{{ 'Client voice'|tr }}</span><span data-jt-card-count>15 / 15</span></div>
+                                <img class="jt-testimonial-avatar" src="https://randomuser.me/api/portraits/men/91.jpg" alt="Michael Brown" loading="lazy" />
+                                <i class="fa-solid fa-quote-right jt-testimonial-quote" aria-hidden="true"></i>
+                                <blockquote class="jt-testimonial-quote-text">&ldquo;From design to installation to the final soundcheck, everything was seamless. Our new venue opened on time and sounded outstanding.&rdquo;</blockquote>
+                                <figcaption class="jt-testimonial-who">
+                                    <span class="jt-testimonial-name">Michael Brown</span>
+                                    <span class="jt-testimonial-title">Venue Owner, Halifax</span>
+                                </figcaption>
+                                <div class="jt-testimonial-card-foot" aria-hidden="true"><span></span><small>{{ 'Trusted feedback'|tr }}</small></div>
+                            </figure>
+                        </li>
+                    </ol>
+                </div>
             </div>
 
-            <div class="jt-carousel" data-jt-carousel>
-                <div class="jt-carousel__stage" data-jt-stage>
-                    {% with t=1 %}{% endwith %}
-                    <div class="jt-carousel__slide" data-jt-slide>
-                        <figure class="jt-carousel__card">
-                            <img class="jt-carousel__avatar" src="https://randomuser.me/api/portraits/women/44.jpg" alt="Jacqueline Kwafo" loading="lazy" />
-                            <i class="fa-solid fa-quote-right jt-carousel__quote" aria-hidden="true"></i>
-                            <blockquote class="jt-carousel__quote-text">&ldquo;JustTech designed and installed the full sound system for our church. The room sounds incredible and they trained our volunteers to run it.&rdquo;</blockquote>
-                            <figcaption class="jt-carousel__who">
-                                <span class="jt-carousel__name">Jacqueline Kwafo</span>
-                                <span class="jt-carousel__title">Worship &amp; Audio Director</span>
-                            </figcaption>
-                        </figure>
-                    </div>
-
-                    <div class="jt-carousel__slide" data-jt-slide>
-                        <figure class="jt-carousel__card">
-                            <img class="jt-carousel__avatar" src="https://randomuser.me/api/portraits/men/32.jpg" alt="Jason Kwafo" loading="lazy" />
-                            <i class="fa-solid fa-quote-right jt-carousel__quote" aria-hidden="true"></i>
-                            <blockquote class="jt-carousel__quote-text">&ldquo;From a single live event to our streaming setup, Jason and the team handled everything. Professional from the first call to the last song.&rdquo;</blockquote>
-                            <figcaption class="jt-carousel__who">
-                                <span class="jt-carousel__name">Jason Kwafo</span>
-                                <span class="jt-carousel__title">Event Producer, Toronto</span>
-                            </figcaption>
-                        </figure>
-                    </div>
-
-                    <div class="jt-carousel__slide" data-jt-slide>
-                        <figure class="jt-carousel__card">
-                            <img class="jt-carousel__avatar" src="https://randomuser.me/api/portraits/women/68.jpg" alt="Sarah Tremblay" loading="lazy" />
-                            <i class="fa-solid fa-quote-right jt-carousel__quote" aria-hidden="true"></i>
-                            <blockquote class="jt-carousel__quote-text">&ldquo;Our conference sound used to be a gamble. Now it just works — clear, consistent and loud enough for four hundred people.&rdquo;</blockquote>
-                            <figcaption class="jt-carousel__who">
-                                <span class="jt-carousel__name">Sarah Tremblay</span>
-                                <span class="jt-carousel__title">Events Manager, Ottawa</span>
-                            </figcaption>
-                        </figure>
-                    </div>
-
-                    <div class="jt-carousel__slide" data-jt-slide>
-                        <figure class="jt-carousel__card">
-                            <img class="jt-carousel__avatar" src="https://randomuser.me/api/portraits/men/22.jpg" alt="Marcus Chen" loading="lazy" />
-                            <i class="fa-solid fa-quote-right jt-carousel__quote" aria-hidden="true"></i>
-                            <blockquote class="jt-carousel__quote-text">&ldquo;They built our streaming studio from an empty room — acoustic treatment, cameras, audio and the call flows. We went live on schedule.&rdquo;</blockquote>
-                            <figcaption class="jt-carousel__who">
-                                <span class="jt-carousel__name">Marcus Chen</span>
-                                <span class="jt-carousel__title">Content Lead, Vancouver</span>
-                            </figcaption>
-                        </figure>
-                    </div>
-
-                    <div class="jt-carousel__slide" data-jt-slide>
-                        <figure class="jt-carousel__card">
-                            <img class="jt-carousel__avatar" src="https://randomuser.me/api/portraits/women/33.jpg" alt="Emily Thompson" loading="lazy" />
-                            <i class="fa-solid fa-quote-right jt-carousel__quote" aria-hidden="true"></i>
-                            <blockquote class="jt-carousel__quote-text">&ldquo;The lessons are hands-on and practical. I went from zero to running sound on Sundays with real confidence in a few months.&rdquo;</blockquote>
-                            <figcaption class="jt-carousel__who">
-                                <span class="jt-carousel__name">Emily Thompson</span>
-                                <span class="jt-carousel__title">Volunteer Sound Engineer</span>
-                            </figcaption>
-                        </figure>
-                    </div>
-
-                    <div class="jt-carousel__slide" data-jt-slide>
-                        <figure class="jt-carousel__card">
-                            <img class="jt-carousel__avatar" src="https://randomuser.me/api/portraits/men/76.jpg" alt="Ryan MacDonald" loading="lazy" />
-                            <i class="fa-solid fa-quote-right jt-carousel__quote" aria-hidden="true"></i>
-                            <blockquote class="jt-carousel__quote-text">&ldquo;We upgraded our sanctuary audio and recorded the difference. The clarity is night and day and the system is simple for our team to operate.&rdquo;</blockquote>
-                            <figcaption class="jt-carousel__who">
-                                <span class="jt-carousel__name">Ryan MacDonald</span>
-                                <span class="jt-carousel__title">Pastor, Presbyterian Church</span>
-                            </figcaption>
-                        </figure>
-                    </div>
-
-                    <div class="jt-carousel__slide" data-jt-slide>
-                        <figure class="jt-carousel__card">
-                            <img class="jt-carousel__avatar" src="https://randomuser.me/api/portraits/women/90.jpg" alt="Priya Sharma" loading="lazy" />
-                            <i class="fa-solid fa-quote-right jt-carousel__quote" aria-hidden="true"></i>
-                            <blockquote class="jt-carousel__quote-text">&ldquo;Our hybrid services needed reliable audio and streaming for hundreds of viewers each week. JustTech delivered — and keeps it running.&rdquo;</blockquote>
-                            <figcaption class="jt-carousel__who">
-                                <span class="jt-carousel__name">Priya Sharma</span>
-                                <span class="jt-carousel__title">Media Producer, Calgary</span>
-                            </figcaption>
-                        </figure>
-                    </div>
-
-                    <div class="jt-carousel__slide" data-jt-slide>
-                        <figure class="jt-carousel__card">
-                            <img class="jt-carousel__avatar" src="https://randomuser.me/api/portraits/women/26.jpg" alt="Hélène Bouchard" loading="lazy" />
-                            <i class="fa-solid fa-quote-right jt-carousel__quote" aria-hidden="true"></i>
-                            <blockquote class="jt-carousel__quote-text">&ldquo;The conference room systems they installed are effortless. One button and the call is live, with sound that actually carries the room.&rdquo;</blockquote>
-                            <figcaption class="jt-carousel__who">
-                                <span class="jt-carousel__name">Hélène Bouchard</span>
-                                <span class="jt-carousel__title">Office Manager, Montreal</span>
-                            </figcaption>
-                        </figure>
-                    </div>
-
-                    <div class="jt-carousel__slide" data-jt-slide>
-                        <figure class="jt-carousel__card">
-                            <img class="jt-carousel__avatar" src="https://randomuser.me/api/portraits/men/85.jpg" alt="David Okafor" loading="lazy" />
-                            <i class="fa-solid fa-quote-right jt-carousel__quote" aria-hidden="true"></i>
-                            <blockquote class="jt-carousel__quote-text">&ldquo;Paging, background music and emergency announcements across our campus — one clean system, tuned and supported. Exactly what we needed.&rdquo;</blockquote>
-                            <figcaption class="jt-carousel__who">
-                                <span class="jt-carousel__name">David Okafor</span>
-                                <span class="jt-carousel__title">Facilities Manager, Vanguard Hospital</span>
-                            </figcaption>
-                        </figure>
-                    </div>
-
-                    <div class="jt-carousel__slide" data-jt-slide>
-                        <figure class="jt-carousel__card">
-                            <img class="jt-carousel__avatar" src="https://randomuser.me/api/portraits/women/1.jpg" alt="Chloe Dubois" loading="lazy" />
-                            <i class="fa-solid fa-quote-right jt-carousel__quote" aria-hidden="true"></i>
-                            <blockquote class="jt-carousel__quote-text">&ldquo;Their sound engineering course gave me the practical foundation I was missing. I now mix confidently for bands and events.&rdquo;</blockquote>
-                            <figcaption class="jt-carousel__who">
-                                <span class="jt-carousel__name">Chloe Dubois</span>
-                                <span class="jt-carousel__title">Sound Engineering Student</span>
-                            </figcaption>
-                        </figure>
-                    </div>
-
-                    <div class="jt-carousel__slide" data-jt-slide>
-                        <figure class="jt-carousel__card">
-                            <img class="jt-carousel__avatar" src="https://randomuser.me/api/portraits/men/47.jpg" alt="Ethan Miller" loading="lazy" />
-                            <i class="fa-solid fa-quote-right jt-carousel__quote" aria-hidden="true"></i>
-                            <blockquote class="jt-carousel__quote-text">&ldquo;They built my custom streaming PC and tuned my whole setup. Latency-free calls and clean captures from day one.&rdquo;</blockquote>
-                            <figcaption class="jt-carousel__who">
-                                <span class="jt-carousel__name">Ethan Miller</span>
-                                <span class="jt-carousel__title">Streamer &amp; Creator, Winnipeg</span>
-                            </figcaption>
-                        </figure>
-                    </div>
-
-                    <div class="jt-carousel__slide" data-jt-slide>
-                        <figure class="jt-carousel__card">
-                            <img class="jt-carousel__avatar" src="https://randomuser.me/api/portraits/women/75.jpg" alt="Aminata Diallo" loading="lazy" />
-                            <i class="fa-solid fa-quote-right jt-carousel__quote" aria-hidden="true"></i>
-                            <blockquote class="jt-carousel__quote-text">&ldquo;Our weekend services were transformed. The congregation hears every word clearly and our livestream finally matches it.&rdquo;</blockquote>
-                            <figcaption class="jt-carousel__who">
-                                <span class="jt-carousel__name">Aminata Diallo</span>
-                                <span class="jt-carousel__title">Pentecost Church, Media Team</span>
-                            </figcaption>
-                        </figure>
-                    </div>
-
-                    <div class="jt-carousel__slide" data-jt-slide>
-                        <figure class="jt-carousel__card">
-                            <img class="jt-carousel__avatar" src="https://randomuser.me/api/portraits/men/60.jpg" alt="James Anderson" loading="lazy" />
-                            <i class="fa-solid fa-quote-right jt-carousel__quote" aria-hidden="true"></i>
-                            <blockquote class="jt-carousel__quote-text">&ldquo;Methodist district gatherings rely on clean, reliable audio. JustTech has run ours for years without a single miss.&rdquo;</blockquote>
-                            <figcaption class="jt-carousel__who">
-                                <span class="jt-carousel__name">James Anderson</span>
-                                <span class="jt-carousel__title">Methodist Church, Events</span>
-                            </figcaption>
-                        </figure>
-                    </div>
-
-                    <div class="jt-carousel__slide" data-jt-slide>
-                        <figure class="jt-carousel__card">
-                            <img class="jt-carousel__avatar" src="https://randomuser.me/api/portraits/women/57.jpg" alt="Grace Osei" loading="lazy" />
-                            <i class="fa-solid fa-quote-right jt-carousel__quote" aria-hidden="true"></i>
-                            <blockquote class="jt-carousel__quote-text">&ldquo;They installed our sanctuary system and taught our whole team to use it in one weekend. Kind, patient and incredibly thorough.&rdquo;</blockquote>
-                            <figcaption class="jt-carousel__who">
-                                <span class="jt-carousel__name">Grace Osei</span>
-                                <span class="jt-carousel__title">Worship Director, Toronto</span>
-                            </figcaption>
-                        </figure>
-                    </div>
-
-                    <div class="jt-carousel__slide" data-jt-slide>
-                        <figure class="jt-carousel__card">
-                            <img class="jt-carousel__avatar" src="https://randomuser.me/api/portraits/men/91.jpg" alt="Michael Brown" loading="lazy" />
-                            <i class="fa-solid fa-quote-right jt-carousel__quote" aria-hidden="true"></i>
-                            <blockquote class="jt-carousel__quote-text">&ldquo;From design to installation to the final soundcheck, everything was seamless. Our new venue opened on time and sounded outstanding.&rdquo;</blockquote>
-                            <figcaption class="jt-carousel__who">
-                                <span class="jt-carousel__name">Michael Brown</span>
-                                <span class="jt-carousel__title">Venue Owner, Halifax</span>
-                            </figcaption>
-                        </figure>
-                    </div>
-                </div>
-
-                <button type="button" class="jt-carousel__arrow jt-carousel__prev" data-jt-prev aria-label="{{ 'Previous testimonial'|tr }}">
-                    <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>
-                </button>
-                <button type="button" class="jt-carousel__arrow jt-carousel__next" data-jt-next aria-label="{{ 'Next testimonial'|tr }}">
-                    <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
-                </button>
-
-                <div class="jt-carousel__dots" data-jt-dots></div>
+            <div class="jt-testimonial-meta" aria-hidden="true">
+                <span>{{ 'Scroll to explore testimonials'|tr }}</span>
+                <span><b data-jt-current>01</b> / <span data-jt-total>15</span></span>
             </div>
         </div>
     </section>
@@ -1048,106 +1097,279 @@
     'use strict';
     var REDUCE = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    /* ============================================================
-       TESTIMONIAL CAROUSEL — centered coverflow, autoplay, arrows
-       ============================================================ */
-    var carousel = document.querySelector('[data-jt-carousel]');
-    if (carousel) {
-        var stage = carousel.querySelector('[data-jt-stage]');
-        var slides = Array.prototype.slice.call(carousel.querySelectorAll('[data-jt-slide]'));
-        var dotsHost = carousel.querySelector('[data-jt-dots]');
-        if (stage && slides.length) {
-            var count = slides.length;
-            var index = 0;
-            var autoplay = null;
-            var INTERVAL = 4500;
+    var testimonials = document.querySelector('[data-jt-testimonials]');
+    if (testimonials) {
+        var viewport = testimonials.querySelector('[data-jt-viewport]');
+        var canvas = testimonials.querySelector('[data-jt-canvas]');
+        var track = testimonials.querySelector('[data-jt-track]');
+        var steps = Array.prototype.slice.call(testimonials.querySelectorAll('[data-jt-step]'));
+        if (viewport && canvas && track && steps.length) {
+            var count = steps.length;
+            var cards = steps.map(function (step) { return step.querySelector('[data-jt-card]'); });
+            var nodes = steps.map(function (step) { return step.querySelector('[data-jt-node] span'); });
+            var counts = Array.prototype.slice.call(testimonials.querySelectorAll('[data-jt-card-count]'));
+            var current = testimonials.querySelector('[data-jt-current]');
+            var total = testimonials.querySelector('[data-jt-total]');
+            var route = testimonials.querySelector('[data-jt-route]');
+            var basePath = testimonials.querySelector('[data-jt-route-base]');
+            var progressPath = testimonials.querySelector('[data-jt-route-progress]');
+            var maskPath = testimonials.querySelector('[data-jt-route-mask]');
+            var desktopQuery = window.matchMedia ? window.matchMedia('(min-width: 961px) and (prefers-reduced-motion: no-preference)') : { matches: false };
+            var bounds = { start: 0, end: 0 };
+            var routeLength = 0;
+            var activeIndex = -1;
+            var targetProgress = 0;
+            var renderedProgress = 0;
+            var frame = 0;
+            var resizeTimer = 0;
+            var touch = null;
 
-            var dots = [];
-            for (var i = 0; i < count; i++) {
-                var dot = document.createElement('button');
-                dot.type = 'button';
-                dot.className = 'jt-carousel__dot';
-                dot.setAttribute('aria-label', 'Slide ' + (i + 1));
-                dot.addEventListener('click', (function (n) {
-                    return function (e) {
-                        if (e && e.stopPropagation) e.stopPropagation();
-                        window.clearInterval(autoplay);
-                        go(n);
-                        autoplay = startAutoplay();
-                    };
-                })(i));
-                dotsHost.appendChild(dot);
-                dots.push(dot);
+            function pad(number) {
+                return number < 10 ? '0' + number : String(number);
             }
-
-            function render() {
-                slides.forEach(function (slide, i) {
-                    var diff = i - index;
-                    if (diff < 0) diff += count;
-                    if (diff > count / 2) diff -= count;
-                    slide.classList.remove('jt-carousel__slide--active', 'jt-carousel__slide--left', 'jt-carousel__slide--right');
-                    slide.setAttribute('aria-hidden', 'true');
-                    if (diff === 0) {
-                        slide.classList.add('jt-carousel__slide--active');
-                        slide.removeAttribute('aria-hidden');
-                    } else if (diff === -1 || diff === count - 1) {
-                        slide.classList.add('jt-carousel__slide--left');
-                    } else if (diff === 1) {
-                        slide.classList.add('jt-carousel__slide--right');
+            function clamp(number) {
+                return Math.min(1, Math.max(0, number));
+            }
+            function setActive(index) {
+                if (index === activeIndex) return;
+                activeIndex = index;
+                steps.forEach(function (step, stepIndex) {
+                    step.classList.toggle('is-active', stepIndex === index);
+                    step.classList.toggle('is-complete', stepIndex < index);
+                });
+                if (current) current.textContent = pad(index + 1);
+            }
+            function buildRoute() {
+                if (!route || !basePath || !progressPath || !maskPath) return;
+                var width = Math.max(track.scrollWidth, viewport.clientWidth);
+                var height = Math.max(canvas.clientHeight, track.offsetHeight, 1);
+                var nodeY = track.offsetTop + (track.offsetHeight / 2);
+                var segments = steps.map(function (step, index) {
+                    var previous = steps[index - 1];
+                    var start = previous ? previous.offsetLeft + previous.offsetWidth : 0;
+                    var end = step.offsetLeft;
+                    return 'M ' + start.toFixed(1) + ' ' + nodeY.toFixed(1) + ' L ' + end.toFixed(1) + ' ' + nodeY.toFixed(1);
+                }).join(' ');
+                route.setAttribute('viewBox', '0 0 ' + width + ' ' + height);
+                route.setAttribute('width', String(width));
+                route.setAttribute('height', String(height));
+                [basePath, progressPath, maskPath].forEach(function (path) {
+                    path.setAttribute('d', segments);
+                });
+                routeLength = 0;
+                try {
+                    routeLength = maskPath.getTotalLength();
+                } catch (error) {
+                    routeLength = 0;
+                }
+                maskPath.style.strokeDasharray = routeLength ? String(routeLength) : '';
+                maskPath.style.strokeDashoffset = routeLength ? String(routeLength * (1 - renderedProgress)) : '0';
+            }
+            function measure() {
+                var first = steps[0];
+                var last = steps[count - 1];
+                var viewportCentre = viewport.clientWidth / 2;
+                var firstCentre = first.offsetLeft + (first.offsetWidth / 2);
+                var lastCentre = last.offsetLeft + (last.offsetWidth / 2);
+                bounds.start = viewportCentre - firstCentre;
+                bounds.end = viewportCentre - lastCentre;
+                var travel = Math.abs(bounds.end - bounds.start);
+                var distance = Math.max(window.innerHeight * 1.6, travel * 1.12);
+                testimonials.style.setProperty('--jt-testimonial-scroll-distance', Math.round(distance) + 'px');
+                buildRoute();
+            }
+            function scrollRange() {
+                return Math.max(1, testimonials.offsetHeight - window.innerHeight);
+            }
+            function renderFocus(progress, canvasX) {
+                var viewportCentre = viewport.clientWidth / 2;
+                var focusRange = Math.max(viewport.clientWidth * 0.58, 1);
+                var nearest = 0;
+                var nearestDistance = Number.POSITIVE_INFINITY;
+                if (routeLength && maskPath) {
+                    maskPath.style.strokeDashoffset = (routeLength * (1 - clamp(progress))).toFixed(2);
+                }
+                steps.forEach(function (step, index) {
+                    var centre = step.offsetLeft + (step.offsetWidth / 2) + canvasX;
+                    var distance = Math.abs(centre - viewportCentre);
+                    var focus = 1 - clamp(distance / focusRange);
+                    var direction = centre < viewportCentre ? -1 : 1;
+                    var card = cards[index];
+                    if (card) {
+                        card.style.transform = 'translate3d(' + (direction * (1 - focus) * 22).toFixed(2) + 'px, 0, 0) scale(' + (0.88 + (focus * 0.16)).toFixed(3) + ')';
+                        card.style.opacity = (0.28 + (focus * 0.72)).toFixed(3);
+                    }
+                    if (distance < nearestDistance) {
+                        nearestDistance = distance;
+                        nearest = index;
                     }
                 });
-                dots.forEach(function (dot, d) {
-                    dot.classList.toggle('is-active', d === index);
+                setActive(nearest);
+            }
+            function renderProgress(progress) {
+                var canvasX = bounds.start + ((bounds.end - bounds.start) * progress);
+                canvas.style.transform = 'translate3d(' + canvasX.toFixed(2) + 'px, 0, 0)';
+                renderFocus(progress, canvasX);
+            }
+            function animate() {
+                frame = 0;
+                var delta = targetProgress - renderedProgress;
+                renderedProgress += delta * 0.2;
+                if (Math.abs(delta) < 0.0005) renderedProgress = targetProgress;
+                renderProgress(renderedProgress);
+                if (renderedProgress !== targetProgress) frame = window.requestAnimationFrame(animate);
+            }
+            function requestRender() {
+                if (!frame) frame = window.requestAnimationFrame(animate);
+            }
+            function updateTarget() {
+                if (!testimonials.classList.contains('is-scroll-driven')) return;
+                targetProgress = clamp((-testimonials.getBoundingClientRect().top) / scrollRange());
+                requestRender();
+            }
+            function clearInline() {
+                canvas.style.transform = '';
+                cards.forEach(function (card) {
+                    if (!card) return;
+                    card.style.transform = '';
+                    card.style.opacity = '';
                 });
+                if (maskPath && routeLength) maskPath.style.strokeDashoffset = '0';
+            }
+            function nativeNearest() {
+                var viewportCentre = viewport.getBoundingClientRect().left + (viewport.clientWidth / 2);
+                var nearest = 0;
+                var nearestDistance = Number.POSITIVE_INFINITY;
+                steps.forEach(function (step, index) {
+                    var rect = step.getBoundingClientRect();
+                    var distance = Math.abs(rect.left + (rect.width / 2) - viewportCentre);
+                    if (distance < nearestDistance) {
+                        nearestDistance = distance;
+                        nearest = index;
+                    }
+                });
+                return nearest;
+            }
+            function renderNative() {
+                if (testimonials.classList.contains('is-scroll-driven')) return;
+                var scrollDistance = Math.max(1, viewport.scrollWidth - viewport.clientWidth);
+                var progress = clamp(viewport.scrollLeft / scrollDistance);
+                if (routeLength && maskPath) {
+                    maskPath.style.strokeDashoffset = (routeLength * (1 - progress)).toFixed(2);
+                }
+                setActive(nativeNearest());
+            }
+            function canScroll(delta) {
+                var max = viewport.scrollWidth - viewport.clientWidth;
+                if (max <= 1) return false;
+                return (delta > 0 && viewport.scrollLeft < max - 1) || (delta < 0 && viewport.scrollLeft > 1);
+            }
+            function goTo(index) {
+                var next = Math.max(0, Math.min(count - 1, index));
+                if (testimonials.classList.contains('is-scroll-driven')) {
+                    var progress = count > 1 ? next / (count - 1) : 0;
+                    var top = testimonials.getBoundingClientRect().top + (window.scrollY || document.documentElement.scrollTop || 0) + (scrollRange() * progress);
+                    window.scrollTo({ top: top, behavior: REDUCE ? 'auto' : 'smooth' });
+                } else {
+                    var step = steps[next];
+                    var left = step.offsetLeft + (step.offsetWidth / 2) - (viewport.clientWidth / 2);
+                    if (viewport.scrollTo) viewport.scrollTo({ left: left, behavior: REDUCE ? 'auto' : 'smooth' });
+                    else viewport.scrollLeft = left;
+                }
+            }
+            function setMode() {
+                if (desktopQuery.matches) {
+                    testimonials.classList.add('is-scroll-driven');
+                    viewport.scrollLeft = 0;
+                    measure();
+                    targetProgress = 0;
+                    renderedProgress = 0;
+                    updateTarget();
+                } else {
+                    if (frame) window.cancelAnimationFrame(frame);
+                    frame = 0;
+                    testimonials.classList.remove('is-scroll-driven');
+                    testimonials.style.removeProperty('--jt-testimonial-scroll-distance');
+                    clearInline();
+                    buildRoute();
+                    renderNative();
+                }
             }
 
-            function go(n) {
-                index = (n + count) % count;
-                render();
-            }
-            function next() {
-                window.clearInterval(autoplay);
-                go(index + 1);
-                autoplay = startAutoplay();
-            }
-            function prev() {
-                window.clearInterval(autoplay);
-                go(index - 1);
-                autoplay = startAutoplay();
-            }
-            function startAutoplay() {
-                if (REDUCE) return null;
-                return window.setInterval(function () { go(index + 1); }, INTERVAL);
-            }
-
-            var prevBtn = carousel.querySelector('[data-jt-prev]');
-            var nextBtn = carousel.querySelector('[data-jt-next]');
-            if (prevBtn) prevBtn.addEventListener('click', prev);
-            if (nextBtn) nextBtn.addEventListener('click', next);
-
-            // Pause on hover (desktop)
-            carousel.addEventListener('mouseenter', function () { window.clearInterval(autoplay); });
-            carousel.addEventListener('mouseleave', function () { if (!REDUCE) autoplay = startAutoplay(); });
-
-            // Keyboard arrows when carousel focused
-            carousel.setAttribute('tabindex', '0');
-            carousel.addEventListener('keydown', function (e) {
-                if (e.key === 'ArrowRight') { e.preventDefault(); next(); }
-                if (e.key === 'ArrowLeft') { e.preventDefault(); prev(); }
+            if (total) total.textContent = pad(count);
+            steps.forEach(function (step, index) {
+                if (nodes[index]) nodes[index].textContent = pad(index + 1);
+                if (counts[index]) counts[index].textContent = pad(index + 1) + ' / ' + pad(count);
             });
 
-            // Click a side card to jump to it
-            slides.forEach(function (slide, i) {
-                slide.addEventListener('click', function (e) {
-                    if (i === index) return;
-                    window.clearInterval(autoplay);
-                    go(i);
-                    autoplay = startAutoplay();
-                });
+            viewport.addEventListener('scroll', renderNative, { passive: true });
+            window.addEventListener('scroll', updateTarget, { passive: true });
+            window.addEventListener('resize', function () {
+                window.clearTimeout(resizeTimer);
+                resizeTimer = window.setTimeout(function () {
+                    if (testimonials.classList.contains('is-scroll-driven')) {
+                        measure();
+                        updateTarget();
+                    } else {
+                        buildRoute();
+                        renderNative();
+                    }
+                }, 180);
+            }, { passive: true });
+            if (desktopQuery.addEventListener) desktopQuery.addEventListener('change', setMode);
+            else if (desktopQuery.addListener) desktopQuery.addListener(setMode);
+            viewport.addEventListener('keydown', function (event) {
+                var base = activeIndex < 0 ? 0 : activeIndex;
+                if (event.key === 'Home') {
+                    event.preventDefault();
+                    goTo(0);
+                } else if (event.key === 'End') {
+                    event.preventDefault();
+                    goTo(count - 1);
+                } else if (event.key === 'ArrowRight' || event.key === 'ArrowDown' || event.key === 'PageDown') {
+                    event.preventDefault();
+                    goTo(base + 1);
+                } else if (event.key === 'ArrowLeft' || event.key === 'ArrowUp' || event.key === 'PageUp') {
+                    event.preventDefault();
+                    goTo(base - 1);
+                }
             });
+            testimonials.addEventListener('wheel', function (event) {
+                if (testimonials.classList.contains('is-scroll-driven')) return;
+                var delta = Math.abs(event.deltaY) >= Math.abs(event.deltaX) ? event.deltaY : event.deltaX;
+                if (event.deltaMode === 1) delta *= 16;
+                if (!canScroll(delta)) return;
+                viewport.scrollLeft += delta;
+                event.preventDefault();
+            }, { passive: false });
+            testimonials.addEventListener('touchstart', function (event) {
+                if (testimonials.classList.contains('is-scroll-driven') || event.touches.length !== 1) return;
+                var point = event.touches[0];
+                touch = { x: point.clientX, y: point.clientY, left: viewport.scrollLeft };
+            }, { passive: true });
+            testimonials.addEventListener('touchmove', function (event) {
+                if (!touch || testimonials.classList.contains('is-scroll-driven') || event.touches.length !== 1) return;
+                var point = event.touches[0];
+                var deltaX = point.clientX - touch.x;
+                var deltaY = point.clientY - touch.y;
+                var delta = Math.abs(deltaY) > Math.abs(deltaX) ? -deltaY : -deltaX;
+                if (!canScroll(delta)) return;
+                viewport.scrollLeft = touch.left + delta;
+                event.preventDefault();
+            }, { passive: false });
+            testimonials.addEventListener('touchend', function () { touch = null; }, { passive: true });
+            testimonials.addEventListener('touchcancel', function () { touch = null; }, { passive: true });
 
-            render();
-            if (!REDUCE) autoplay = startAutoplay();
+            setMode();
+            window.addEventListener('load', function () {
+                if (testimonials.classList.contains('is-scroll-driven')) {
+                    measure();
+                    updateTarget();
+                } else {
+                    buildRoute();
+                    renderNative();
+                }
+            }, { once: true });
         }
     }
 

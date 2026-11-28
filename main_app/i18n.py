@@ -1011,6 +1011,19 @@ FR = {
     'Learn from people who do it daily': 'Apprenez auprès de gens qui le font tous les jours',
     'Every instructor is an active engineer, musician or producer — not a full-time lecturer.':
         'Chaque instructeur est un ingénieur, un musicien ou un producteur en activité — pas un professeur à temps plein.',
+    'Instructor showcase': 'Présentation des instructeurs',
+    'JustTech faculty': 'Équipe pédagogique JustTech',
+    'Explore our instructors': 'Découvrez nos instructeurs',
+    'Previous instructor': 'Instructeur précédent',
+    'Next instructor': 'Instructeur suivant',
+    'View profile': 'Voir le profil',
+    'Pause autoplay': 'Mettre la lecture automatique en pause',
+    'Start autoplay': 'Démarrer la lecture automatique',
+    'Swipe or use the arrow keys to browse instructors':
+        'Glissez ou utilisez les flèches pour parcourir les instructeurs',
+    'Your instructors are coming soon': 'Vos instructeurs arrivent bientôt',
+    'Instructors will be introduced here as lessons and workshops are added.':
+        'Les instructeurs seront présentés ici au fur et à mesure de l’ajout des cours et des ateliers.',
 
     # Services / get-started CTAs
     'Tell us about the room, the event, the stream or the build — we will take it from there.':
@@ -1050,6 +1063,7 @@ FR = {
         'Nos ingénieurs font tourner le spectacle pour que votre équipe puisse l’accueillir.',
     'Fast fixes on site — and standby when you need it.':
         'Dépannage rapide sur place — et disponibilité quand vous en avez besoin.',
+<<<<<<< HEAD
 
     # Error pages
     'Access denied': 'Accès refusé',
@@ -1153,4 +1167,8 @@ FR = {
         'Nous utilisons des cookies essentiels pour la sécurité, les sessions et les préférences de langue. Aucun suivi facultatif n’est utilisé.',
     'Decline': 'Refuser',
     'Accept essential only': 'Accepter les essentiels',
+=======
+    'Choose a look': 'Choisir un style',
+    'Visual preview': 'Aperçu du visuel',
+>>>>>>> 5e06c81 (Updated JustTech website design and functionality)
 }

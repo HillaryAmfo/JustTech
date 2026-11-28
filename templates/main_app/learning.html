@@ -1,5 +1,5 @@
 {% extends 'main_app/base.html' %}
-{% load i18n_tags %}
+{% load static i18n_tags %}
 
 {% block title %}Learning | {{ site_settings.company_name|default:'Just Tech' }}{% endblock %}
 
@@ -145,7 +145,7 @@
 
                 <!-- Builder -->
                 <div class="lg:col-span-3">
-                    <ol class="jt-progress mb-10 grid grid-cols-3 gap-3" aria-hidden="true">
+                    <ol class="jt-plan-progress mb-10" aria-hidden="true">
                         <li class="jt-progress__step" data-step="1"><span>1</span>{{ 'Instrument'|tr }}</li>
                         <li class="jt-progress__step" data-step="2"><span>2</span>{{ 'Sessions'|tr }}</li>
                         <li class="jt-progress__step" data-step="3"><span>3</span>{{ 'Class type'|tr }}</li>
@@ -350,12 +350,27 @@
                 {% endfor %}
             </div>
             {% else %}
-            <div class="rounded-2xl border border-dashed border-neutral-300 dark:border-white/10 p-10 md:p-14 text-center">
-                <i class="fa-solid fa-calendar-plus text-2xl text-neutral-300 dark:text-neutral-600 mb-4" aria-hidden="true"></i>
-                <p class="font-medium text-neutral-500 dark:text-neutral-400 mb-6 max-w-md mx-auto">
-                    Workshops are scheduled through the year. New dates will appear here when available.
-                </p>
-                <a href="{% url 'booking' %}" class="btn-secondary text-sm px-6 py-3">{{ 'Book a lesson'|tr }}</a>
+            <div class="relative overflow-hidden rounded-3xl border border-primary/25 bg-gradient-to-br from-white via-white to-primary/[0.05] px-6 py-12 text-center sm:px-10 sm:py-14 md:px-14 dark:from-white/[0.03] dark:via-white/[0.02] dark:to-primary/[0.08]">
+                <div class="pointer-events-none absolute -right-16 -top-16 h-48 w-48 rounded-full bg-primary/10 blur-3xl" aria-hidden="true"></div>
+                <div class="pointer-events-none absolute -bottom-20 -left-12 h-40 w-40 rounded-full bg-primary/5 blur-3xl" aria-hidden="true"></div>
+                <div class="relative">
+                    <span class="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-primary/10 text-primary ring-1 ring-primary/20">
+                        <i class="fa-solid fa-calendar-plus text-2xl" aria-hidden="true"></i>
+                    </span>
+                    <span class="mb-4 inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.16em] text-primary">
+                        <span class="h-1.5 w-1.5 rounded-full bg-primary" aria-hidden="true"></span>
+                        {{ 'On the calendar'|tr }}
+                    </span>
+                    <h3 class="text-xl sm:text-2xl font-semibold text-neutral-900 dark:text-white mb-3">{{ 'Fresh dates are on their way'|tr }}</h3>
+                    <p class="mx-auto max-w-lg text-sm sm:text-base leading-relaxed text-neutral-600 dark:text-neutral-400">
+                        {{ 'Workshops are scheduled through the year. New dates will appear here when available.'|tr }}
+                    </p>
+                    <a href="{% url 'booking' %}" class="mt-7 inline-flex w-full items-center justify-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-semibold text-white transition hover:bg-primary/90 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 sm:w-auto">
+                        <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+                        {{ 'Book a lesson'|tr }}
+                        <span aria-hidden="true">&rarr;</span>
+                    </a>
+                </div>
             </div>
             {% endif %}
         </div>
@@ -364,41 +379,79 @@
     <!-- ============================================================
          INSTRUCTORS
          ============================================================ -->
-    <section class="py-16 md:py-24 border-t border-neutral-200 dark:border-white/5" aria-label="{{ 'Instructors'|tr }}">
+    <section id="instructors" class="jt-inst-section py-16 md:py-24 border-t border-neutral-200 dark:border-white/5 scroll-mt-28" data-jt-inst aria-labelledby="instructors-title">
         <div class="container mx-auto px-6 lg:px-8">
-            <div class="max-w-xl mb-10 lg:mb-16">
-                <p class="eyebrow mb-6">{{ 'Instructors'|tr }}</p>
-                <h2 class="text-3xl md:text-4xl font-semibold text-neutral-900 dark:text-white mb-6">{{ 'Learn from people who do it daily'|tr }}</h2>
-                <p class="text-neutral-600 dark:text-neutral-400 leading-relaxed">
-                    {{ 'Every instructor is an active engineer, musician or producer — not a full-time lecturer.'|tr }}
-                </p>
-            </div>
+            <header class="jt-inst-head mb-10 lg:mb-14">
+                <div>
+                    <p class="eyebrow mb-6">{{ 'Instructors'|tr }}</p>
+                    <h2 id="instructors-title" class="text-3xl md:text-4xl font-semibold text-neutral-900 dark:text-white">{{ 'Learn from people who do it daily'|tr }}</h2>
+                </div>
+                <p class="text-neutral-600 dark:text-neutral-400 leading-relaxed">{{ 'Every instructor is an active engineer, musician or producer — not a full-time lecturer.'|tr }}</p>
+            </header>
 
             {% if instructors %}
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {% for instructor in instructors %}
-                <figure class="rounded-2xl border border-neutral-200 bg-white p-8 text-center dark:border-white/10 dark:bg-white/[0.02]">
-                    <div class="w-28 h-28 rounded-full overflow-hidden bg-primary/10 mx-auto mb-6 ring-4 ring-primary/10">
-                        {% if instructor.image_url %}
-                        <img src="{{ instructor.image_url }}" alt="{{ instructor.name }}" loading="lazy" class="w-full h-full object-cover">
-                        {% else %}
-                        <div class="w-full h-full flex items-center justify-center text-4xl font-semibold text-primary" aria-hidden="true">{{ instructor.name|slice:":1" }}</div>
-                        {% endif %}
+            <div class="jt-inst-stage">
+                <div id="instructor-track" class="jt-inst-track" tabindex="0" role="region" aria-roledescription="carousel" aria-label="{{ 'Instructor showcase'|tr }}" data-jt-inst-track>
+                    {% for instructor in instructors %}
+                    <article class="jt-inst-card" role="group" aria-roledescription="slide" data-jt-inst-card data-jt-inst-name="{{ instructor.name }}">
+                        <figure class="jt-inst-visual">
+                            {% if instructor.image_url %}
+                            <img src="{{ instructor.image_url }}" alt="{{ instructor.name }}" loading="lazy" decoding="async">
+                            {% else %}
+                            <div class="jt-inst-placeholder" aria-hidden="true">
+                                <span class="jt-inst-placeholder__initial">{{ instructor.name|slice:":1" }}</span>
+                                <span class="jt-inst-placeholder__mark"><i class="fa-solid fa-chalkboard-user"></i></span>
+                            </div>
+                            {% endif %}
+                            <figcaption class="jt-inst-caption">
+                                <span>{{ 'JustTech faculty'|tr }}</span>
+                                <span>{{ forloop.counter|stringformat:"02d" }}</span>
+                            </figcaption>
+                        </figure>
+                        <div class="jt-inst-content">
+                            {% if instructor.specialisation %}
+                            <span class="jt-inst-specialism">{{ instructor.specialisation }}</span>
+                            {% endif %}
+                            <h3 class="jt-inst-name">{{ instructor.name }}</h3>
+                            {% if instructor.role %}
+                            <p class="jt-inst-role">{{ instructor.role }}</p>
+                            {% endif %}
+                            {% if instructor.bio %}
+                            <p class="jt-inst-bio">{{ instructor.bio }}</p>
+                            {% endif %}
+                            {% if instructor.profile_url %}
+                            <a class="jt-inst-link" href="{{ instructor.profile_url }}" target="_blank" rel="noopener noreferrer">{{ 'View profile'|tr }} <span aria-hidden="true">&rarr;</span></a>
+                            {% endif %}
+                        </div>
+                    </article>
+                    {% endfor %}
+                </div>
+
+                <div class="jt-inst-nav" hidden data-jt-inst-nav>
+                    <span class="jt-inst-position" aria-live="polite" aria-atomic="true" data-jt-inst-position>01 / {{ instructors|length|stringformat:"02d" }}</span>
+                    <span class="jt-inst-progress" aria-hidden="true"><span data-jt-inst-progress></span></span>
+                    <span class="jt-inst-hint">{{ 'Explore our instructors'|tr }}</span>
+                    <div class="jt-inst-controls">
+                        <button type="button" class="jt-inst-btn" data-jt-inst-playback aria-label="{{ 'Start autoplay'|tr }}" aria-pressed="false" aria-controls="instructor-track" data-label-pause="{{ 'Pause autoplay'|tr }}" data-label-play="{{ 'Start autoplay'|tr }}">
+                            <i class="fa-solid fa-play" aria-hidden="true"></i>
+                        </button>
+                        <button type="button" class="jt-inst-btn" data-jt-inst-prev aria-label="{{ 'Previous instructor'|tr }}" aria-controls="instructor-track">
+                            <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>
+                        </button>
+                        <button type="button" class="jt-inst-btn" data-jt-inst-next aria-label="{{ 'Next instructor'|tr }}" aria-controls="instructor-track">
+                            <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+                        </button>
                     </div>
-                    <figcaption>
-                        <h3 class="text-xl font-semibold text-neutral-900 dark:text-white mb-1">{{ instructor.name }}</h3>
-                        <p class="text-xs font-medium uppercase tracking-[0.15em] text-primary mb-4">{{ instructor.role }}</p>
-                        <p class="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">{{ instructor.bio }}</p>
-                    </figcaption>
-                </figure>
-                {% endfor %}
+                </div>
             </div>
             {% else %}
-            <div class="rounded-2xl border border-dashed border-neutral-300 dark:border-white/10 p-10 md:p-14 text-center">
-                <i class="fa-solid fa-chalkboard-user text-2xl text-neutral-300 dark:text-neutral-600 mb-4" aria-hidden="true"></i>
-                <p class="font-medium text-neutral-500 dark:text-neutral-400 max-w-md mx-auto">
-                    Instructors will be introduced here as lessons and workshops are added.
-                </p>
+            <div class="jt-inst-empty">
+                <span class="jt-inst-empty__icon"><i class="fa-solid fa-chalkboard-user" aria-hidden="true"></i></span>
+                <div>
+                    <h3 class="jt-inst-empty__title">{{ 'Your instructors are coming soon'|tr }}</h3>
+                    <p>{{ 'Instructors will be introduced here as lessons and workshops are added.'|tr }}</p>
+                </div>
+                <a href="#courses" class="jt-inst-empty__link">{{ 'Explore lessons'|tr }} <span aria-hidden="true">&rarr;</span></a>
             </div>
             {% endif %}
         </div>
@@ -652,4 +705,5 @@
     refreshSteps();
 })();
 </script>
+<script src="{% static 'js/instructor-showcase.js' %}?v=1" defer></script>
 {% endblock %}

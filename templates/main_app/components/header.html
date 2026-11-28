@@ -59,44 +59,41 @@
                 </button>
             </div>
         </div>
-
-        <!-- Mobile Menu -->
-        <div id="mobileMenu" class="mobile-menu fixed top-0 right-0 h-full w-80 max-w-[85vw] bg-neutral-950 p-6 lg:hidden flex flex-col" role="dialog" aria-modal="true" aria-label="Mobile menu">
-            <!-- Mobile menu header -->
-            <div class="flex justify-between items-center mb-8">
-<a href="{% url 'home' %}" class="logo text-xl text-white" aria-label="JustTech home">
-                    {% include 'main_app/components/logo_mark.html' %}
-                    <span>ust</span> Tech
-                </a>
-                <button id="closeMobileMenu" class="w-10 h-10 inline-flex items-center justify-center rounded-full text-white/60 hover:text-white hover:bg-white/10 transition" aria-label="Close menu">
-                    <i class="fa-solid fa-xmark text-xl"></i>
-                </button>
-            </div>
-
-            <!-- Mobile nav links -->
-            <nav class="flex flex-col gap-1 flex-1" aria-label="Mobile navigation">
-                <a href="{% url 'about' %}" class="nav-item text-base py-3 px-3 rounded-xl min-h-[48px]" data-page="about">{{ 'About'|tr }}</a>
-<a href="{% url 'services' %}" class="nav-item text-base py-3 px-3 rounded-xl min-h-[48px]" data-page="services">{{ 'Services'|tr }}</a>
-                <a href="{% url 'portfolio' %}" class="nav-item text-base py-3 px-3 rounded-xl min-h-[48px]" data-page="portfolio">{{ 'Portfolio'|tr }}</a>
-                <a href="{% url 'learning' %}" class="nav-item text-base py-3 px-3 rounded-xl min-h-[48px]" data-page="learning">{{ 'Learning'|tr }}</a>
-                <a href="{% url 'contact' %}" class="nav-item text-base py-3 px-3 rounded-xl min-h-[48px]" data-page="contact">{{ 'Contact'|tr }}</a>
-            </nav>
-
-            <!-- Mobile menu actions -->
-            <div class="mt-auto pt-6 flex flex-col gap-3 border-t border-white/10">
-                <a href="{% url 'booking' %}" class="inline-flex items-center justify-center bg-white text-neutral-900 font-semibold text-sm rounded-full px-5 py-3.5 min-h-[48px] transition hover:bg-white/90">
-                    {{ 'Book now'|tr }}
-                </a>
-                {% if request.user.is_authenticated %}
-                <a href="{% url 'logout' %}" class="inline-flex items-center justify-center border border-white/10 text-white/70 font-medium text-sm rounded-full px-5 py-3.5 min-h-[48px] transition hover:text-white hover:border-white/25">
-                    {{ 'Log out'|tr }}
-                </a>
-                {% else %}
-                <a href="{% url 'login' %}" class="inline-flex items-center justify-center border border-white/10 text-white/70 font-medium text-sm rounded-full px-5 py-3.5 min-h-[48px] transition hover:text-white hover:border-white/25">
-                    {{ 'Log in'|tr }}
-                </a>
-                {% endif %}
-            </div>
-        </div>
     </nav>
+
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="mobile-menu bg-neutral-950 lg:hidden flex flex-col" role="dialog" aria-modal="true" aria-label="Mobile menu">
+        <div class="flex justify-between items-center mb-8">
+            <a href="{% url 'home' %}" class="logo text-xl" aria-label="JustTech home">
+                {% include 'main_app/components/logo_mark.html' %}
+                <span>ust</span> Tech
+            </a>
+            <button id="closeMobileMenu" class="w-11 h-11 shrink-0 inline-flex items-center justify-center rounded-full text-white/70 hover:text-white hover:bg-white/10 transition" aria-label="Close menu">
+                <i class="fa-solid fa-xmark text-xl"></i>
+            </button>
+        </div>
+
+        <nav class="flex flex-col gap-1" aria-label="Mobile navigation">
+            <a href="{% url 'about' %}" class="nav-item text-base py-3 px-3 rounded-xl min-h-[48px]" data-page="about">{{ 'About'|tr }}</a>
+            <a href="{% url 'services' %}" class="nav-item text-base py-3 px-3 rounded-xl min-h-[48px]" data-page="services">{{ 'Services'|tr }}</a>
+            <a href="{% url 'portfolio' %}" class="nav-item text-base py-3 px-3 rounded-xl min-h-[48px]" data-page="portfolio">{{ 'Portfolio'|tr }}</a>
+            <a href="{% url 'learning' %}" class="nav-item text-base py-3 px-3 rounded-xl min-h-[48px]" data-page="learning">{{ 'Learning'|tr }}</a>
+            <a href="{% url 'contact' %}" class="nav-item text-base py-3 px-3 rounded-xl min-h-[48px]" data-page="contact">{{ 'Contact'|tr }}</a>
+        </nav>
+
+        <div class="mt-auto pt-6 flex flex-col gap-3 border-t border-white/10">
+            <a href="{% url 'booking' %}" class="inline-flex items-center justify-center bg-white text-neutral-900 font-semibold text-sm rounded-full px-5 py-3.5 min-h-[48px] transition hover:bg-white/90">
+                {{ 'Book now'|tr }}
+            </a>
+            {% if request.user.is_authenticated %}
+            <a href="{% url 'logout' %}" class="inline-flex items-center justify-center border border-white/10 text-white/70 font-medium text-sm rounded-full px-5 py-3.5 min-h-[48px] transition hover:text-white hover:border-white/25">
+                {{ 'Log out'|tr }}
+            </a>
+            {% else %}
+            <a href="{% url 'login' %}" class="inline-flex items-center justify-center border border-white/10 text-white/70 font-medium text-sm rounded-full px-5 py-3.5 min-h-[48px] transition hover:text-white hover:border-white/25">
+                {{ 'Log in'|tr }}
+            </a>
+            {% endif %}
+        </div>
+    </div>
 </header>

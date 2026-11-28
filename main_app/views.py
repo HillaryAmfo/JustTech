@@ -7,11 +7,16 @@ from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.utils.encoding import force_bytes, force_str
+<<<<<<< HEAD
 from django.utils.http import (
     url_has_allowed_host_and_scheme,
     urlsafe_base64_decode,
     urlsafe_base64_encode,
 )
+=======
+from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
+from django.views.decorators.cache import never_cache
+>>>>>>> 5e06c81 (Updated JustTech website design and functionality)
 
 from .forms import (
     BookingForm,
@@ -155,6 +160,7 @@ def pricing(request):
     return render(request, 'main_app/pricing.html', context)
 
 
+@never_cache
 def learning(request):
     context = {
         'learning_offerings': LearningOffering.objects.all(),
